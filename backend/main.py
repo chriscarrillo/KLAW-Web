@@ -5,6 +5,7 @@
 	Date: 1/12/2019
 '''
 
+from flask_cors import CORS
 from flask import Flask, jsonify, request
 
 from .entities.database import Session, engine, Base
@@ -15,6 +16,7 @@ import uuid
 
 # Create the Flask application
 app = Flask(__name__)
+CORS(app)
 
 # Generate database schema
 Base.metadata.create_all(engine)
