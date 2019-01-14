@@ -17,7 +17,7 @@ import pymssql
 db_url = "DATABASE_URL_HERE"
 db_name = "KLAWDB"
 db_user = "sa"
-db_password = "aStrongPassword7"
+db_password = "DATABASE_PASSWORD_HERE"
 engine = create_engine(f'mssql+pymssql://{db_user}:{db_password}@{db_url}/{db_name}')
 Session = sessionmaker(bind=engine)
 
