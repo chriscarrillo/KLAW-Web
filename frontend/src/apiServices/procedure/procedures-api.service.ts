@@ -2,11 +2,11 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
-import {API_URL} from '../env';
-import {User} from './user.model';
+import {API_URL} from '../../app/env';
+import {Procedure} from '../../app/dataModels/procedure/procedure.model';
 
 @Injectable()
-export class UsersApiService {
+export class ProceduresApiService {
 
   constructor(private http: HttpClient) {
   }
@@ -16,9 +16,9 @@ export class UsersApiService {
   }
 
   // GET list of public, future events
-  getUsers(): Observable<User[]> {
+  getProcedures(): Observable<Procedure[]> {
     return this.http
-      .get<User[]>(`${API_URL}/users`)
-      .catch(UsersApiService._handleError);
+      .get<Procedure[]>(`${API_URL}/procedures`)
+      .catch(ProceduresApiService._handleError);
   }
 }
