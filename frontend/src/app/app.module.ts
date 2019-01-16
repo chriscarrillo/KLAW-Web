@@ -3,7 +3,7 @@ import {NgModule} from '@angular/core';
 import {HttpClientModule} from '@angular/common/http';
 
 import {AppComponent} from './app.component';
-import {UsersApiService} from './users/users-api.service';
+import {UsersApiService} from '../apiServices/user/users-api.service';
 
 @NgModule({
   declarations: [
