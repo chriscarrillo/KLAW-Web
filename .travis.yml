@@ -4,3 +4,9 @@ install:
   - pip install -r requirements.txt
 script:
   - python hello.py
+before_deploy:
+  - cd build
+deploy:
+  provider: azure_web_apps
+  skip_cleanup: true
+  verbose: true
