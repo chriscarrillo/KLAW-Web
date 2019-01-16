@@ -13,7 +13,7 @@ from sqlalchemy.orm import sessionmaker
 
 import pymssql
 
-# The following variables need to change once we have the database up and running
+# The following variables need to change once we have the database up and running 
 db_url = "DATABASE_URL_HERE"
 db_name = "KLAWDB"
 db_user = "DATABASE_USERNAME_HERE"
