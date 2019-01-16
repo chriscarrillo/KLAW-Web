@@ -1,7 +1,7 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {Subscription} from 'rxjs/Subscription';
-import {UsersApiService} from './users/users-api.service';
-import {User} from './users/user.model';
+import {UsersApiService} from '../apiServices/user/users-api.service';
+import {User} from './dataModels/user/user.model';
 
 @Component({
   selector: 'app-root',
