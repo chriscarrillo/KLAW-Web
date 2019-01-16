@@ -2,8 +2,8 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
-import {API_URL} from '../env';
-import {Procedure} from './procedure.model';
+import {API_URL} from '../../app/env';
+import {Procedure} from '../../app/dataModels/procedure/procedure.model';
 
 @Injectable()
 export class ProceduresApiService {
