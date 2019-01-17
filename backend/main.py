@@ -8,9 +8,9 @@
 from flask_cors import CORS
 from flask import Flask, jsonify, request
 
-from .entities.database import Session, engine, Base
-from .entities.user import User, UserSchema
-from .entities.procedure import Procedure, ProcedureSchema
+from entities.database import Session, engine, Base
+from entities.user import User, UserSchema
+from entities.procedure import Procedure, ProcedureSchema
 
 import uuid
 
@@ -22,7 +22,7 @@ CORS(app)
 Base.metadata.create_all(engine)
 
 @app.route("/users")
-def getUsers():
+def get_users():
 	# Fetch the users from the database
 	session = Session()
 	user_objects = session.query(User).all()
@@ -36,7 +36,7 @@ def getUsers():
 	return jsonify(users.data)
 
 @app.route("/procedures")
-def getProcedures():
+def get_procedures():
 	# Fetch the procedures from the database
 	session = Session()
 	procedure_objects = session.query(Procedure).all()
@@ -50,7 +50,7 @@ def getProcedures():
 	return jsonify(procedures.data)
 
 @app.route("/users", methods=['POST'])
-def addUser():
+def add_user():
 	# Mount User object
 	posted_user = UserSchema(only = ('email', 'first_name', 'last_name', 'password'))\
 		.load(request.get_json())
@@ -68,7 +68,7 @@ def addUser():
 	return jsonify(new_user)
 
 @app.route("/procedures", methods=['POST'])
-def addProcedure():
+def add_procedure():
 	# Mount procedure object
 	posted_procedure = ProcedureSchema(only = ('user_id', 'raw_xml'))\
 		.load(request.get_json())
