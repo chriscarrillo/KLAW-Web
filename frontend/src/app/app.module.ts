@@ -4,10 +4,16 @@ import {HttpClientModule} from '@angular/common/http';
 
 import {AppComponent} from './app.component';
 import {UsersApiService} from '../apiServices/user/users-api.service';
+import { LoginComponent } from './login/login.component';
+import { MainComponent } from './main/main.component';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    LoginComponent,
+    MainComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
