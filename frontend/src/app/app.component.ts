@@ -1,7 +1,5 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {Subscription} from 'rxjs/Subscription';
-import {UsersApiService} from '../apiServices/user/users-api.service';
-import {User} from './dataModels/user/user.model';
 
 @Component({
   selector: 'app-root',
@@ -10,23 +8,17 @@ import {User} from './dataModels/user/user.model';
 })
 export class AppComponent implements OnInit, OnDestroy {
   title = 'app';
-  usersListSubs: Subscription;
-  usersList: User[];
+  isLoggedIn: boolean = false;
 
-  constructor(private usersApi: UsersApiService) {
+  constructor() {
   }
 
   ngOnInit() {
-    this.usersListSubs = this.usersApi
-      .getUsers()
-      .subscribe(res => {
-          this.usersList = res;
-        },
-        console.error
-      );
+    // Need to set up some logic here that checks if the user is logged in
+    // and then set isLoggedIn appropriately
   }
 
   ngOnDestroy() {
-    this.usersListSubs.unsubscribe();
+    
   }
 }
