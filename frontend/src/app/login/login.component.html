@@ -1,12 +1,26 @@
-<div id="container" *ngIf="!loadRegister">
-<div id="login">
-  <h1>Login</h1>
-  <form (submit)="login($event)">
-    <input type="email" placeholder="email" id="email" autocomplete="email" required /><br />
-    <input type="password" placeholder="password" id="password" autocomplete="current-password" required /><br />
-    <input type="submit" value="Login" />
-  </form>
-  <button (click)="setLoadRegister()">Register</button>
+<div id="tab-group-container">
+  <mat-tab-group>
+    <mat-tab label="Login">
+      <form>
+        <div class="form-container">
+          <mat-form-field>
+            <input matInput placeholder="Email" [formControl]="loginEmail" required>
+            <mat-error *ngIf="loginEmail.invalid">{{getEmailErrorMessage()}}</mat-error>
+          </mat-form-field>
+
+          <mat-form-field>
+            <input matInput placeholder="Enter your password" [formControl]="loginPassword" [type]="loginPasswordHide ? 'password' : 'text'" required>
+            <mat-error *ngIf="loginPassword.invalid">{{getErrorMessage()}}</mat-error>
+            <mat-icon matSuffix (click)="loginPasswordHide = !loginPasswordHide">{{loginPasswordHide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </mat-form-field>
+
+          <input type="submit" value="Login" class="submitButton" />
+        </div>
+      </form>
+    </mat-tab>
+
+    <mat-tab label="Register">
+      <app-register></app-register>
+    </mat-tab>
+  </mat-tab-group>
 </div>
-</div>
-<app-register *ngIf="loadRegister"></app-register>

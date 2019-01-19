@@ -1,4 +1,7 @@
 <!-- The login page will load if the user is not logged in-->
 <!-- The main page will load if the user is logged in-->
+<div id="banner">
+    <h1>{{title}}</h1>
+</div>
 <app-login *ngIf="!isLoggedIn"></app-login>
 <app-main *ngIf="isLoggedIn"></app-main>

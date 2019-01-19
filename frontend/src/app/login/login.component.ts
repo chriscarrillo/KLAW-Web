@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -6,7 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  loadRegister: boolean = false;
+  // Login
+  loginEmail = new FormControl('', [Validators.required, Validators.email]);
+  loginPassword = new FormControl('', Validators.required);
+  
+  loginPasswordHide = true;
 
   constructor() { }
 
@@ -21,8 +26,14 @@ export class LoginComponent implements OnInit {
     console.log(event);
   }
 
-  setLoadRegister() {
-    this.loadRegister = true;
+  getEmailErrorMessage() {
+    return this.loginEmail.hasError('required') ? 'This field is required' :
+        this.loginEmail.hasError('email') ? 'Not a valid email' :
+            '';
+  }
+
+  getErrorMessage() {
+    return "This field is required";
   }
 
 }

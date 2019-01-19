@@ -7,7 +7,7 @@ import {Subscription} from 'rxjs/Subscription';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit, OnDestroy {
-  title = 'app';
+  title = 'KLAW Web';
   isLoggedIn: boolean = false;
 
   constructor() {
