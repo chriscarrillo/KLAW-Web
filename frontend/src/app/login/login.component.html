@@ -1,0 +1,12 @@
+<div id="container" *ngIf="!loadRegister">
+<div id="login">
+  <h1>Login</h1>
+  <form (submit)="login($event)">
+    <input type="email" placeholder="email" id="email" autocomplete="email" required /><br />
+    <input type="password" placeholder="password" id="password" autocomplete="current-password" required /><br />
+    <input type="submit" value="Login" />
+  </form>
+  <button (click)="setLoadRegister()">Register</button>
+</div>
+</div>
+<app-register *ngIf="loadRegister"></app-register>

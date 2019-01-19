@@ -7,6 +7,7 @@ import {UsersApiService} from '../apiServices/user/users-api.service';
 import { LoginComponent } from './login/login.component';
 import { MainComponent } from './main/main.component';
 import { RegisterComponent } from './register/register.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { RegisterComponent } from './register/register.component';
   imports: [
     BrowserModule,
     HttpClientModule,
+    BrowserAnimationsModule,
   ],
   providers: [UsersApiService],
   bootstrap: [AppComponent]
