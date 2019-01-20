@@ -7,8 +7,8 @@
 
 from marshmallow import Schema, fields
 from sqlalchemy import Column, String, Text
+from sqlalchemy_utils import UUIDType
 from .database import Base
-from .uuid import UUID
 import uuid
 
 class User(Base):
@@ -19,8 +19,9 @@ class User(Base):
 
 	__tablename__ = "USER"
 
-	user_id = Column(UUID(), primary_key = True)
-	email = Column(String, nullable = False)
+	# binary=False falls back to CHAR instead of BINARY
+	user_id = Column(UUIDType(binary=True), primary_key = True)
+	email = Column(String, unique=True, nullable = False)
 	first_name = Column(String, nullable = False)
 	last_name = Column(String, nullable = False)
 	password = Column(Text, nullable = False)

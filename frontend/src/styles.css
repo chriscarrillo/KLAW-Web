@@ -12,6 +12,30 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 #banner h1 {
     margin: 0% 0% 0% 1%;
     font-weight: normal;
+    display: inline;
+}
+
+#title, #logoutIcon {
+    float: left;
+    width: 50%;
+}
+
+#logoutIcon {
+    text-align: right;
+}
+
+#logoutIcon mat-icon {
+    margin: 0% 1% 0% 0%;
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+#logoutIcon mat-icon:hover {
+    color: rgb(255, 0, 0);
+}
+
+.clear {
+    clear: both;
 }
 
 .form-container {

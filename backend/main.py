@@ -8,9 +8,9 @@
 from flask_cors import CORS
 from flask import Flask, jsonify, request
 
-from entities.database import Session, engine, Base
-from entities.user import User, UserSchema
-from entities.procedure import Procedure, ProcedureSchema
+from .entities.database import Session, engine, Base
+from .entities.user import User, UserSchema
+from .entities.procedure import Procedure, ProcedureSchema
 
 import uuid
 
@@ -21,35 +21,46 @@ CORS(app)
 # Generate database schema
 Base.metadata.create_all(engine)
 
-@app.route("/users")
+@app.route('/api/users')
 def get_users():
 	# Fetch the users from the database
 	session = Session()
 	user_objects = session.query(User).all()
 
 	# Transform the users into JSON-serializable objects
-	schema = UserSchema(many = True)
+	schema = UserSchema(many=True)
 	users = schema.dump(user_objects)
 
 	# Serialize users as JSON
 	session.close()
 	return jsonify(users.data)
 
-@app.route("/procedures")
+@app.route('/api/users/email/<email>')
+def get_user_by_email(email):
+	session = Session()
+	first_object = session.query(User).filter(User.email == '' + email + '').first()
+
+	schema = UserSchema()
+	user = schema.dump(first_object)
+	
+	session.close()
+	return jsonify(user.data)
+
+@app.route('/api/procedures')
 def get_procedures():
 	# Fetch the procedures from the database
 	session = Session()
 	procedure_objects = session.query(Procedure).all()
 
 	# Transform the procedures into JSON-serializable objects
-	schema = ProcedureSchema(many = True)
+	schema = ProcedureSchema(many=True)
 	procedures = schema.dump(procedure_objects)
 
 	# Serialize users as JSON
 	session.close()
 	return jsonify(procedures.data)
 
-@app.route("/users", methods=['POST'])
+@app.route('/api/users/add', methods=['POST'])
 def add_user():
 	# Mount User object
 	posted_user = UserSchema(only = ('email', 'first_name', 'last_name', 'password'))\
@@ -67,7 +78,7 @@ def add_user():
 	session.close()
 	return jsonify(new_user)
 
-@app.route("/procedures", methods=['POST'])
+@app.route('/api/procedures/add', methods=['POST'])
 def add_procedure():
 	# Mount procedure object
 	posted_procedure = ProcedureSchema(only = ('user_id', 'raw_xml'))\
@@ -77,7 +88,7 @@ def add_procedure():
 
 	# Persist procedure
 	session = Session()
-	session.add(procedures)
+	session.add(procedure)
 	session.commit()
 
 	# Return created procedure

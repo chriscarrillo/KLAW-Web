@@ -1,5 +1,5 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
-import {Subscription} from 'rxjs/Subscription';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { DataService } from './data.service';
 
 @Component({
   selector: 'app-root',
@@ -8,17 +8,21 @@ import {Subscription} from 'rxjs/Subscription';
 })
 export class AppComponent implements OnInit, OnDestroy {
   title = 'KLAW Web';
-  isLoggedIn: boolean = false;
+  isLoggedIn: boolean;
 
-  constructor() {
+  constructor(private data: DataService) {
   }
 
   ngOnInit() {
-    // Need to set up some logic here that checks if the user is logged in
-    // and then set isLoggedIn appropriately
+    // Sets local isLoggedIn to data's isLoggedIn
+    this.data.currentIsLoggedIn.subscribe(isLoggedIn => this.isLoggedIn = isLoggedIn);
   }
 
   ngOnDestroy() {
     
+  }
+
+  logout() {
+    this.data.updateIsLoggedIn(false);
   }
 }
