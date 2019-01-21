@@ -7,6 +7,7 @@ dist: trusty
 before_script:
  - sudo apt-get update
  - npm install -g @angular/cli
+ - ng update @angular/cli
 
 script:
   - ng build -bh "https://klaw.azurewebsites.net/"
