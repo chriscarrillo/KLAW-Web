@@ -1,9 +1,13 @@
-language: python
-python: 3.4
+language: node_js
+node_js:
+  - "8"
+sudo: true
+dist: trusty
+
 install:
   - pip install -r requirements.txt
 script:
-  - python hello.py
+  - ng build -bh "https://klaw.azurewebsites.net/"
 before_deploy:
   - cd build
 deploy:
