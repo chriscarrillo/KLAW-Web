@@ -6,9 +6,10 @@ dist: trusty
 
 before_script:
  - cd frontend
+ - npm install -g @angular/cli
 
 script:
-  - ng build -b "https://klaw.azurewebsites.net/"
+  - ng build -bh "https://klaw.azurewebsites.net/"
 
 deploy:
   provider: azure_web_apps
