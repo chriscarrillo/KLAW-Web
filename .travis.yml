@@ -10,7 +10,7 @@ before_script:
  - npm update
 
 script:
-  - ng build "https://klaw.azurewebsites.net/"
+  - ng build
 
 deploy:
   provider: azure_web_apps
