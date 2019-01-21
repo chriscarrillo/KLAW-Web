@@ -1,18 +1,4 @@
-<p>
-
-<div style="text-align:center">
-  <h1>Users</h1>
-</div>
-
-
-<h2>Here are the users created so far: </h2>
-
-
-<ul>
-  <li user of userslist>
-    {{user.email}}
-  </li>
-</ul>
-
-
-</p>
+<!-- The login page will load if the user is not logged in-->
+<!-- The main page will load if the user is logged in-->
+<app-login *ngIf="!isLoggedIn"></app-login>
+<app-main *ngIf="isLoggedIn"></app-main>
