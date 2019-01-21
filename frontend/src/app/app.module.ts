@@ -7,13 +7,15 @@ import {UsersApiService} from '../apiServices/user/users-api.service';
 import { LoginComponent } from './login/login.component';
 import { MainComponent } from './main/main.component';
 import { RegisterComponent } from './register/register.component';
+import { SimulatorComponent } from './simulator/simulator.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     MainComponent,
-    RegisterComponent
+    RegisterComponent,
+    SimulatorComponent
   ],
   imports: [
     BrowserModule,
