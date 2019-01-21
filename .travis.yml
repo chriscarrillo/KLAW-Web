@@ -5,6 +5,7 @@ sudo: true
 dist: trusty
 
 before_script:
+ - cd frontend
  - sudo apt-get update
  - npm install -g @angular/cli
  - ng update @angular/cli
