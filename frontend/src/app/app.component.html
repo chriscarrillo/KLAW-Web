@@ -5,5 +5,5 @@
     <div id="logoutIcon" *ngIf="isLoggedIn"><mat-icon title="Logout" (click)="logout()">{{'power_settings_new'}}</mat-icon></div>
 </div>
 <div class="clear"></div>
-<app-login *ngIf="!isLoggedIn"></app-login>
-<app-main *ngIf="isLoggedIn"></app-main>
+<app-login *ngIf="isLoggedIn"></app-login>
+<app-main *ngIf="!isLoggedIn"></app-main>
