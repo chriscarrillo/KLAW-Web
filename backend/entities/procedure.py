@@ -7,8 +7,8 @@
 
 from marshmallow import Schema, fields
 from sqlalchemy import Column, String, Text, ForeignKey
+from sqlalchemy_utils import UUIDType
 from .database import Base
-from .uuid import UUID
 import uuid
 
 class Procedure(Base):
@@ -19,13 +19,13 @@ class Procedure(Base):
 
     __tablename__ = "PROCEDURE"
 
-    proc_id = Column(UUID(), primary_key = True)
-    user_id = Column(UUID(), ForeignKey("USER.user_id"), nullable = False)
+    proc_id = Column(UUIDType(binary=False), primary_key = True)
+    user_id = Column(UUIDType(binary=False), ForeignKey("USER.user_id"), nullable = False)
     raw_xml = Column(Text, nullable = False)
     procedure_name = Column(String, nullable = False)
     saved_procedure = Column(Text)
 
-    def __init__(self, proc_id, user_id, raw_xml, saved_procedure):
+    def __init__(self, proc_id, user_id, raw_xml, procedure_name, saved_procedure):
         self.proc_id = proc_id
         self.user_id = user_id
         self.raw_xml = raw_xml
