@@ -102,6 +102,7 @@ def add_procedure():
 	session.close()
 	return jsonify(new_procedure)
 
+<<<<<<< Updated upstream
 @app.route('/api/login', methods=['POST'])
 def login():
 	posted_email = request.json['email']
