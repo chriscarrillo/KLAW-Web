@@ -1,4 +1,66 @@
 /* You can add global styles to this file, and also import other style files */
-body {
-    margin: 0px;
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+#banner {
+    height: 50px;
+    line-height: 50px;
+    color: #FFFFFF;
+    background: rgb(65, 82, 174);
+}
+
+#banner h1 {
+    margin: 0% 0% 0% 1%;
+    font-weight: normal;
+    display: inline;
+}
+
+#title, #logoutIcon {
+    float: left;
+    width: 50%;
+}
+
+#logoutIcon {
+    text-align: right;
+}
+
+#logoutIcon mat-icon {
+    margin: 0% 1% 0% 0%;
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+#logoutIcon mat-icon:hover {
+    color: rgb(255, 0, 0);
+}
+
+.clear {
+    clear: both;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-container > * {
+    width: 100%;
+}
+
+.submitButton {
+    background: rgb(65, 82, 174);
+    border: none;
+    color: #FFFFFF;
+    text-decoration: none;
+    cursor: pointer;
+    padding: 6px 0%;
+    font-size: 120%;
+    transition: all 0.2s;
+}
+
+.submitButton:hover {
+    transition: all 0.2s;
+    background-color: #FFFFFF;
+    border: 1px solid rgb(65, 82, 174);
+    color: rgb(65, 82, 174);
 }
