@@ -8,6 +8,7 @@
 from flask_cors import CORS
 from flask import Flask, jsonify, request
 from flask_bcrypt import Bcrypt
+from flask_caching import Cache
 
 from .entities.database import Session, engine, Base
 from .entities.user import User, UserSchema
@@ -20,6 +21,7 @@ import uuid
 app = Flask(__name__)
 CORS(app)
 bcrypt = Bcrypt()
+cache = Cache(app, config={'CACHE_TYPE': 'simple'})
 
 # Generate database schema
 Base.metadata.create_all(engine)
@@ -111,6 +113,11 @@ def login():
 		if not bcrypt.check_password_hash(user_json.get_json()['password'], posted_password): # The password was incorrect
 			return jsonify(success=False, message='The password is incorrect')
 		else: # The login was successful, so pass in all user credentials (except password)
+			# Cache the user
+			#cache_key = 'user_{}'.format(user_json.get_json['user_id'])
+			#cache.set('user', User.query.get(str(posted_email)), timeout=3600)
+			cache.set('user', user_json.get_json()['user_id'], timeout=36000)
+
 			return jsonify(
 				success=True,
 				user_id=user_json.get_json()['user_id'],
@@ -125,9 +132,9 @@ def login():
 @app.route('/api/register', methods=['POST'])
 def register():
 	# Force formatting on the values given
-	posted_first_name = request.json['first_name']
-	posted_last_name = request.json['last_name']
-	posted_email = request.json['email']
+	posted_first_name = request.json['first_name'].lower().title()
+	posted_last_name = request.json['last_name'].lower().title()
+	posted_email = request.json['email'].lower()
 	posted_password = bcrypt.generate_password_hash(request.json['password']).decode('utf-8')
 
 	# Insert the user into the database
@@ -136,3 +143,14 @@ def register():
 	session.add(user_to_add)
 	session.commit()
 	session.close()
+
+	return jsonify(success=True)
+
+@app.route('/api/logout')
+def logout():
+	cache.clear()
+	return jsonify(success=True)
+
+@app.route('/api/getCache')
+def get_user_cache():
+	return jsonify(cache=cache.get('user'))

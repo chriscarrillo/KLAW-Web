@@ -8,10 +8,13 @@
 from marshmallow import Schema, fields
 from sqlalchemy import Column, String, Text
 from sqlalchemy_utils import UUIDType
+from flask_login import UserMixin
+
 from .database import Base
+
 import uuid
 
-class User(Base):
+class User(Base, UserMixin):
 	'''
 		The User class defines the user object that will be inserted into the database.
 		A User has a user_id, an email, a first_name, a last_name, and a password.

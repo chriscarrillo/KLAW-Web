@@ -1,7 +1,7 @@
 <div id="tab-group-container">
   <mat-tab-group>
     <mat-tab label="Login">
-      <form (submit)="login($event)">
+      <form (submit)="login($event)" [formGroup]="loginForm">
         <div class="form-container">
           <mat-form-field>
             <input matInput placeholder="Email" autocomplete="email" [formControl]="loginEmail" required>
@@ -14,7 +14,7 @@
             <mat-icon matSuffix (click)="loginPasswordHide = !loginPasswordHide">{{loginPasswordHide ? 'visibility_off' : 'visibility'}}</mat-icon>
           </mat-form-field>
 
-          <input type="submit" value="Login" class="submitButton" />
+          <input type="submit" value="Login" class="submitButton" [disabled]="loginForm.invalid" />
         </div>
       </form>
     </mat-tab>

@@ -1,13 +1,13 @@
-<form>
+<form (submit)="register($event)" [formGroup]="registerForm">
     <div class="form-container">
       <mat-form-field>
         <input matInput placeholder="First Name" [formControl]="registerFirstName" required>
-        <mat-error *ngIf="registerFirstName.invalid">{{getErrorMessage()}}</mat-error>
+        <mat-error *ngIf="registerFirstName.invalid">{{getFirstNameErrorMessage()}}</mat-error>
       </mat-form-field>
 
       <mat-form-field>
           <input matInput placeholder="Last Name" [formControl]="registerLastName" required>
-          <mat-error *ngIf="registerLastName.invalid">{{getErrorMessage()}}</mat-error>
+          <mat-error *ngIf="registerLastName.invalid">{{getLastNameErrorMessage()}}</mat-error>
       </mat-form-field>
 
       <mat-form-field>
@@ -21,6 +21,6 @@
           <mat-icon matSuffix (click)="registerPasswordHide = !registerPasswordHide">{{registerPasswordHide ? 'visibility_off' : 'visibility'}}</mat-icon>
         </mat-form-field>
 
-        <input type="submit" value="Register" class="submitButton" />
+        <input type="submit" value="Register" class="submitButton" [disabled]="registerForm.invalid" />
     </div>
   </form>

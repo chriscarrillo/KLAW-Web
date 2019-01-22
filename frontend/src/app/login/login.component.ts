@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { DataService } from '../data.service';
 import { MatSnackBar } from '@angular/material';
@@ -10,16 +10,14 @@ import { MatSnackBar } from '@angular/material';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  readonly ROOT_URL = "http://0.0.0.0:5000/api";
-
   isLoggedIn: boolean; // Local isLoggedIn
-  user: Map<string, string> // Local user
-
-  loginError: string;
+  user: Map<string, string>; // Local user
+  ROOT_URL: string; // Local ROOT_URL
 
   // Login fields for Angular Material
   loginEmail = new FormControl('', [Validators.required, Validators.email]);
   loginPassword = new FormControl('', Validators.required);
+  loginForm = new FormGroup({});
   loginPasswordHide = true;
 
   constructor(private data: DataService, private http: HttpClient, private snackBar: MatSnackBar) { }
@@ -28,6 +26,10 @@ export class LoginComponent implements OnInit {
     // Sets local variables to data's values
     this.data.currentIsLoggedIn.subscribe(isLoggedIn => this.isLoggedIn = isLoggedIn);
     this.data.currentUser.subscribe(user => this.user = user);
+    this.data.currentRootUrl.subscribe(ROOT_URL => this.ROOT_URL = ROOT_URL);
+
+    this.loginForm.addControl('email', this.loginEmail);
+    this.loginForm.addControl('password', this.loginPassword);
   }
 
   login(event) {
@@ -53,12 +55,11 @@ export class LoginComponent implements OnInit {
             // Update the global login
             this.data.updateIsLoggedIn(true);
           } else {
-            // Save the error message
-            this.loginError = result.message;
+            // Show the error message
             this.openSnackBar(result.message, "OK");
           }
         }
-      )
+      );
   }
 
   getEmailErrorMessage() {
