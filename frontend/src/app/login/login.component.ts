@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { Subscription } from 'rxjs/Subscription';
-import { Observable } from 'rxjs/Observable';
-import { User } from '../dataModels/user/user';
 import { HttpClient } from '@angular/common/http';
 import { DataService } from '../data.service';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-login',
@@ -15,20 +13,21 @@ export class LoginComponent implements OnInit {
   readonly ROOT_URL = "http://0.0.0.0:5000/api";
 
   isLoggedIn: boolean; // Local isLoggedIn
+  user: Map<string, string> // Local user
 
-  users: any; // Observable for getUsers()
-  user: any; // Observable for getUserByEmail()
+  loginError: string;
 
   // Login fields for Angular Material
   loginEmail = new FormControl('', [Validators.required, Validators.email]);
   loginPassword = new FormControl('', Validators.required);
   loginPasswordHide = true;
 
-  constructor(private data: DataService, private http: HttpClient) { }
+  constructor(private data: DataService, private http: HttpClient, private snackBar: MatSnackBar) { }
 
   ngOnInit() {
-    // Sets local isLoggedIn to data's isLoggedIn
+    // Sets local variables to data's values
     this.data.currentIsLoggedIn.subscribe(isLoggedIn => this.isLoggedIn = isLoggedIn);
+    this.data.currentUser.subscribe(user => this.user = user);
   }
 
   login(event) {
@@ -39,29 +38,27 @@ export class LoginComponent implements OnInit {
   }
 
   verifyLogin(email, password) {
-    this.user = this.http.get(this.ROOT_URL + '/users/email/' + email)
-      .subscribe((data:any) => {
-        if (data.password == password) {
-          this.data.updateIsLoggedIn(true);
-        } else {
-          console.log('Login credentials are incorrect'); // Needs to change to something that will notify the user
+    this.http.post(this.ROOT_URL + '/login', {
+      email: email,
+      password: password
+    })
+      .subscribe(
+        (result: any) => {
+          if (result.success) { // The login was successful
+            // Save user data
+            for (let data in result) {
+              this.user.set(data, result[data]);
+            }
+
+            // Update the global login
+            this.data.updateIsLoggedIn(true);
+          } else {
+            // Save the error message
+            this.loginError = result.message;
+            this.openSnackBar(result.message, "OK");
+          }
         }
-      });
-  }
-
-  // 
-  getUsers() {
-    this.users = this.http.get(this.ROOT_URL + '/users')
-      .subscribe((data:any[]) => {
-        console.log(data);
-      });
-  }
-
-  getUserByEmail(email) {
-    this.user = this.http.get(this.ROOT_URL + '/users/email/' + email)
-      .subscribe((data:any) => {
-        console.log(data);
-      });
+      )
   }
 
   getEmailErrorMessage() {
@@ -71,7 +68,13 @@ export class LoginComponent implements OnInit {
   }
 
   getErrorMessage() {
-    return "This field is required";
+    return 'This field is required';
+  }
+
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 4000,
+    });
   }
 
 }
