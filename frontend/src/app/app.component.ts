@@ -1,7 +1,5 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
-import {Subscription} from 'rxjs/Subscription';
-import {UsersApiService} from './users/users-api.service';
-import {User} from './users/user.model';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { DataService } from './data.service';
 
 @Component({
   selector: 'app-root',
@@ -9,24 +7,22 @@ import {User} from './users/user.model';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit, OnDestroy {
-  title = 'app';
-  usersListSubs: Subscription;
-  usersList: User[];
+  title = 'KLAW Web';
+  isLoggedIn: boolean;
 
-  constructor(private usersApi: UsersApiService) {
+  constructor(private data: DataService) {
   }
 
   ngOnInit() {
-    this.usersListSubs = this.usersApi
-      .getUsers()
-      .subscribe(res => {
-          this.usersList = res;
-        },
-        console.error
-      );
+    // Sets local isLoggedIn to data's isLoggedIn
+    this.data.currentIsLoggedIn.subscribe(isLoggedIn => this.isLoggedIn = isLoggedIn);
   }
 
   ngOnDestroy() {
-    this.usersListSubs.unsubscribe();
+    
+  }
+
+  logout() {
+    this.data.updateIsLoggedIn(false);
   }
 }

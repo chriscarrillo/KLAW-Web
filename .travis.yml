@@ -1,13 +1,18 @@
-language: python
-python: 3.4
-install:
-  - pip install -r requirements.txt
+language: node_js
+node_js:
+  - "8"
+sudo: true
+dist: trusty
+
+before_script:
+ - cd frontend
+ - npm install -g @angular/cli
+ - npm update
+
 script:
-  - python hello.py
- deploy:
+  - ng build
+
+deploy:
   provider: azure_web_apps
-  username: AZURE_WA_USERNAME
-  password: AZURE_WA_PASSWORD
-  site: AZURE_WA_SITE
-
-
+  skip_cleanup: true
+  local_dir: dist
