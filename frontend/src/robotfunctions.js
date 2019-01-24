@@ -4,7 +4,7 @@ function moveClaw(distanceBetweenFingersInCentimeters){
 	
 }
 
-function moveArm(xInCentimeters, yInCentimeters, isElbowUp){
+function moveArm(xInCentimeters, yInCentimeters, isElbowUp=true){
 	
 }
 
