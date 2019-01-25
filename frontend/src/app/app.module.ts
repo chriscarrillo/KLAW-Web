@@ -23,7 +23,7 @@ import { ProfileSettingsComponent } from './components/profile-settings/profile-
     LoginComponent,
     MainComponent,
     RegisterComponent,
-    SimulatorComponent
+    SimulatorComponent,
     SaveProcedureComponent,
     BlocklyEditorComponent,
     RobotStatusComponent,
