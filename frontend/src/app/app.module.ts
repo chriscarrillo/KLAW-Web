@@ -7,6 +7,7 @@ import { UsersApiService } from '../apiServices/user/users-api.service';
 import { LoginComponent } from './components/login/login.component';
 import { MainComponent } from './main/main.component';
 import { RegisterComponent } from './components/register/register.component';
+import { SimulatorComponent } from './simulator/simulator.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatFormFieldModule, MatInputModule, MatIconModule, MatCardModule, MatTabsModule, MatSnackBarModule } from '@angular/material';
@@ -22,6 +23,7 @@ import { ProfileSettingsComponent } from './components/profile-settings/profile-
     LoginComponent,
     MainComponent,
     RegisterComponent,
+    SimulatorComponent,
     SaveProcedureComponent,
     BlocklyEditorComponent,
     RobotStatusComponent,
