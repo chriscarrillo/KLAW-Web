@@ -19,7 +19,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    
+
   }
 
   logout() {

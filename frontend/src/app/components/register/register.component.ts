@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
-import { DataService } from '../data.service';
+import { DataService } from '../../data.service';
 import { HttpClient } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material';
 

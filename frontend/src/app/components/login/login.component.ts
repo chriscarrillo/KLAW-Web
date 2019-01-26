@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { DataService } from '../data.service';
+import { DataService } from '../../data.service';
 import { MatSnackBar } from '@angular/material';
 
 @Component({

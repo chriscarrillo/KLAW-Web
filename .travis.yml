@@ -1,12 +1,18 @@
-language: python
-python: 3.4
-install:
-  - pip install -r requirements.txt
+language: node_js
+node_js:
+  - "8"
+sudo: true
+dist: trusty
+
+before_script:
+ - cd frontend
+ - npm install -g @angular/cli
+ - npm update
+
 script:
-  - python hello.py
-before_deploy:
-  - cd build
+  - ng build
+
 deploy:
   provider: azure_web_apps
   skip_cleanup: true
-  verbose: true
+  local_dir: dist
