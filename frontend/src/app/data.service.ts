@@ -16,7 +16,7 @@ export class DataService {
   private user = new BehaviorSubject<Map<string, string>>(new Map<string, string>()); // The real data
   currentUser = this.user.asObservable(); // The Observable that will be used by the components
 
-  private ROOT_URL = new BehaviorSubject<string>("http://0.0.0.0:5000/api");
+  private ROOT_URL = new BehaviorSubject<string>("http://127.0.0.1:5000/api"); //listening to API here
   currentRootUrl = this.ROOT_URL.asObservable();
 
   constructor() { }
