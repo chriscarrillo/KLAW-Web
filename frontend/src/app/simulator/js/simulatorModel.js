@@ -226,3 +226,31 @@ controls.addEventListener('change', function () {
 });
 // add this only if there is no animation loop
 // (requestAnimationFrame)
+
+//methods
+function moveClaw(distanceBetweenFingersInCentimeters){
+  console.log("Moving claw " + distanceBetweenFingersInCentimeters + " centimeters apart");
+}
+function moveArm(x, y, isElbowUp = true) {
+  console.log("Moving arm to " + x + "," + y + " with the elbow " + (isElbowUp ? "up" : "down"));
+}
+/*Tells the arm to return to default position.*/
+function returnToHome(){
+  console.log("Returning robot position to home");
+}
+function wait(numberOfMilliseconds){
+  console.log("Waiting " + numberOfMilliseconds + "milliseconds");
+}
+/*Tells the robot arm to begin routine*/
+function start(){
+  console.log("Starting robot");
+}
+function stop(){
+  console.log("Stopping robot");
+}
+function connectToRobot(robotID){
+  console.log("Connecting to robot...");
+}
+function disconnectFromRobot(){
+  console.log("Disconnecting to robot...");
+}
