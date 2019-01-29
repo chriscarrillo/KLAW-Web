@@ -14,5 +14,6 @@ script:
 
 deploy:
   provider: azure_web_apps
+  verbose: true
   skip_cleanup: true
   local_dir: dist/frontend
