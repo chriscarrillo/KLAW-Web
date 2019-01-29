@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
-import { DataService } from '../../data.service';
+import { DataService } from '../../services/data.service';
 import { HttpClient } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material';
+import { UsersApiService } from 'src/apiServices/user/users-api.service';
 
 @Component({
   selector: 'app-register',
@@ -22,7 +23,7 @@ export class RegisterComponent implements OnInit {
 
   registerPasswordHide = true;
 
-  constructor(private data: DataService, private http: HttpClient, private snackBar: MatSnackBar) { 
+  constructor(private data: DataService, private usersApi: UsersApiService, private http: HttpClient, private snackBar: MatSnackBar) { 
     this.data.currentUser.subscribe(user => this.user = user);
     this.data.currentRootUrl.subscribe(ROOT_URL => this.ROOT_URL = ROOT_URL);
   }
@@ -61,7 +62,7 @@ export class RegisterComponent implements OnInit {
             this.openSnackBar("Registration successful! Logging you in...", "OK");
 
             // Update the global login
-            this.data.updateIsLoggedIn(true);
+           // this.data.updateIsLoggedIn(true);
           } else { // Registration was not successful
             // Show the error message
             this.openSnackBar(result.message, "OK");
@@ -72,8 +73,7 @@ export class RegisterComponent implements OnInit {
 
   getEmailErrorMessage() {
     return this.registerEmail.hasError('required') ? 'This field is required' :
-      this.registerEmail.hasError('email') ? 'Not a valid email' :
-        '';
+      this.registerEmail.hasError('email') ? 'Not a valid email' : '';
   }
 
   getFirstNameErrorMessage() {

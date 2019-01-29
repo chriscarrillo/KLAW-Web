@@ -5,26 +5,35 @@
 	Date: 1/21/2019
 '''
 
-from flask_cors import CORS
 from flask import Flask, jsonify, request
 from flask_bcrypt import Bcrypt
-from flask_caching import Cache
+from flask_cors import CORS
+from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 
 from .entities.database import Session, engine, Base
 from .entities.user import User, UserSchema
 from .entities.procedure import Procedure, ProcedureSchema
 
 import json
-import uuid
 
 # Create the Flask application
 app = Flask(__name__)
+app.secret_key = b'_5#y2L"F4Q8z\n\xec]/' # Used to encrypt/decrypt the cookie
 CORS(app)
 bcrypt = Bcrypt()
-cache = Cache(app, config={'CACHE_TYPE': 'simple'})
+login_manager = LoginManager()
+login_manager.init_app(app)
 
 # Generate database schema
 Base.metadata.create_all(engine)
+
+@login_manager.user_loader
+def load_user(user_id):
+	return Session().query(User).filter_by(id=user_id).first()
+
+# @login_manager.request_loader
+# def load_user_from_request(user_request):
+# 	return Session().query(User).filter_by(email=user_request.json['email']).first()
 
 @app.route('/api/users', methods=['POST'])
 def get_users():
@@ -43,16 +52,17 @@ def get_users():
 @app.route('/api/users/email/<email>', methods=['POST'])
 def get_user_by_email(email):
 	session = Session()
-	first_object = session.query(User).filter(User.email == "" + email + "").first()
+	db_user = session.query(User).filter(User.email == "" + email + "").first()
 
 	schema = UserSchema()
-	user = schema.dump(first_object)
+	user = schema.dump(db_user)
 	
 	session.close()
 	
 	return jsonify(user.data)
 
 @app.route('/api/procedures', methods=['POST'])
+@login_required
 def get_procedures():
 	# Fetch the procedures from the database
 	session = Session()
@@ -85,6 +95,7 @@ def add_user():
 	return jsonify(new_user)
 
 @app.route('/api/procedures/add', methods=['POST'])
+@login_required
 def add_procedure():
 	# Mount procedure object
 	posted_procedure = ProcedureSchema(only = ('user_id', 'raw_xml'))\
@@ -104,27 +115,28 @@ def add_procedure():
 
 @app.route('/api/login', methods=['POST'])
 def login():
-	posted_email = request.json['email']
-	posted_password = request.json['password']
-
-	user_json = get_user_by_email(posted_email)
-
 	try:
+		posted_email = request.json['email'].lower()
+		posted_password = request.json['password']
+		user_json = get_user_by_email(posted_email)
+
 		if not bcrypt.check_password_hash(user_json.get_json()['password'], posted_password): # The password was incorrect
 			return jsonify(success=False, message='The password is incorrect')
 		else: # The login was successful, so pass in all user credentials (except password)
-			# Cache the user
-			#cache_key = 'user_{}'.format(user_json.get_json['user_id'])
-			#cache.set('user', User.query.get(str(posted_email)), timeout=3600)
-			cache.set('user', user_json.get_json()['user_id'], timeout=36000)
+			# Get user object from the database
+			# user = Session().query(User).filter_by(id=1).first()
+			user = load_user(1)
+			
+			# Login the user
+			login_user(user, remember=False, force=True)
 
 			return jsonify(
 				success=True,
-				user_id=user_json.get_json()['user_id'],
+				id=user_json.get_json()['id'],
 				email=user_json.get_json()['email'],
 				first_name=user_json.get_json()['first_name'],
 				last_name=user_json.get_json()['last_name'],
-				password=user_json.get_json()['password']
+				user=current_user.is_active
 				)
 	except KeyError: # A KeyError is only thrown if the user does not exist
 		return jsonify(success=False, message='A user with that email does not exist')
@@ -139,7 +151,7 @@ def register():
 
 	# Insert the user into the database
 	session = Session()
-	user_to_add = User(uuid.uuid4(), posted_email, posted_first_name, posted_last_name, posted_password)
+	user_to_add = User(posted_email, posted_first_name, posted_last_name, posted_password)
 	session.add(user_to_add)
 	session.commit()
 	session.close()
@@ -147,10 +159,15 @@ def register():
 	return jsonify(success=True)
 
 @app.route('/api/logout')
+@login_required
 def logout():
-	cache.clear()
+	logout_user()
 	return jsonify(success=True)
 
-@app.route('/api/getCache')
-def get_user_cache():
-	return jsonify(cache=cache.get('user'))
+@app.route('/api/getSession')
+def get_session():
+	pass
+
+@app.route('/api/isLoggedIn', methods=['POST'])
+def get_is_logged_in():
+	return jsonify(success=current_user.is_active)
