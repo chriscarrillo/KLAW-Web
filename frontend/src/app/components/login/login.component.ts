@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { DataService } from '../../data.service';
+import { DataService } from '../../services/data.service';
 import { MatSnackBar } from '@angular/material';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -10,7 +11,7 @@ import { MatSnackBar } from '@angular/material';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  isLoggedIn: boolean; // Local isLoggedIn
+  //isLoggedIn: boolean; // Local isLoggedIn
   user: Map<string, string>; // Local user
   ROOT_URL: string; // Local ROOT_URL
 
@@ -20,11 +21,11 @@ export class LoginComponent implements OnInit {
   loginForm = new FormGroup({});
   loginPasswordHide = true;
 
-  constructor(private data: DataService, private http: HttpClient, private snackBar: MatSnackBar) { }
+  constructor(private data: DataService, private http: HttpClient, private router: Router, private snackBar: MatSnackBar) { 
+  }
 
   ngOnInit() {
     // Sets local variables to data's values
-    this.data.currentIsLoggedIn.subscribe(isLoggedIn => this.isLoggedIn = isLoggedIn);
     this.data.currentUser.subscribe(user => this.user = user);
     this.data.currentRootUrl.subscribe(ROOT_URL => this.ROOT_URL = ROOT_URL);
 
@@ -47,16 +48,22 @@ export class LoginComponent implements OnInit {
       .subscribe(
         (result: any) => {
           if (result.success) { // The login was successful
+            console.log("Login successful? " + result.user);
+
             // Save user data
             for (let data in result) {
               this.user.set(data, result[data]);
             }
 
             // Update the global login
-            this.data.updateIsLoggedIn(true);
+            //this.data.updateIsLoggedIn(true);
+
+            // Navigate user to the main page
+            this.router.navigate(['']);
           } else {
             // Show the error message
-            this.openSnackBar(result.message, "OK");
+            console.log(result.message);
+            this.openSnackBar(result.message, 'OK');
           }
         }
       );
@@ -64,8 +71,7 @@ export class LoginComponent implements OnInit {
 
   getEmailErrorMessage() {
     return this.loginEmail.hasError('required') ? 'This field is required' :
-        this.loginEmail.hasError('email') ? 'Not a valid email' :
-            '';
+        this.loginEmail.hasError('email') ? 'Not a valid email' : '';
   }
 
   getErrorMessage() {
