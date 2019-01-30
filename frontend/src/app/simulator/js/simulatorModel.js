@@ -140,6 +140,7 @@ function animate() {
     requestAnimationFrame(animate);
 }
 
+
 // Create a scene which will hold all our meshes to be rendered
 var scene = new THREE.Scene();
 

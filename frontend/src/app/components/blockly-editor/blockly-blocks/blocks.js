@@ -15,18 +15,18 @@ Blockly.Blocks['move_arm'] = {
   }
 };
 
-Blockly.JavaScript['move_arm'] = function(block) {
-  var number_arm_x = block.getFieldValue('arm_x');
-  var number_arm_y = block.getFieldValue('arm_y');
-  var checkbox_iselbowup = block.getFieldValue('isElbowUp') == 'TRUE';
-  // TODO: Assemble JavaScript into code variable.
-  var code = '...;\n';
-
-  //generates code representing specified value input
-  var argument0 = Blockly.JavaScript.valueToCode(block, 'VALUE',
-    Blockly.JavaScript.ORDER_ASSIGNMENT) || 'NaN';
-  return code;
-};
+// Blockly.JavaScript['move_arm'] = function(block) {
+//   var number_arm_x = block.getFieldValue('arm_x');
+//   var number_arm_y = block.getFieldValue('arm_y');
+//   var checkbox_iselbowup = block.getFieldValue('isElbowUp') == 'TRUE';
+//   // TODO: Assemble JavaScript into code variable.
+//   var code = '...;\n';
+//
+//   //generates code representing specified value input
+//   var argument0 = Blockly.JavaScript.valueToCode(block, 'VALUE',
+//     Blockly.JavaScript.ORDER_ASSIGNMENT) || 'NaN';
+//   return code;
+// };
 
 Blockly.Blocks['move_claw'] = {
   init: function() {
@@ -42,12 +42,12 @@ Blockly.Blocks['move_claw'] = {
   }
 };
 
-Blockly.JavaScript['move_claw'] = function(block) {
-  var text_distancebetweenfingersincentimeters = block.getFieldValue('distanceBetweenFingersInCentimeters');
-  // TODO: Assemble JavaScript into code variable.
-  var code = '...;\n';
-  return code;
-};
+// Blockly.JavaScript['move_claw'] = function(block) {
+//   var text_distancebetweenfingersincentimeters = block.getFieldValue('distanceBetweenFingersInCentimeters');
+//   // TODO: Assemble JavaScript into code variable.
+//   var code = '...;\n';
+//   return code;
+// };
 
 Blockly.Blocks['wait'] = {
   init: function() {
@@ -64,10 +64,10 @@ Blockly.Blocks['wait'] = {
   }
 };
 
-Blockly.JavaScript['wait'] = function(block) {
-  var number_wait_in_milliseconds = block.getFieldValue('wait_in_milliseconds');
-  var value_wait = Blockly.JavaScript.valueToCode(block, 'wait', Blockly.JavaScript.ORDER_ATOMIC);
-  // TODO: Assemble JavaScript into code variable.
-  var code = '...;\n';
-  return code;
-};
+// Blockly.JavaScript['wait'] = function(block) {
+//   var number_wait_in_milliseconds = block.getFieldValue('wait_in_milliseconds');
+//   var value_wait = Blockly.JavaScript.valueToCode(block, 'wait', Blockly.JavaScript.ORDER_ATOMIC);
+//   // TODO: Assemble JavaScript into code variable.
+//   var code = '...;\n';
+//   return code;
+// };

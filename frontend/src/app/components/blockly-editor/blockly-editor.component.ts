@@ -1,4 +1,6 @@
 import { Component, AfterViewInit, ViewChild, ElementRef, OnInit } from '@angular/core';
+import './blockly-blocks/blocks.js';
+
 declare var Blockly: any;
 
 @Component({
@@ -17,6 +19,6 @@ export class BlocklyEditorComponent implements OnInit {
 
   ngAfterViewInit(): void {
     this.workspace = Blockly.inject('blocklyDiv',
-    {toolbox: this.toolbox.nativeElement });
+      {toolbox: this.toolbox.nativeElement});
   }
 }

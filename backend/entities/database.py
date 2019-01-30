@@ -25,10 +25,10 @@ Session = sessionmaker(bind=engine)
 # Azure connection
 import pyodbc
 
-db_url = "DATABASE_URL_HERE"
-db_name = "DATABASE_NAME_HERE"
-db_user = "DATABASE_USERNAME_HERE"
-db_password = "DATABASE_PASSWORD_HERE"
+db_url = "localhost:1433" #"DATABASE_URL_HERE"
+db_name = "KLAWDB" #"DATABASE_NAME_HERE"
+db_user = "hbernal" #"DATABASE_USERNAME_HERE"
+db_password = "dbpassword" #"DATABASE_PASSWORD_HERE"
 db_driver = "ODBC+Driver+17+for+SQL+Server"
 engine = create_engine(f'mssql+pyodbc://{db_user}:{db_password}@{db_url}/{db_name}?driver={db_driver}?trusted_connection=yes')
 Session = sessionmaker(bind=engine)
