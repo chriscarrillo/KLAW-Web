@@ -5,7 +5,9 @@ Blockly.Blocks['move_arm'] = {
         .appendField(new Blockly.FieldNumber(0), "arm_x")
         .appendField(",")
         .appendField(new Blockly.FieldNumber(0), "arm_y")
-        .appendField("). Is robot elbow up?")
+        .appendField(").");
+    this.appendDummyInput()
+        .appendField("Is robot elbow up?")
         .appendField(new Blockly.FieldCheckbox("TRUE"), "isElbowUp");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
