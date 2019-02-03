@@ -22,12 +22,12 @@ Blockly.Blocks['move_arm'] = {
 //   var number_arm_y = block.getFieldValue('arm_y');
 //   var checkbox_iselbowup = block.getFieldValue('isElbowUp') == 'TRUE';
 //   // TODO: Assemble JavaScript into code variable.
-//   var code = '...;\n';
-//
-//   //generates code representing specified value input
-//   var argument0 = Blockly.JavaScript.valueToCode(block, 'VALUE',
-//     Blockly.JavaScript.ORDER_ASSIGNMENT) || 'NaN';
-//   return code;
+//   // var code = '...;\n';
+//   alert(number_arm_x);
+//   // //generates code representing specified value input
+//   // var argument0 = Blockly.JavaScript.valueToCode(block, 'VALUE',
+//   //   Blockly.JavaScript.ORDER_ASSIGNMENT) || 'NaN';
+//   // return code;
 // };
 
 Blockly.Blocks['move_claw'] = {

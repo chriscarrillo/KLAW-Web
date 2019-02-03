@@ -258,9 +258,39 @@ export class SimulatorComponent implements OnInit {
     });
 // add this only if there is no animation loop
 // (requestAnimationFrame)
-
-
   }
 
-  // create methods that you call in html file
+  moveClaw(distanceBetweenFingersInCentimeters) {
+    // console.log('Moving claw ' + distanceBetweenFingersInCentimeters + ' centimeters apart');
+    return 'Moving claw ' + distanceBetweenFingersInCentimeters + ' centimeters apart';
+  }
+  moveArm(x, y, isElbowUp = true) {
+    // console.log('Moving arm to ' + x + ',' + y + ' with the elbow ' + (isElbowUp ? 'up' : 'down'));
+    return 'Moving arm to ' + x + ',' + y + ' with the elbow ' + (isElbowUp ? 'up' : 'down');
+  }
+  returnToHome() {
+    // console.log('Returning robot position to home');
+    return 'Returning robot position to home';
+  }
+  wait(numberOfMilliseconds) {
+    // console.log('Waiting ' + numberOfMilliseconds + 'milliseconds');
+    return 'Waiting ' + numberOfMilliseconds + 'milliseconds';
+  }
+  start() {
+    // console.log('Starting robot');
+    return 'Starting robot';
+  }
+  stop() {
+    // console.log('Stopping robot');
+    return 'Stopping robot';
+  }
+  connectToRobot(robotID) {
+    // console.log('Connecting to robot...');
+    return 'Connecting to robot...';
+  }
+  disconnectFromRobot() {
+    // console.log('Disconnecting to robot...');
+    return 'Disconnecting to robot...';
+  }
+
 }
