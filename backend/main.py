@@ -19,7 +19,7 @@ import uuid
 
 # Create the Flask application
 app = Flask(__name__)
-CORS(app)
+CORS(app, supports_credentials=True)
 bcrypt = Bcrypt()
 cache = Cache(app, config={'CACHE_TYPE': 'simple'})
 

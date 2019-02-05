@@ -194,11 +194,16 @@ export class SimulatorComponent implements OnInit {
     const renderer = new THREE.WebGLRenderer({antialias: true});
 
 // Size should be the same as the window
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    /**Need to change this**/
+    const container = document.getElementById('simulator');
+    renderer.setSize(container.clientWidth, container.clientHeight);
+    // renderer.setSize(window.innerWidth, window.innerHeight);
 
     window.addEventListener('resize', function () {
-      const WIDTH = window.innerWidth,
-        HEIGHT = window.innerHeight;
+      // const WIDTH = window.innerWidth,
+      //   HEIGHT = window.innerHeight;
+      const WIDTH = container.clientWidth,
+        HEIGHT = container.clientHeight;
       renderer.setSize(WIDTH, HEIGHT);
       camera.aspect = WIDTH / HEIGHT;
       camera.updateProjectionMatrix();
@@ -213,7 +218,8 @@ export class SimulatorComponent implements OnInit {
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
 // Append to the document
-    document.body.appendChild(renderer.domElement);
+//     document.body.appendChild(renderer.domElement);
+    document.getElementById('simulator').appendChild(renderer.domElement);
 
 // platform for model
     const plane = new THREE.Mesh(
