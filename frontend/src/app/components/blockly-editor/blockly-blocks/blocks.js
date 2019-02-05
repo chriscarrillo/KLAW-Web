@@ -1,3 +1,6 @@
+goog.require('Blockly.JavaScript');
+
+
 Blockly.Blocks['move_arm'] = {
   init: function() {
     this.appendDummyInput()
@@ -17,18 +20,18 @@ Blockly.Blocks['move_arm'] = {
   }
 };
 
-// Blockly.JavaScript['move_arm'] = function(block) {
-//   var number_arm_x = block.getFieldValue('arm_x');
-//   var number_arm_y = block.getFieldValue('arm_y');
-//   var checkbox_iselbowup = block.getFieldValue('isElbowUp') == 'TRUE';
-//   // TODO: Assemble JavaScript into code variable.
-//   // var code = '...;\n';
-//   alert(number_arm_x);
-//   // //generates code representing specified value input
-//   // var argument0 = Blockly.JavaScript.valueToCode(block, 'VALUE',
-//   //   Blockly.JavaScript.ORDER_ASSIGNMENT) || 'NaN';
-//   // return code;
-// };
+Blockly.JavaScript['move_arm'] = function(block) {
+  var number_arm_x = block.getFieldValue('arm_x');
+  var number_arm_y = block.getFieldValue('arm_y');
+  var checkbox_iselbowup = block.getFieldValue('isElbowUp') === 'TRUE';
+  // TODO: Assemble JavaScript into code variable.
+  // var code = '...;\n';
+  // alert(number_arm_x);
+  // //generates code representing specified value input
+  // var argument0 = Blockly.JavaScript.valueToCode(block, 'VALUE',
+  //   Blockly.JavaScript.ORDER_ASSIGNMENT) || 'NaN';
+  // return code;
+};
 
 Blockly.Blocks['move_claw'] = {
   init: function() {

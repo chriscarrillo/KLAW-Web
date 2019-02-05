@@ -184,10 +184,10 @@ export class SimulatorComponent implements OnInit {
     );
 
 // Reposition the camera
-    camera.position.set(13, 18, 80);
+    camera.position.set(8, 18, 75);
 
 // Point the camera at a given coordinate
-    camera.lookAt(new THREE.Vector3(20, 10, 0));
+    camera.lookAt(new THREE.Vector3(10, 18, 0));
 // camera.lookAt(0, 30, 0);
 
 // Create a renderer
@@ -269,6 +269,7 @@ export class SimulatorComponent implements OnInit {
   moveClaw(distanceBetweenFingersInCentimeters) {
     // console.log('Moving claw ' + distanceBetweenFingersInCentimeters + ' centimeters apart');
     return 'Moving claw ' + distanceBetweenFingersInCentimeters + ' centimeters apart';
+    // alert('Moving claw ' + distanceBetweenFingersInCentimeters + ' centimeters apart');
   }
   moveArm(x, y, isElbowUp = true) {
     // console.log('Moving arm to ' + x + ',' + y + ' with the elbow ' + (isElbowUp ? 'up' : 'down'));

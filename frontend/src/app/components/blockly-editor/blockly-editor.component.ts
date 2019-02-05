@@ -1,5 +1,8 @@
 import { Component, AfterViewInit, ViewChild, ElementRef, OnInit } from '@angular/core';
+import 'node_modules/blockly/generators/javascript';
+import 'node_modules/blockly/javascript_compressed.js';
 import './blockly-blocks/blocks.js';
+
 
 declare var Blockly: any;
 
