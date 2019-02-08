@@ -10,8 +10,8 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 })
 export class DataService {
 
-  private isLoggedIn = new BehaviorSubject<boolean>(false); // This is the real data
-  currentIsLoggedIn = this.isLoggedIn.asObservable(); // This is the Observable that will be used by the components
+  // private isLoggedIn = new BehaviorSubject<boolean>(false); // This is the real data
+  // currentIsLoggedIn = this.isLoggedIn.asObservable(); // This is the Observable that will be used by the components
 
   private user = new BehaviorSubject<Map<string, string>>(new Map<string, string>()); // The real data
   currentUser = this.user.asObservable(); // The Observable that will be used by the components
@@ -21,10 +21,10 @@ export class DataService {
 
   constructor() { }
 
-  // Updates isLoggedIn
-  updateIsLoggedIn(newIsLoggedIn: boolean) {
-    this.isLoggedIn.next(newIsLoggedIn);
-  }
+  // // Updates isLoggedIn
+  // updateIsLoggedIn(newIsLoggedIn: boolean) {
+  //   this.isLoggedIn.next(newIsLoggedIn);
+  // }
 
   // Updates user
   updateUser(newUser: Map<string, string>) {

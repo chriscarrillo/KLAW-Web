@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { DataService } from './data.service';
+import { DataService } from './services/data.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -7,22 +8,13 @@ import { DataService } from './data.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit, OnDestroy {
-  title = 'KLAW Web';
-  isLoggedIn: boolean;
 
-  constructor(private data: DataService) {
+  constructor(private data: DataService, private router: Router) {
   }
 
-  ngOnInit() {
-    // Sets local isLoggedIn to data's isLoggedIn
-    this.data.currentIsLoggedIn.subscribe(isLoggedIn => this.isLoggedIn = isLoggedIn);
-  }
+  ngOnInit() { }
 
   ngOnDestroy() {
 
-  }
-
-  logout() {
-    this.data.updateIsLoggedIn(false);
   }
 }
