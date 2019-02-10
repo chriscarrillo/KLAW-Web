@@ -1,7 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, HostListener, OnInit, ViewChild, AfterViewInit} from '@angular/core';
 import * as THREE from 'three';
+// import * as THREE from 'three/build/three.min.js';
 import './js/EnableThreeExamples';
 import 'three/examples/js/controls/OrbitControls';
+import {ModelService} from './model.service';
 
 @Component({
   selector: 'app-simulator',
@@ -10,294 +12,154 @@ import 'three/examples/js/controls/OrbitControls';
 })
 
 export class SimulatorComponent implements OnInit {
-  constructor() {
+  scene: THREE.Scene;
+  camera: THREE.PerspectiveCamera;
+  renderer: THREE.WebGLRenderer;
+  // controls = new THREE.OrbitControls(this.camera, this.renderer.domElement);
+  controls: THREE.OrbitControls;
+  container;
+  model;
+
+  constructor(private modelService: ModelService) {
+    this.render = this.render.bind(this);
   }
 
-  ngOnInit() {
-    // Create simulator
-    // create model
-    function createModel() {
-      // group to hold all parts of robot arm model
-      const robotComponents = new THREE.Group();
+  ngOnInit(): void {
+  }
 
-      // robot platform box
-      const geometry = new THREE.BoxGeometry(19, 15, 12);
-      const material = new THREE.MeshBasicMaterial({color: 0x90c91c});
-      const base = new THREE.Mesh(geometry, material);
+  // @ViewChild('simulator') canvasRef: ElementRef;
 
-      base.position.y += 5;
-      base.castShadow = true;
-      base.receiveShadow = true;
-      robotComponents.add(base);
+  createScene() {
+      console.log(this.scene)
+      this.scene = new THREE.Scene();
+      // Create and position a camera
+      this.camera = new THREE.PerspectiveCamera(
+        60,                                   // Field of view
+        window.innerWidth / window.innerHeight, // Aspect ratio
+        0.1,                                  // Near clipping pane
+        1000                                  // Far clipping pane
+      );
 
-      // add the two robot arm extensions and set positions
-      const lowerRobotArm = new RobotArm();
-      lowerRobotArm.position.set(-13, 2, 0, -75);
-      lowerRobotArm.rotation.set(0, 0, 0);
-      lowerRobotArm.scale.set(.20, .20, .20);
-      robotComponents.add(lowerRobotArm);
+      // Reposition the camera
+      this.camera.position.set(8, 18, 75);
+      // Point the camera at a given coordinate
+      this.camera.lookAt(new THREE.Vector3(10, 18, 0));
 
-      const upperRobotArm = new RobotArm();
-      upperRobotArm.position.set(-10, 44, 0, -75);
-      upperRobotArm.rotation.set(0, 0, -(Math.PI / 2));
-      upperRobotArm.scale.set(.20, .20, .20);
-      // upperRobotArm.material.color.setHex(0x1c4bd8);
-      robotComponents.add(upperRobotArm);
+      // refer to 'simulator' element to match the size of component
+      this.container = document.getElementById('simulator');
+      // Create a renderer
+      this.renderer = new THREE.WebGLRenderer({antialias: true});
+      this.renderer.setSize(this.container.clientWidth, this.container.clientHeight);
+      // this.renderer.setSize(this.canvas.clientWidth, this.canvas.clientHeight);
 
-      // create robot claw
-      const clawComponents = new THREE.Group;
+      // Set a near white clear color (default is black)
+      this.renderer.setClearColor(0x000000);
 
-      // will be static
-      for (let i = 0; i < 2; i++) {
-        const geometry = new THREE.BoxGeometry(4, .5, .5);
-        const material = new THREE.MeshBasicMaterial({color: 0x1cc977});
-        const holder = new THREE.Mesh(geometry, material);
+      // casts shadows
+      this.renderer.shadowMap.enabled = true;
+      this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
-        holder.position.set(25, 32.2, -.45, -75);
-        if (i === 1) {
-          holder.position.set(22, 30.3, -.43, -75);
-        }
-        holder.rotation.set(0, 0, (7 * Math.PI / 4));
-        robotComponents.add(holder);
-      }
-
-      // create actual claws
-      const leftClaw = new RobotClaw();
-      leftClaw.position.set(19.6, 25.7, -0.1, -75);
-      leftClaw.rotation.set(0, 0, (11 * Math.PI / 6));
-      leftClaw.scale.set(.03, .03, .03);
-      clawComponents.add(leftClaw);
-
-      const rightClaw = new RobotClaw();
-      rightClaw.position.set(24.3, 31.7, -0.1, -75);
-      rightClaw.rotation.set(0, 0, (5 * Math.PI / 3));
-      rightClaw.scale.set(.03, .03, .03);
-      clawComponents.add(rightClaw);
-
-      scene.add(clawComponents);
-      scene.add(robotComponents);
-    };
-
-// Define claw pieces
-    const RobotClaw = function () {
-      THREE.Group.apply(this, arguments);
-
-      const claw = new THREE.Shape();
-      claw.moveTo(40, 40);
-      claw.lineTo(40, 160);
-      claw.absarc(50, 160, 10, Math.PI, 0, true);
-      claw.lineTo(60, 40);
-      claw.absarc(50, 40, 10, 2 * Math.PI, Math.PI, true);
-
-      const robotClawGroup = new THREE.Group();
-
-      const extrudeSettings = {
-        depth: 2,
-        bevelEnabled: true,
-        bevelSegments: 2,
-        steps: 2,
-        bevelSize: 1,
-        bevelThickness: 1
-      };
-      const robotClawGeometry = new THREE.ExtrudeGeometry(claw, extrudeSettings);
-      const mesh = new THREE.Mesh(robotClawGeometry, new THREE.MeshStandardMaterial({
-        color: 0xbd1cc9,
-        flatShading: true
-      }));
-
-      mesh.castShadow = true;
-      mesh.receiveShadow = true;
-      robotClawGroup.add(mesh);
-
-      this.add(mesh);
-    };
-
-    RobotClaw.prototype = Object.create(THREE.Group.prototype);
-    RobotClaw.prototype.constructor = RobotClaw;
-
-// Define robot arm pieces
-    const RobotArm = function () {
-      THREE.Group.apply(this, arguments);
-      // robot arm
-      const robotArm = new THREE.Shape();
-      robotArm.moveTo(40, 40);
-      robotArm.lineTo(40, 160);
-      robotArm.absarc(50, 160, 10, Math.PI, 0, true);
-      robotArm.lineTo(60, 40);
-      robotArm.absarc(50, 40, 10, 2 * Math.PI, Math.PI, true);
-
-      // add holes to upper arm (end and start)
-      // r = 2.5
-      const upperPivotPath = new THREE.Path();
-      upperPivotPath.moveTo(47.5, 160);
-      upperPivotPath.absarc(50, 160, 2.5, 0, Math.PI * 2, true);
-
-      robotArm.holes.push(upperPivotPath);
-
-      const lowerPivotPath = new THREE.Path();
-      lowerPivotPath.moveTo(50, 40);
-      lowerPivotPath.absarc(50, 40, 2.5, 0, Math.PI * 2, true);
-
-      robotArm.holes.push(lowerPivotPath);
-
-      const robotArmGroup = new THREE.Group();
-
-      const extrudeSettings = {
-        depth: 5,
-        bevelEnabled: true,
-        bevelSegments: 2,
-        steps: 2,
-        bevelSize: 1,
-        bevelThickness: 1
-      };
-      const robotArmGeometry = new THREE.ExtrudeGeometry(robotArm, extrudeSettings);
-      const mesh = new THREE.Mesh(robotArmGeometry, new THREE.MeshStandardMaterial({
-        color: 0x1c4bc9,
-        flatShading: true
-      }));
-
-      mesh.castShadow = true;
-      mesh.receiveShadow = true;
-      robotArmGroup.add(mesh);
-
-      this.add(mesh);
-    };
-
-    RobotArm.prototype = Object.create(THREE.Group.prototype);
-    RobotArm.prototype.constructor = RobotArm;
-
-// will use to animate model
-    function animate() {
-      requestAnimationFrame(animate);
+      // Append to the document
+      document.getElementById('simulator').appendChild(this.renderer.domElement);
     }
 
+    public render() {
+      this.renderer.render(this.scene, this.camera);
+    }
 
-// Create a scene which will hold all our meshes to be rendered
-    const scene = new THREE.Scene();
+    // private get canvas(): HTMLCanvasElement {
+    //     return this.canvasRef.nativeElement;
+    // }
 
-// Create and position a camera
-    const camera = new THREE.PerspectiveCamera(
-      60,                                   // Field of view
-      window.innerWidth / window.innerHeight, // Aspect ratio
-      0.1,                                  // Near clipping pane
-      1000                                  // Far clipping pane
-    );
+    @HostListener('window:resize', ['$event'])
+    resizeWindow(event: Event) {
+        const WIDTH = this.container.clientWidth,
+          HEIGHT = this.container.clientHeight;
+        this.renderer.setSize(WIDTH, HEIGHT);
+        this.camera.aspect = WIDTH / HEIGHT;
+        this.camera.updateProjectionMatrix();
 
-// Reposition the camera
-    camera.position.set(8, 18, 75);
+    }
 
-// Point the camera at a given coordinate
-    camera.lookAt(new THREE.Vector3(10, 18, 0));
-// camera.lookAt(0, 30, 0);
+    createControls() {
+      // const controls = new THREE.OrbitControls(this.camera, this.renderer.domElement);
+      // controls.addEventListener('change', this.renderer.render(this.scene, this.camera));
+      this.controls = new THREE.OrbitControls(this.camera);
+      this.controls.addEventListener('change', this.render);
+    }
 
-// Create a renderer
-    const renderer = new THREE.WebGLRenderer({antialias: true});
+    animate() {
+      this.renderer.render(this.scene, this.camera);
+    }
 
-// Size should be the same as the window
-    /**Need to change this**/
-    const container = document.getElementById('simulator');
-    renderer.setSize(container.clientWidth, container.clientHeight);
-    // renderer.setSize(window.innerWidth, window.innerHeight);
+    createLights() {
+      // adds hemisphere light
+      const hemisphereLight = new THREE.HemisphereLight( 0xffeeee, 0x111122, 1 );
 
-    window.addEventListener('resize', function () {
-      // const WIDTH = window.innerWidth,
-      //   HEIGHT = window.innerHeight;
-      const WIDTH = container.clientWidth,
-        HEIGHT = container.clientHeight;
-      renderer.setSize(WIDTH, HEIGHT);
-      camera.aspect = WIDTH / HEIGHT;
-      camera.updateProjectionMatrix();
-    });
+      // applies light to all objects in scene
+      const ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
 
-// Set a near white clear color (default is black)
-// renderer.setClearColor( 0xfff6e6 );
-    renderer.setClearColor(0x000000);
+      // applies point light
+      const pointLight = new THREE.PointLight(0xffffff, 1);
+      pointLight.position.set(25, 50, 25);
+      pointLight.castShadow = true;
+      pointLight.shadow.mapSize.width = 1024;
+      pointLight.shadow.mapSize.height = 1024;
 
-// casts shadows
-    renderer.shadowMap.enabled = true;
-    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+      console.log(this.scene);
+      this.scene.add(hemisphereLight);
+      this.scene.add(ambientLight);
+      this.scene.add(pointLight);
+    }
 
-// Append to the document
-//     document.body.appendChild(renderer.domElement);
-    document.getElementById('simulator').appendChild(renderer.domElement);
+    createPlatform() {
+      // platform for model
+      const grid = new THREE.Mesh(
+        new THREE.PlaneGeometry(80, 80, 70, 70),
+        new THREE.MeshBasicMaterial({color: 0x393839, wireframe: true})
+      );
+      grid.position.y -= 3;
+      grid.rotateX(Math.PI / 2);
+      this.scene.add(grid);
 
-// platform for model
-    const plane = new THREE.Mesh(
-      new THREE.PlaneGeometry(80, 80, 70, 70),
-      new THREE.MeshBasicMaterial({color: 0x393839, wireframe: true})
-    );
-    plane.position.y -= 3;
-    plane.rotateX(Math.PI / 2);
-    scene.add(plane);
+      // var grid = new THREE.GridHelper( 80, 70, 0x393839, 0x393839 );
+    }
 
-    createModel();
-
-    const shadowMaterial = new THREE.ShadowMaterial({
-      color: 0xeeeeee
-    });
-    shadowMaterial.opacity = 0.5;
-
-// applies light to all objects in scene
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
-    scene.add(ambientLight);
-
-// applies point light
-    const pointLight = new THREE.PointLight(0xffffff, 1);
-    pointLight.position.set(25, 50, 25);
-    scene.add(pointLight);
-
-    pointLight.castShadow = true;
-    pointLight.shadow.mapSize.width = 1024;
-    pointLight.shadow.mapSize.height = 1024;
+    createModel() {
+      console.log('before setting model');
+      // THIS WORKS!!!:
+      this.modelService.SimModel.prototype = Object.create(THREE.Object3D.prototype);
+      this.model = this.modelService.SimModel();
+      console.log(this.model);
+      console.log('after setting model');
+      this.scene.add(this.model);
 
 
-// var extrudeSettings = {depth: 4, bevelEnabled: true, bevelSegments: 2, steps: 2, bevelSize: 1, bevelThickness: 1};
 
-// Render the scene/camera combination
-    renderer.render(scene, camera);
+      // this.model = new this.modelService.SimModel();
+    }
 
-// Add an orbit control which allows us to move around the scene. See the three.js example for more details
-// https://github.com/mrdoob/three.js/blob/dev/examples/js/controls/OrbitControls.
-    const controls = new THREE.OrbitControls(camera, renderer.domElement);
-    controls.addEventListener('change', function () {
-      renderer.render(scene, camera);
-    });
-// add this only if there is no animation loop
-// (requestAnimationFrame)
+    moveFunction() {
+      console.log(this.model.position);
+      // this.model.position.set(10,20,50);
+
+      console.log(this.model.position);
+
+      this.model.upperRobotArm.position.set(10,20,50);
+
+    }
+
+    ngAfterViewInit(): void {
+        this.createScene();
+        this.createLights();
+
+        this.createControls();
+
+        this.createPlatform();
+        this.createModel();
+
+        // this.moveFunction();
+
+        this.animate();
+    }
   }
-
-  moveClaw(distanceBetweenFingersInCentimeters) {
-    // console.log('Moving claw ' + distanceBetweenFingersInCentimeters + ' centimeters apart');
-    return 'Moving claw ' + distanceBetweenFingersInCentimeters + ' centimeters apart';
-    // alert('Moving claw ' + distanceBetweenFingersInCentimeters + ' centimeters apart');
-  }
-  moveArm(x, y, isElbowUp = true) {
-    // console.log('Moving arm to ' + x + ',' + y + ' with the elbow ' + (isElbowUp ? 'up' : 'down'));
-    return 'Moving arm to ' + x + ',' + y + ' with the elbow ' + (isElbowUp ? 'up' : 'down');
-  }
-  returnToHome() {
-    // console.log('Returning robot position to home');
-    return 'Returning robot position to home';
-  }
-  wait(numberOfMilliseconds) {
-    // console.log('Waiting ' + numberOfMilliseconds + 'milliseconds');
-    return 'Waiting ' + numberOfMilliseconds + 'milliseconds';
-  }
-  start() {
-    // console.log('Starting robot');
-    return 'Starting robot';
-  }
-  stop() {
-    // console.log('Stopping robot');
-    return 'Stopping robot';
-  }
-  connectToRobot(robotID) {
-    // console.log('Connecting to robot...');
-    return 'Connecting to robot...';
-  }
-  disconnectFromRobot() {
-    // console.log('Disconnecting to robot...');
-    return 'Disconnecting to robot...';
-  }
-
-}

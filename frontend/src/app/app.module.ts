@@ -16,6 +16,7 @@ import { SaveProcedureComponent } from './components/save-procedure/save-procedu
 import { BlocklyEditorComponent } from './components/blockly-editor/blockly-editor.component';
 import { RobotStatusComponent } from './components/robot-status/robot-status.component';
 import { ProfileSettingsComponent } from './components/profile-settings/profile-settings.component';
+import { ModelObjectComponent } from './simulator/model-object.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { ProfileSettingsComponent } from './components/profile-settings/profile-
     SaveProcedureComponent,
     BlocklyEditorComponent,
     RobotStatusComponent,
-    ProfileSettingsComponent
+    ProfileSettingsComponent,
+    ModelObjectComponent
   ],
   imports: [
     BrowserModule,
