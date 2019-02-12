@@ -25,12 +25,9 @@ Blockly.JavaScript['move_arm'] = function(block) {
   var number_arm_y = block.getFieldValue('arm_y');
   var checkbox_iselbowup = block.getFieldValue('isElbowUp') === 'TRUE';
   // TODO: Assemble JavaScript into code variable.
-  // var code = '...;\n';
-  // alert(number_arm_x);
-  // //generates code representing specified value input
-  // var argument0 = Blockly.JavaScript.valueToCode(block, 'VALUE',
-  //   Blockly.JavaScript.ORDER_ASSIGNMENT) || 'NaN';
-  // return code;
+  var code = 'Moving arm to (' + number_arm_x + ', ' + number_arm_y + ') where elbow up is ' +
+    (checkbox_iselbowup?'true':'false');
+  return code;
 };
 
 Blockly.Blocks['move_claw'] = {
@@ -47,12 +44,12 @@ Blockly.Blocks['move_claw'] = {
   }
 };
 
-// Blockly.JavaScript['move_claw'] = function(block) {
-//   var text_distancebetweenfingersincentimeters = block.getFieldValue('distanceBetweenFingersInCentimeters');
-//   // TODO: Assemble JavaScript into code variable.
-//   var code = '...;\n';
-//   return code;
-// };
+Blockly.JavaScript['move_claw'] = function(block) {
+  var text_distancebetweenfingersincentimeters = block.getFieldValue('distanceBetweenFingersInCentimeters');
+  // TODO: Assemble JavaScript into code variable.
+  var code = 'Moving claws ' + text_distancebetweenfingersincentimeters + ' apart';
+  return code;
+};
 
 Blockly.Blocks['wait'] = {
   init: function() {
@@ -69,10 +66,10 @@ Blockly.Blocks['wait'] = {
   }
 };
 
-// Blockly.JavaScript['wait'] = function(block) {
-//   var number_wait_in_milliseconds = block.getFieldValue('wait_in_milliseconds');
-//   var value_wait = Blockly.JavaScript.valueToCode(block, 'wait', Blockly.JavaScript.ORDER_ATOMIC);
-//   // TODO: Assemble JavaScript into code variable.
-//   var code = '...;\n';
-//   return code;
-// };
+Blockly.JavaScript['wait'] = function(block) {
+  var number_wait_in_milliseconds = block.getFieldValue('wait_in_milliseconds');
+  var value_wait = Blockly.JavaScript.valueToCode(block, 'wait', Blockly.JavaScript.ORDER_ATOMIC);
+  // TODO: Assemble JavaScript into code variable.
+  var code ='Waiting for ' + number_wait_in_milliseconds + ' milliseconds';
+  return code;
+};

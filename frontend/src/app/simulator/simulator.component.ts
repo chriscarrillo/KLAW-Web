@@ -19,6 +19,13 @@ export class SimulatorComponent implements OnInit {
   controls: THREE.OrbitControls;
   container;
   model;
+  base;
+  lArm;
+  rArm;
+  oneHolder;
+  secondHolder;
+  lClaw;
+  rClaw;
 
   constructor(private modelService: ModelService) {
     this.render = this.render.bind(this);
@@ -26,8 +33,6 @@ export class SimulatorComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
-  // @ViewChild('simulator') canvasRef: ElementRef;
 
   createScene() {
       console.log(this.scene)
@@ -88,10 +93,6 @@ export class SimulatorComponent implements OnInit {
       this.controls.addEventListener('change', this.render);
     }
 
-    animate() {
-      this.renderer.render(this.scene, this.camera);
-    }
-
     createLights() {
       // adds hemisphere light
       const hemisphereLight = new THREE.HemisphereLight( 0xffeeee, 0x111122, 1 );
@@ -128,24 +129,112 @@ export class SimulatorComponent implements OnInit {
     createModel() {
       console.log('before setting model');
       // THIS WORKS!!!:
-      this.modelService.SimModel.prototype = Object.create(THREE.Object3D.prototype);
+      // this.modelService.SimModel.prototype = Object.create(THREE.Object3D.prototype); //commented out for test
+      this.modelService.SimModel.prototype = Object.create(THREE.Mesh.prototype); // added for test
       this.model = this.modelService.SimModel();
       console.log(this.model);
       console.log('after setting model');
+
       this.scene.add(this.model);
-
-
-
-      // this.model = new this.modelService.SimModel();
+      // 7 children in general
+      this.base = this.model.children[0];
+      this.lArm = this.model.children[1];
+      this.rArm = this.lArm.children[1];
+      this.oneHolder = this.rArm.children[2];
+      this.secondHolder = this.rArm.children[4];
+      this.lClaw = this.rArm.children[5];
+      this.rClaw = this.rArm.children[6];
     }
 
-    moveFunction() {
-      console.log(this.model.position);
-      // this.model.position.set(10,20,50);
+    moveFunction(posX, posY, isElbowUp = true) {
+      console.log('X: ' + posX + ' Y: ' + posY + ' ElbowUP: ' + true);
 
-      console.log(this.model.position);
+      // this.model.upperRobotArm.position.set(10, 20, 50);
+      // console.log(this.model.children[2]);
+      // works!
+      // this.model.children[2].position.set(10,20,50);
+      // console.log(this.model.children[2].position);;
+      // // instead of moving to (10,10)
+      // const newPosX = this.model.children[2].position.x + posX;
+      // const newPosY  = this.model.children[2].position.y + posY;
+      // this.model.children[2].position.set(newPosX, newPosY, 0);
+      // console.log(this.model.children[2].position);
+      //
+      // this.modelService.SimModel.prototype.move = function(posX, posY, isElbowUp = true) {
+      //   console.log('protype test');
+      // };
+      //
+      // this.modelService.SimModel.prototype.move(10,10,true);
 
-      this.model.upperRobotArm.position.set(10,20,50);
+
+
+      // for x movement, rotate lower arm (but also affects y)
+      // for y movement, rotate upper arm?
+      // ** don't rotate by x
+      // object position is counting the bottom of the object
+      const LboundingBox = new THREE.Box3().setFromObject(this.lArm);
+      const RboundingBox = new THREE.Box3().setFromObject(this.rArm);
+      console.log('low arm dimensions: ', LboundingBox.getSize());
+      console.log('up arm dimensions: ', RboundingBox.getSize());
+
+      // console.log(boundingBox);
+      //
+      //
+      // let center = new THREE.Vector3();
+      // center =  boundingBox.getCenter();
+      // // console.log('box position: ', this.model.children[0].position);
+      // console.log('object height: ', boundingBox.getSize());
+      // console.log('object position: ', this.model.children[0].position);
+      // console.log('object center: ', center);
+      //
+      // const axis = new THREE.Vector3(0,0,1);
+      // // end of lower robot arm pt = (-3, 7.8, 0.5);
+      // const point = new THREE.Vector3(-3,7.8,0.5);
+      // this.model.children[0].position.sub(point);
+      // this.model.children[0].position.applyAxisAngle(axis, Math.PI/12);
+      // this.model.children[0].position.add(point);
+      //
+      // this.model.children[0].rotateOnAxis(axis,-Math.PI/12);
+
+
+
+      // this.model.children[1].translateX(center.x);
+      // this.model.children[1].translateY(center.y);
+      // this.model.children[1].translateZ(center.z);
+      //
+      // console.log('object position after translation: ', this.model.children[1].position);
+
+      // this.model.children[1].translateX(0);
+      // this.model.children[1].translateY(0);
+      // this.model.children[1].translateZ(boundingBox.getSize().y / 2);
+      // console.log('object position after translation: ', this.model.children[1].position);
+
+      // this.model.children[1].translateX(center.x);
+      // this.model.children[1].translateY(center.y);
+      // this.model.children[1].translateZ(center.z);
+      // this.model.children[1].position.set();
+      // console.log(this.model.children[1].position);
+
+      // this.model.children[1].rotation.set(0, 0, -Math.PI / 6);
+      // console.log(this.model.children[1].position);
+
+      // this.model.children[1].translateX(-center.x);
+      // this.model.children[1].translateY(-center.y);
+      // this.model.children[1].translateZ(-center.z);
+      // console.log(this.model.children[1].position);
+    }
+
+    animate() {
+
+      // const animateFunc = this.animate;
+      // requestAnimationFrame(animateFunc);
+
+      // this.model.children[1].rotation.z += Math.PI / 6;
+      // this.model.children[1].rotation.z += Math.PI / 6;
+
+      this.renderer.render(this.scene, this.camera);
+
+      // console.log("TEST");
 
     }
 
@@ -158,7 +247,7 @@ export class SimulatorComponent implements OnInit {
         this.createPlatform();
         this.createModel();
 
-        // this.moveFunction();
+        this.moveFunction(10, 10, true);
 
         this.animate();
     }
