@@ -4,10 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
-import { UsersApiService } from '../apiServices/user/users-api.service';
-import { LoginComponent } from './components/login/login.component';
 import { MainComponent } from './components/main/main.component';
-import { RegisterComponent } from './components/register/register.component';
 import { SimulatorComponent } from './simulator/simulator.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -19,23 +16,17 @@ import { RobotStatusComponent } from './components/robot-status/robot-status.com
 import { ProfileSettingsComponent } from './components/profile-settings/profile-settings.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { BannerComponent } from './components/banner/banner.component';
-import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
   {
     path: '',
     component: MainComponent,
-    canActivate: [AuthGuard],
     children: [
       {
         path: 'main',
         component: MainComponent
       }
     ]
-  },
-  {
-    path: 'login',
-    component: LoginComponent
   },
   {
     path: '**',
@@ -46,9 +37,7 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
     MainComponent,
-    RegisterComponent,
     SimulatorComponent,
     SaveProcedureComponent,
     BlocklyEditorComponent,
@@ -71,7 +60,6 @@ const routes: Routes = [
     MatTabsModule,
     MatSnackBarModule
   ],
-  providers: [UsersApiService],
   bootstrap: [AppComponent],
   schemas: [NO_ERRORS_SCHEMA]
 })
