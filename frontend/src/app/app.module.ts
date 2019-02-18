@@ -15,7 +15,6 @@ import { BlocklyEditorComponent } from './components/blockly-editor/blockly-edit
 import { RobotStatusComponent } from './components/robot-status/robot-status.component';
 import { ProfileSettingsComponent } from './components/profile-settings/profile-settings.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
-import { BannerComponent } from './components/banner/banner.component';
 
 const routes: Routes = [
   {
@@ -43,8 +42,7 @@ const routes: Routes = [
     BlocklyEditorComponent,
     RobotStatusComponent,
     ProfileSettingsComponent,
-    PageNotFoundComponent,
-    BannerComponent
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
