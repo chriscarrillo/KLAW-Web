@@ -1,0 +1,13 @@
+#connectionStatus {
+    text-align: center;
+}
+
+#connectionStatus > mat-icon {
+    display: inline-flex;
+    vertical-align: middle;
+}
+
+button {
+    display: block;
+    margin: 2% auto;
+}
