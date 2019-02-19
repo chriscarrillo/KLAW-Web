@@ -20,13 +20,11 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 const routes: Routes = [
   {
     path: '',
-    component: MainComponent,
-    children: [
-      {
-        path: 'main',
-        component: MainComponent
-      }
-    ]
+    component: MainComponent
+  },
+  {
+    path: 'main',
+    component: MainComponent
   },
   {
     path: '**',
@@ -39,6 +37,7 @@ const routes: Routes = [
     AppComponent,
     MainComponent,
     SimulatorComponent,
+    PageNotFoundComponent,
     SaveProcedureComponent,
     BlocklyEditorComponent,
     RobotConnectionComponent,
