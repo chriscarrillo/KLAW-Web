@@ -9,7 +9,10 @@ import { Router } from '@angular/router';
 })
 export class AppComponent implements OnInit, OnDestroy {
 
+  title = 'KLAW Web';
+
   constructor(private data: DataService, private router: Router) {
+
   }
 
   ngOnInit() { }

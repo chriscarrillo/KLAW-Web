@@ -10,9 +10,7 @@ import { Router } from '@angular/router';
 })
 export class MainComponent implements OnInit, AfterContentInit {
   
-  user: Map<string, string> // Local user
   ROOT_URL: string; // Local ROOT_URL
-
 
   ngOnInit() {
     // Sets local variables to data's values
