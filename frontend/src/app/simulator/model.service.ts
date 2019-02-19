@@ -38,34 +38,22 @@ export class ModelService {
       console.log(this.lowerRobotArm.rotation);
 
       this.upperRobotArm = new this.RobotArm();
-      // this.upperRobotArm.position.set(-13, 0, 0, -75); //added for test
       this.upperRobotArm.rotation.z = -Math.PI / 2;
       this.upperRobotArm.position.x += 10;
       this.upperRobotArm.position.y += 210;
-      // this.upperRobotArm.position.set(-2,0,0,-75);
-      // this.upperRobotArm.position.set(-10, 44, 0, -75);
-      // this.upperRobotArm.rotation.set(0, 0, -(Math.PI / 2));
-      // this.upperRobotArm.scale.set(.20, .20, .20);  //commented out for test
-
-      //test:
       this.lowerRobotArm.add(this.upperRobotArm);
 
       // create the pieces that will hold both claws together
       for (let i = 0; i < 2; i++) {
-        //commented out for testing
-        // const geometry = new THREE.BoxGeometry(4, .5, .5);
         const geometry = new THREE.BoxGeometry(4, 20, .5);
         const material = new THREE.MeshBasicMaterial({color: 0x1cc977});
         const holder = new THREE.Mesh(geometry, material);
 
-        //added for testing:
         holder.position.set(60, 175, -.45, -75);
         if (i === 1) {
           holder.position.set(66, 153, -.43, -75);
         }
         holder.rotation.set(0, 0, (7 * Math.PI / 4));
-
-        //test:
         this.upperRobotArm.add(holder);
       }
 
@@ -73,30 +61,19 @@ export class ModelService {
       this.RobotClaw.prototype = Object.create(/*THREE.Object3D.prototype*/THREE.Mesh.prototype);  //changed to meh for test
 
       this.leftClaw = new this.RobotClaw();
-      // this.leftClaw.position.set(19.6, 25.7, -0.1, -75);
       this.leftClaw.position.set(80, 125, -0.1, -75);
-      // this.leftClaw.rotation.set(0, 0, (11 * Math.PI / 6));
       this.leftClaw.rotation.set(0, 0, -(11 * Math.PI / 6));
-      // this.leftClaw.scale.set(.03, .03, .03);
       this.leftClaw.scale.set(.2,.2,.2);
 
-      //test:
       this.upperRobotArm.add(this.leftClaw);
 
-      // this.mesh.add(this.leftClaw);//commented out for test
-
       this.rightClaw = new this.RobotClaw();
-      // this.rightClaw.position.set(24.3, 31.7, -0.1, -75);
       this.rightClaw.position.set(55, 171, -0.1, -75);
-      // this.rightClaw.rotation.set(0, 0, (5 * Math.PI / 3));
       this.rightClaw.rotation.set(0, 0, (12 * Math.PI / 6));
-      // this.rightClaw.scale.set(.03, .03, .03);
       this.rightClaw.scale.set(.2, .2, .2);
 
-      //test:
+      // test:
       this.upperRobotArm.add(this.rightClaw);
-
-      // this.mesh.add(this.rightClaw); //commented out for test
 
       this.mesh.castShadow = true;
       this.mesh.receiveShadow = true;
@@ -193,18 +170,4 @@ export class ModelService {
 
       return this.mesh;
     };
-
-    private defineSimModelPrototype() {
-      this.SimModel.prototype = Object.create(THREE.Object3D.prototype);
-      this.SimModel.prototype.constructor = this.SimModel;
-    }
-    private defineClawPrototype() {
-      this.RobotClaw.prototype = Object.create(THREE.Object3D.prototype);
-      this.RobotClaw.prototype.constructor = this.RobotClaw;
-    }
-
-    defineArmPrototype() {
-      this.RobotArm.prototype = Object.create(THREE.Object3D.prototype);
-      this.RobotArm.prototype.constructor = this.RobotArm;
-    }
 }

@@ -15,17 +15,17 @@ export class SimulatorComponent implements OnInit {
   scene: THREE.Scene;
   camera: THREE.PerspectiveCamera;
   renderer: THREE.WebGLRenderer;
-  // controls = new THREE.OrbitControls(this.camera, this.renderer.domElement);
   controls: THREE.OrbitControls;
   container;
   model;
   base;
-  lArm;
-  rArm;
+  lowerArm;
+  upperArm;
   oneHolder;
   secondHolder;
-  lClaw;
-  rClaw;
+  leftClaw;
+  rightClaw;
+  flag;
 
   constructor(private modelService: ModelService) {
     this.render = this.render.bind(this);
@@ -68,14 +68,6 @@ export class SimulatorComponent implements OnInit {
       document.getElementById('simulator').appendChild(this.renderer.domElement);
     }
 
-    public render() {
-      this.renderer.render(this.scene, this.camera);
-    }
-
-    // private get canvas(): HTMLCanvasElement {
-    //     return this.canvasRef.nativeElement;
-    // }
-
     @HostListener('window:resize', ['$event'])
     resizeWindow(event: Event) {
         const WIDTH = this.container.clientWidth,
@@ -87,8 +79,6 @@ export class SimulatorComponent implements OnInit {
     }
 
     createControls() {
-      // const controls = new THREE.OrbitControls(this.camera, this.renderer.domElement);
-      // controls.addEventListener('change', this.renderer.render(this.scene, this.camera));
       this.controls = new THREE.OrbitControls(this.camera);
       this.controls.addEventListener('change', this.render);
     }
@@ -138,104 +128,175 @@ export class SimulatorComponent implements OnInit {
       this.scene.add(this.model);
       // 7 children in general
       this.base = this.model.children[0];
-      this.lArm = this.model.children[1];
-      this.rArm = this.lArm.children[1];
-      this.oneHolder = this.rArm.children[2];
-      this.secondHolder = this.rArm.children[4];
-      this.lClaw = this.rArm.children[5];
-      this.rClaw = this.rArm.children[6];
+      this.lowerArm = this.model.children[1];
+      this.upperArm = this.lowerArm.children[1];
+      this.oneHolder = this.upperArm.children[1];
+      this.secondHolder = this.upperArm.children[2];
+      this.leftClaw = this.upperArm.children[3];
+      this.rightClaw = this.upperArm.children[4];
     }
 
-    moveFunction(posX, posY, isElbowUp = true) {
-      console.log('X: ' + posX + ' Y: ' + posY + ' ElbowUP: ' + true);
+    moveArmFunction(posX, posY, isElbowUp = true) {
+      console.log('X: ' + posX + ' Y: ' + posY + ' ElbowUP: ' + isElbowUp);
 
-      // this.model.upperRobotArm.position.set(10, 20, 50);
-      // console.log(this.model.children[2]);
-      // works!
-      // this.model.children[2].position.set(10,20,50);
-      // console.log(this.model.children[2].position);;
-      // // instead of moving to (10,10)
-      // const newPosX = this.model.children[2].position.x + posX;
-      // const newPosY  = this.model.children[2].position.y + posY;
-      // this.model.children[2].position.set(newPosX, newPosY, 0);
-      // console.log(this.model.children[2].position);
+      const LboundingBox = new THREE.Box3().setFromObject(this.lowerArm);
+      const RboundingBox = new THREE.Box3().setFromObject(this.upperArm);
+      // console.log('low arm dimensions: ', LboundingBox.getSize());
+      // console.log('low arm center by boundingbox: ', LboundingBox.getCenter());
+      // console.log('up arm dimensions: ', RboundingBox.getSize());
+      // console.log('up arm center by boundingbox: ', RboundingBox.getCenter());
+
+      console.log(this.lowerArm.position);
+
+      const axis = new THREE.Vector3(0, 0, 1);
+      const lowerArmPivot = new THREE.Vector3(0, 0, 0);
+
+      if ((this.lowerArm.rotation.z > -2.5 * Math.PI / 12 && this.lowerArm.rotation.z < 2.5 * Math.PI / 12)) {
+        // // Works a bit
+        /**UNCOMMENT**/
+        this.lowerArm.parent.localToWorld(this.lowerArm.position);
+        this.lowerArm.position.sub(lowerArmPivot);
+        this.lowerArm.position.applyAxisAngle(axis, -Math.PI / 12);  // PI/12  PI/84 for iter
+        this.lowerArm.position.add(lowerArmPivot);
+        this.lowerArm.parent.worldToLocal(this.lowerArm.position);
+        // this.lowerArm.rotateOnAxis(axis, -Math.PI/12);
+        this.lowerArm.rotation.z += -Math.PI / 12;  // PI/84 for iter
+        console.log('rotation:', this.lowerArm.rotation);
+        console.log('new lowerArm position:', this.lowerArm.position);
+
+        console.log('curr position of upArm:', this.upperArm.position);
+        console.log('curr rotation of upArm:', this.upperArm.rotation);
+
+      }
+
+
+      /** upper arm rotation is based on the lower arm position so the pivot would need to change
+       * accordingly so that the pivot point is in the correct place
+       * so what to do is log the position of the upperArm and see if that changes after rotation of lower arm only,
+       * leaving the upper ar static**/
+
+      // else if(this.upperArm.rotation.z > -9 * Math.PI / 12 && this.upperArm.rotation.z < -2 * Math.PI / 12) {
+      //   console.log('current pos of upperArm', this.upperArm.position);
       //
-      // this.modelService.SimModel.prototype.move = function(posX, posY, isElbowUp = true) {
-      //   console.log('protype test');
-      // };
+      //   const leftClawBoundingBox = new THREE.Box3().setFromObject(this.leftClaw);
       //
-      // this.modelService.SimModel.prototype.move(10,10,true);
-
-
-
-      // for x movement, rotate lower arm (but also affects y)
-      // for y movement, rotate upper arm?
-      // ** don't rotate by x
-      // object position is counting the bottom of the object
-      const LboundingBox = new THREE.Box3().setFromObject(this.lArm);
-      const RboundingBox = new THREE.Box3().setFromObject(this.rArm);
-      console.log('low arm dimensions: ', LboundingBox.getSize());
-      console.log('up arm dimensions: ', RboundingBox.getSize());
-
-      // console.log(boundingBox);
+      //   // works a bit
+      //   const upperArmPivot = RboundingBox.getCenter();
+      //   console.log('orignal upperArmPivot:', upperArmPivot);
+      //   console.log('Half of y size:', RboundingBox.getSize().x / 2);
+      //   // upperArmPivot.x -= (RboundingBox.getSize().x / 2) - 2.4;  //2.4 pretty good
+      //   /**adding this to fix**/
+      //   upperArmPivot.x -= (RboundingBox.getSize().x / 2) - 2;
+      //   /**adding this to fix**/
+      //   // upperArmPivot.y -= (RboundingBox.getSize().y / 2) - 5; //1 ok...
+      //   /**adding this to fix**/
+      //   upperArmPivot.y -= (RboundingBox.getSize().y / 2) - 14;
+      //   /**adding this to fix**/
+      //   console.log('upperArmPivot:', upperArmPivot);
       //
+      //   console.log('curr up arm rotation:', this.upperArm.rotation);
       //
-      // let center = new THREE.Vector3();
-      // center =  boundingBox.getCenter();
-      // // console.log('box position: ', this.model.children[0].position);
-      // console.log('object height: ', boundingBox.getSize());
-      // console.log('object position: ', this.model.children[0].position);
-      // console.log('object center: ', center);
-      //
-      // const axis = new THREE.Vector3(0,0,1);
-      // // end of lower robot arm pt = (-3, 7.8, 0.5);
-      // const point = new THREE.Vector3(-3,7.8,0.5);
-      // this.model.children[0].position.sub(point);
-      // this.model.children[0].position.applyAxisAngle(axis, Math.PI/12);
-      // this.model.children[0].position.add(point);
-      //
-      // this.model.children[0].rotateOnAxis(axis,-Math.PI/12);
-
-
-
-      // this.model.children[1].translateX(center.x);
-      // this.model.children[1].translateY(center.y);
-      // this.model.children[1].translateZ(center.z);
-      //
-      // console.log('object position after translation: ', this.model.children[1].position);
-
-      // this.model.children[1].translateX(0);
-      // this.model.children[1].translateY(0);
-      // this.model.children[1].translateZ(boundingBox.getSize().y / 2);
-      // console.log('object position after translation: ', this.model.children[1].position);
-
-      // this.model.children[1].translateX(center.x);
-      // this.model.children[1].translateY(center.y);
-      // this.model.children[1].translateZ(center.z);
-      // this.model.children[1].position.set();
-      // console.log(this.model.children[1].position);
-
-      // this.model.children[1].rotation.set(0, 0, -Math.PI / 6);
-      // console.log(this.model.children[1].position);
-
-      // this.model.children[1].translateX(-center.x);
-      // this.model.children[1].translateY(-center.y);
-      // this.model.children[1].translateZ(-center.z);
-      // console.log(this.model.children[1].position);
+      //   console.log('TEST:', this.upperArm.position.x - upperArmPivot.x);
+      //   /*UNCOMMENT*/
+      //   this.upperArm.parent.localToWorld(this.upperArm.position);
+      //   this.upperArm.position.sub(upperArmPivot);
+      //   console.log('test position:', this.upperArm.position);
+      //   this.upperArm.position.applyAxisAngle(axis, -Math.PI / 144);  //4*Math.PI/12
+      //   this.upperArm.position.add(upperArmPivot);
+      //   this.upperArm.parent.worldToLocal(this.upperArm.position);
+      //   // this.upperArm.rotateOnAxis(axis, 4*Math.PI / 12);
+      //   this.upperArm.rotation.z += -Math.PI / 144;
+      //   console.log('after pos of upperArm', this.upperArm.position);
+      //   console.log('after rotation of upperArm', this.upperArm.rotation);
+      // }
     }
 
-    animate() {
+    private changeRotationPoint(obj, scene, position) {
+      const parent = new THREE.Object3D();
+      parent.add(obj);
+      if (obj.parent) {
+        scene.add(parent);
+      }
+      parent.position.set(position.x, position.y, position.z);
 
-      // const animateFunc = this.animate;
-      // requestAnimationFrame(animateFunc);
 
-      // this.model.children[1].rotation.z += Math.PI / 6;
-      // this.model.children[1].rotation.z += Math.PI / 6;
+      const x = this.lowerArm.position.x - position.x;
+      const y = this.lowerArm.position.y - position.y;
+      const z = this.lowerArm.position.z - position.z;
+      obj.position.set(x, y, z);
+    }
+
+    moveClawFunction(distanceApart) {
+      console.log('moveClaw func called');
+      const axis = new THREE.Vector3(0, 0, 1);
+      // rotate both left claw and right claw
+      const leftClawBox = new THREE.Box3().setFromObject(this.leftClaw);
+      const rightClawBox = new THREE.Box3().setFromObject(this.rightClaw);
+      const leftClawPivot = leftClawBox.getCenter();
+      const rightClawPivot = rightClawBox.getCenter();
+      console.log('leftClaw dimension:', leftClawBox.getSize());
+      console.log('leftClaw center:', leftClawPivot);
+      console.log('rightClaw dimension:', rightClawBox.getSize());
+      console.log('rightClaw center:', rightClawPivot);
+
+      /*this.leftClaw.position.set(80, 125, -0.1, -75);
+      this.leftClaw.rotation.set(0, 0, -(11 * Math.PI / 6));
+      this.leftClaw.scale.set(.2,.2,.2);*/
+
+      this.leftClaw.parent.localToWorld(this.leftClaw.position);
+      this.leftClaw.position.sub(leftClawPivot);
+      console.log('test l claw position:', this.leftClaw.position);
+      this.leftClaw.position.applyAxisAngle(axis, Math.PI / 144);
+      this.leftClaw.position.add(leftClawPivot);
+      this.leftClaw.parent.worldToLocal(this.leftClaw.position);
+      this.leftClaw.rotation.z += Math.PI / 144;
+    }
+
+    // wait(timeToWait) {
+    //   // add timer here
+    //   setTimeout(function () {
+    //     console.log('Waited ' + timeToWait + ' milliseconds!');
+    //     alert('Waited ' + timeToWait + ' milliseconds!');
+    //     return;
+    //   }, timeToWait);
+    // }
+
+
+    render() {
+      // requestAnimationFrame(this.render);
+      // /*if moveArm function is called*/
+      // if ((this.lowerArm.rotation.z > -3 * Math.PI / 12 && this.lowerArm.rotation.z < 3 * Math.PI / 12)
+      //    && (this.upperArm.rotation.z > -9 * Math.PI / 12 && this.upperArm.rotation.z < -2 * Math.PI / 12)) {
+      //   this.moveArmFunction(10, 10, true);
+      // }
+
+      //moveClaw function called
+
 
       this.renderer.render(this.scene, this.camera);
 
-      // console.log("TEST");
+      // test animation
+      // this.model.rotation.y += .01;
 
+      // if (this.lowerArm.rotation.z >= 1 || this.lowerArm.rotation.z <= -1) {
+      //   this.flag = !this.flag;
+      // }
+      //
+      // if (this.flag) {
+      //   this.lowerArm.rotation.z += .01;
+      // } else {
+      //   this.lowerArm.rotation.z -= .01;
+      //    cancelAnimationFrame(requestAnimationFrame(this.render));
+      // }
+      // this.upperArm.rotation.z += .01;
+
+      // const clock = new THREE.Clock();
+      // const animationMixer = new THREE.AnimationMixer(this.model);
+      // const animation = THREE.AnimationClipCreator.CreateRotationAnimation(100, 'y');
+      // animationMixer.clipAction(animation).play();
+      //
+      // const delta = 0.75 * clock.getDelta();
+      // animationMixer.update(delta);
     }
 
     ngAfterViewInit(): void {
@@ -247,8 +308,10 @@ export class SimulatorComponent implements OnInit {
         this.createPlatform();
         this.createModel();
 
-        this.moveFunction(10, 10, true);
+        this.moveArmFunction(10, 10, true);
 
-        this.animate();
+        // this.moveClawFunction(5);
+
+        // this.wait(5000);
     }
   }
