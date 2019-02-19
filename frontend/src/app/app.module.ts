@@ -10,12 +10,13 @@ import { RegisterComponent } from './components/register/register.component';
 import { SimulatorComponent } from './simulator/simulator.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatFormFieldModule, MatInputModule, MatIconModule, MatCardModule, MatTabsModule, MatSnackBarModule } from '@angular/material';
+import { MatFormFieldModule, MatInputModule, MatIconModule, MatCardModule, MatTabsModule, MatSnackBarModule, MatButtonModule, MatDialogModule } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SaveProcedureComponent } from './components/save-procedure/save-procedure.component';
 import { BlocklyEditorComponent } from './components/blockly-editor/blockly-editor.component';
-import { RobotStatusComponent } from './components/robot-status/robot-status.component';
+import { RobotConnectionComponent } from './components/robot-connection/robot-connection.component';
 import { ProfileSettingsComponent } from './components/profile-settings/profile-settings.component';
+import { RobotConnectionDialogComponent } from './components/robot-connection-dialog/robot-connection-dialog.component';
 
 @NgModule({
   declarations: [
@@ -26,8 +27,9 @@ import { ProfileSettingsComponent } from './components/profile-settings/profile-
     SimulatorComponent,
     SaveProcedureComponent,
     BlocklyEditorComponent,
-    RobotStatusComponent,
-    ProfileSettingsComponent
+    RobotConnectionComponent,
+    ProfileSettingsComponent,
+    RobotConnectionDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -40,7 +42,12 @@ import { ProfileSettingsComponent } from './components/profile-settings/profile-
     MatIconModule,
     MatCardModule,
     MatTabsModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatButtonModule,
+    MatDialogModule
+  ],
+  entryComponents: [
+    RobotConnectionDialogComponent
   ],
   providers: [UsersApiService],
   bootstrap: [AppComponent],

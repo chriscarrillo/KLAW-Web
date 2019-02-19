@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RobotStatusComponent } from './robot-status.component';
+import { RobotConnectionComponent } from './robot-connection.component';
 
 describe('RobotStatusComponent', () => {
-  let component: RobotStatusComponent;
-  let fixture: ComponentFixture<RobotStatusComponent>;
+  let component: RobotConnectionComponent;
+  let fixture: ComponentFixture<RobotConnectionComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RobotStatusComponent ]
+      declarations: [ RobotConnectionComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RobotStatusComponent);
+    fixture = TestBed.createComponent(RobotConnectionComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
