@@ -1,4 +1,8 @@
 import { Component, AfterViewInit, ViewChild, ElementRef, OnInit } from '@angular/core';
+import '../../../../node_modules/blockly/blockly_compressed.js'
+import '../../../../node_modules/blockly/javascript_compressed.js'
+import './blockly-blocks/blocks.js';
+
 declare var Blockly: any;
 
 @Component({
@@ -7,7 +11,6 @@ declare var Blockly: any;
   styleUrls: ['./blockly-editor.component.css']
 })
 export class BlocklyEditorComponent implements OnInit {
-  workspace: any;
   constructor() { }
 
   ngOnInit() {
@@ -16,7 +19,13 @@ export class BlocklyEditorComponent implements OnInit {
   @ViewChild('toolbox') toolbox: ElementRef;
 
   ngAfterViewInit(): void {
-    this.workspace = Blockly.inject('blocklyDiv',
+    var workspace = Blockly.inject('blocklyDiv',
     {toolbox: this.toolbox.nativeElement });
+
+    function jsUpdate() {
+      var robotCommands = Blockly.JavaScript.workspaceToCode(workspace);
+      console.log(robotCommands);
+    }
+    workspace.addChangeListener(jsUpdate);
   }
 }
