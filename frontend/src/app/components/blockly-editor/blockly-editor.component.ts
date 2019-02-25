@@ -23,9 +23,43 @@ export class BlocklyEditorComponent implements OnInit {
     {toolbox: this.toolbox.nativeElement });
 
     function jsUpdate() {
-      var robotCommands = Blockly.JavaScript.workspaceToCode(workspace);
-      console.log(robotCommands);
+      var commandString = Blockly.JavaScript.workspaceToCode(workspace);
+
+      if (commandString.includes('\n')){
+        console.log("ERROR: Please connect all of your blocks before executing.");
+      }
+      else {
+        var commandsArray = commandString.split(';'); //split up the commands
+        commandsArray.pop(); // pull off the last element of the array (will always be empty)
+        //console.log(commandsArray);
+
+        var numCommands = commandsArray.length;
+        for (var i = 0; i < numCommands; i++) { //loop through all of the commands
+          if (commandsArray[i].includes('wait')) { // if the command is wait 
+            var waitTime = parseInt(commandsArray[i].substring(commandsArray[i].indexOf( '(' ) + 1, commandsArray[i].indexOf( ')' ))); //get the wait time as an int 
+            console.log("Waiting this many milliseconds: " + waitTime);
+            //need to call simulation service .wait()
+          }
+          else if (commandsArray[i].includes('moveClaw')) { // if the command is moveClaw
+            var distanceInCentimeters = parseInt(commandsArray[i].substring(commandsArray[i].indexOf( '(' ) + 1, commandsArray[i].indexOf( ')' ))); //get the distance in centimeters as an int
+            console.log("Moving the claw this many centimeters apart: " + distanceInCentimeters);
+            //need to call simulation service .moveClaw()
+          }
+          else if (commandsArray[i].includes('moveArm')) { //in the command is moveArm
+            var xCoord = parseInt(commandsArray[i].substring(commandsArray[i].indexOf( '(' ) + 1, commandsArray[i].indexOf( ',' ))); //get the x coord as an int
+            var yCoord = parseInt(commandsArray[i].substring(commandsArray[i].indexOf( ',' ) + 1, commandsArray[i].lastIndexOf( ',' ))); // get the y coord as an int
+            var isUpString = commandsArray[i].substring(commandsArray[i].lastIndexOf( ',' ) + 1, commandsArray[i].indexOf( ')' )); //get the isUp value
+            var isUp = true; //by default isUp is true
+            if (isUpString == 'false'){ //if it reads false, though
+              isUp = false; //make the boolean false
+            }
+            console.log("Moving arm. x: " + xCoord + ", " + "y: " + yCoord + ", " + "isUp: " + isUp)
+            //need to call simulation service .moveArm()
+          }
+        }
+      }
     }
+
     workspace.addChangeListener(jsUpdate);
   }
 }
