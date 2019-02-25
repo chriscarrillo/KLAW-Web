@@ -2,9 +2,9 @@ Blockly.Blocks['move_arm'] = {
     init: function() {
       this.appendDummyInput()
           .appendField("Move robot arm to (")
-          .appendField(new Blockly.FieldNumber(0), "arm_x")
+          .appendField(new Blockly.FieldNumber(0), "armX")
           .appendField(",")
-          .appendField(new Blockly.FieldNumber(0), "arm_y")
+          .appendField(new Blockly.FieldNumber(0), "armY")
           .appendField(").");
       this.appendDummyInput()
           .appendField("Is robot elbow up?")
@@ -18,11 +18,11 @@ Blockly.Blocks['move_arm'] = {
   };
   
   Blockly.JavaScript['move_arm'] = function(block) {
-    var number_arm_x = block.getFieldValue('arm_x');
-    var number_arm_y = block.getFieldValue('arm_y');
-    var checkbox_iselbowup = block.getFieldValue('isElbowUp') == 'TRUE';
+    var numberArmX = block.getFieldValue('armX');
+    var numberArmY = block.getFieldValue('armY');
+    var checkboxIsElbowUp = block.getFieldValue('isElbowUp') == 'TRUE';
     // TODO: Assemble JavaScript into code variable.
-    var code = 'moveArm(' + number_arm_x + ',' + number_arm_y + ',' + checkbox_iselbowup + ');';
+    var code = 'moveArm(' + numberArmX + ',' + numberArmY + ',' + checkboxIsElbowUp + ');';
 
     return code;
   };
@@ -42,9 +42,9 @@ Blockly.Blocks['move_arm'] = {
   };
   
   Blockly.JavaScript['move_claw'] = function(block) {
-    var distance_between_fingers_in_centimeters = block.getFieldValue('distanceBetweenFingersInCentimeters');
+    var distanceBetweenFingersInCentimeters = block.getFieldValue('distanceBetweenFingersInCentimeters');
     // TODO: Assemble JavaScript into code variable.
-    var code = 'moveClaw(' + distance_between_fingers_in_centimeters + ');';
+    var code = 'moveClaw(' + distanceBetweenFingersInCentimeters + ');';
     return code;
   };
   
@@ -52,7 +52,7 @@ Blockly.Blocks['move_arm'] = {
     init: function() {
       this.appendDummyInput("wait")
           .appendField("Wait for")
-          .appendField(new Blockly.FieldNumber(0), "wait_in_milliseconds")
+          .appendField(new Blockly.FieldNumber(0), "waitInMilliseconds")
           .appendField("milliseconds");
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
@@ -63,8 +63,8 @@ Blockly.Blocks['move_arm'] = {
   };
   
   Blockly.JavaScript['wait'] = function(block) {
-    var number_wait_in_milliseconds = block.getFieldValue('wait_in_milliseconds');
+    var numberWaitInMilliseconds = block.getFieldValue('waitInMilliseconds');
     // TODO: Assemble JavaScript into code variable.
-    var code = 'wait(' + number_wait_in_milliseconds + ');';
+    var code = 'wait(' + numberWaitInMilliseconds + ');';
     return code;
   };
