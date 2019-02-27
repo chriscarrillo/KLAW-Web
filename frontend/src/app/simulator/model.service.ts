@@ -69,7 +69,7 @@ export class ModelService {
 
       this.rightClaw = new this.RobotClaw();
       this.rightClaw.position.set(55, 171, -0.1, -75);
-      this.rightClaw.rotation.set(0, 0, (12 * Math.PI / 6));
+      this.rightClaw.rotation.set(0, 0, (12 * Math.PI / 6)); //changed for testing (was 12pi/6)
       this.rightClaw.scale.set(.2, .2, .2);
 
       // test:
