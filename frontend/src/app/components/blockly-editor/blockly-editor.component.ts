@@ -4,6 +4,7 @@ import '../../../../node_modules/blockly/javascript_compressed.js'
 import './blockly-blocks/blocks.js';
 
 declare var Blockly: any;
+var xmlText: any;
 
 @Component({
   selector: 'app-blockly-editor',
@@ -11,22 +12,11 @@ declare var Blockly: any;
   styleUrls: ['./blockly-editor.component.css']
 })
 export class BlocklyEditorComponent implements OnInit {
+  xmlText: any;
+
   constructor() { }
 
   ngOnInit() {
-  
-  	var workspace = Blockly.inject('xmlText',
-    {toolbox: this.toolbox.nativeElement });
- 
- 	function renderContent() {
- 		var xmlTextArea = document.getElementById('xmlText');
-    	var xmlDom = Blockly.Xml.workspaceToDom(workspace);
-    	var xmlText = Blockly.Xml.domToPrettyText(xmlDom);
-    	
-    	xmlTextArea = xmlText.nodeValue;
-    	xmlTextArea.focus();
-    }
-    workspace.addChangeListener(renderContent);
     
     /*function xmlUpdate() {
     	var xml = Blockly.Xml.textToDom(renderContent().xmlTextArea);
@@ -47,8 +37,24 @@ export class BlocklyEditorComponent implements OnInit {
       var commandString = Blockly.JavaScript.workspaceToCode(workspace);
       return commandString;
     }
-    workspace.addChangeListener(jsUpdate);
     
+     function renderContent() {
+     	var xmlTextArea = <HTMLInputElement>document.getElementById('xmlText');
+     	
+    	var xmlDom = Blockly.Xml.workspaceToDom(workspace);
+    	xmlText = Blockly.Xml.domToPrettyText(xmlDom);
+    	
+    	xmlTextArea.value = "hello";
+   
+    	console.log(xmlTextArea);
+    }
+    
+    function listenerCommands() {
+    	jsUpdate();
+    	renderContent();
+    }
+	//workspace.addChangeListener(renderContent); 
+	  workspace.addChangeListener(listenerCommands);  
     
     function sendCommandsToRobot(){
       var commandString = jsUpdate(); //get the latest from blockly
