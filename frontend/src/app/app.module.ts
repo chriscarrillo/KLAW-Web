@@ -16,6 +16,7 @@ import { RobotConnectionComponent } from './components/robot-connection/robot-co
 import { RobotConnectionDialogComponent } from './components/robot-connection-dialog/robot-connection-dialog.component';
 import { ProfileSettingsComponent } from './components/profile-settings/profile-settings.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { StartControlComponent } from './components/start-control/start-control.component';
 
 const routes: Routes = [
   {
@@ -42,7 +43,8 @@ const routes: Routes = [
     BlocklyEditorComponent,
     RobotConnectionComponent,
     ProfileSettingsComponent,
-    RobotConnectionDialogComponent
+    RobotConnectionDialogComponent,
+    StartControlComponent
   ],
   imports: [
     BrowserModule,
