@@ -4,7 +4,8 @@ import '../../../../node_modules/blockly/javascript_compressed.js'
 import './blockly-blocks/blocks.js';
 
 declare var Blockly: any;
-var xmlText: any;
+var blocklyToXml: any;
+var workspace: any;
 
 @Component({
   selector: 'app-blockly-editor',
@@ -12,24 +13,16 @@ var xmlText: any;
   styleUrls: ['./blockly-editor.component.css']
 })
 export class BlocklyEditorComponent implements OnInit {
-  xmlText: any;
 
   constructor() { }
 
   ngOnInit() {
-    
-    /*function xmlUpdate() {
-    	var xml = Blockly.Xml.textToDom(renderContent().xmlTextArea);
-    	Blockly.Xml.domToWorkspace(xml, workspace);
-    }
-    workspace.addChangeListener(xmlUpdate);*/
-    
   }
   
   @ViewChild('toolbox') toolbox: ElementRef;
 
   ngAfterViewInit(): void {
-    var workspace = Blockly.inject('blocklyDiv',
+    workspace = Blockly.inject('blocklyDiv',
     {toolbox: this.toolbox.nativeElement });
 
     //get the code from blockly
@@ -42,19 +35,25 @@ export class BlocklyEditorComponent implements OnInit {
      	var xmlTextArea = <HTMLInputElement>document.getElementById('xmlText');
      	
     	var xmlDom = Blockly.Xml.workspaceToDom(workspace);
-    	xmlText = Blockly.Xml.domToPrettyText(xmlDom);
+    	blocklyToXml = Blockly.Xml.domToPrettyText(xmlDom);
     	
-    	xmlTextArea.value = "hello";
-   
-    	console.log(xmlTextArea);
+      xmlTextArea.value = blocklyToXml;
+
+    }
+
+    function xmlUpdate() {
+      var xmlTextArea = <HTMLInputElement>document.getElementById('xmlText');
+    	var xml = Blockly.Xml.textToDom("hello");
+      Blockly.Xml.domToWorkspace(xml, workspace);
     }
     
-    function listenerCommands() {
+    function changeListenerCommands() {
     	jsUpdate();
-    	renderContent();
+      renderContent();
+      xmlUpdate();
     }
 	//workspace.addChangeListener(renderContent); 
-	  workspace.addChangeListener(listenerCommands);  
+	  workspace.addChangeListener(changeListenerCommands);  
     
     function sendCommandsToRobot(){
       var commandString = jsUpdate(); //get the latest from blockly
@@ -100,6 +99,11 @@ export class BlocklyEditorComponent implements OnInit {
         }
       }
     }
+  }
+  xmlUpdate() {
+    var xmlTextArea = (<HTMLInputElement>document.getElementById('xmlText')).value;
+    var xml = Blockly.Xml.textToDom(xmlTextArea);
+    Blockly.Xml.domToWorkspace(xml, workspace);
   }
 }
 
