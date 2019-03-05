@@ -8,9 +8,15 @@
                                 <block type="wait"></block>
                         </category>
                 </xml>
+                
         </mat-tab>
         <mat-tab label="XML">
-          <h1>TODO: Place XML here</h1>
-          <!-- Should be helpful: https://github.com/google/blockly/tree/master/demos/code-->
+        	<div id="xmlText" style="height: 800px; width: 700px;"></div>
+        		<h1>
+          			<textarea id="xmlText" wrap="off" style="height: 800px; width: 700px;">
+          				{{xmlText}}
+          			</textarea>
+          		</h1>
+				<!-- Should be helpful: https://github.com/google/blockly/tree/master/demos/code-->
         </mat-tab>
 </mat-tab-group>

@@ -14,6 +14,26 @@ export class BlocklyEditorComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+  
+  	var workspace = Blockly.inject('xmlText',
+    {toolbox: this.toolbox.nativeElement });
+ 
+ 	function renderContent() {
+ 		var xmlTextArea = document.getElementById('xmlText');
+    	var xmlDom = Blockly.Xml.workspaceToDom(workspace);
+    	var xmlText = Blockly.Xml.domToPrettyText(xmlDom);
+    	
+    	xmlTextArea = xmlText.nodeValue;
+    	xmlTextArea.focus();
+    }
+    workspace.addChangeListener(renderContent);
+    
+    /*function xmlUpdate() {
+    	var xml = Blockly.Xml.textToDom(renderContent().xmlTextArea);
+    	Blockly.Xml.domToWorkspace(xml, workspace);
+    }
+    workspace.addChangeListener(xmlUpdate);*/
+    
   }
   
   @ViewChild('toolbox') toolbox: ElementRef;
@@ -28,7 +48,8 @@ export class BlocklyEditorComponent implements OnInit {
       return commandString;
     }
     workspace.addChangeListener(jsUpdate);
-
+    
+    
     function sendCommandsToRobot(){
       var commandString = jsUpdate(); //get the latest from blockly
       //need to send this to robot
