@@ -1,7 +1,13 @@
 import {Component, ElementRef, HostListener, OnInit, ViewChild, AfterViewInit} from '@angular/core';
 import * as THREE from 'three';
+import * as TWEEN from 'tween';
 // import * as THREE from 'three/build/three.min.js';
 import './js/EnableThreeExamples';
+import './js/EnableTween';
+
+import * as createjs from 'createjs-module';
+
+
 import 'three/examples/js/controls/OrbitControls';
 import {ModelService} from './model.service';
 
@@ -60,13 +66,13 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
         this.camera.updateProjectionMatrix();
     }
 
-    //adds Orbit Controls to scene
+    // adds Orbit Controls to scene
     addControls() {
       this.controls = new THREE.OrbitControls(this.camera);
       this.controls.addEventListener('change', this.render);
     }
 
-    //inits renderer and maintains timing on animation
+    // inits renderer and maintains timing on animation
     private startRendering() {
       try {
         this.renderer = new THREE.WebGLRenderer({
@@ -88,6 +94,21 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
       (function render() {
         setTimeout(function() {
           requestAnimationFrame(render);
+          /**adding or testing**/
+          // const testCodeStr = 'moveArm(10,10,true)/moveClaw{10)';
+          // const commands = testCodeStr.split('/');
+          const functionArray = [];
+          // functionArray.push(component.moveArmFunction(10, 10, true));
+          // commands.forEach(function(command) {
+          //   if (command.startsWith('moveArm')) {
+          //     /**can't add function in here since it doesn't recognize `this`?**/
+          //     need to also parse for the argument values
+              // functionArray.push(component.moveArmFunction(10, 10, true));
+            // }
+            // else if (command.startsWith('moveClaw')) {
+            //   functionArray.push(component.moveClawFunction(10));
+            // }
+          // });
         }, 1000 / 20);
         component.render();
       }());
@@ -147,8 +168,40 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
       this.rightClaw = this.upperArm.children[4];
     }
 
+    private convertLinearToDegrees(posX, posY) {
+      /**Courtesy of Kris Hopper**/
+      const startX = 0;
+      const startY = 10;
+      const leg1 = 22.941;
+      const leg2 = 37.252;
+      const moveX = posX - startX;
+      const moveY = posY - startY;
+      const coordLimit = Math.pow(moveX, 2) + Math.pow(moveY, 2);
+      const r = Math.sqrt(coordLimit);
+
+      if (1914.001 <= coordLimit && coordLimit <= 3623.197) {
+        let q_2 = Math.acos((Math.pow(moveX, 2) + Math.pow(moveY, 2) - Math.pow(leg1, 2) - Math.pow(leg2, 2)) / (2 * leg1 * leg2));
+        let q_1 = Math.atan(moveY / moveX) - Math.atan((leg2 * Math.sin(q_2) / (leg1 + leg2 * Math.cos(q_2))));
+        // convert radians to degrees
+        q_1 = q_1 * (180 / Math.PI);
+        q_2 = q_2 * (180 / Math.PI);
+
+        const lowerArmAngle = -(90 - q_1);
+        const upperArmAngle = -(180 - q_2);
+
+        return [lowerArmAngle, upperArmAngle];
+      }
+    }
+
     moveArmFunction(posX, posY, isElbowUp = true) {
       console.log('X: ' + posX + ' Y: ' + posY + ' ElbowUp: ' + isElbowUp);
+
+      // const calculatedAngles = this.convertLinearToDegrees(posX, posY);
+      // const lowerArmAngle = calculatedAngles[0];
+      // const upperArmAngle = calculatedAngles[1];
+
+      console.log('current up arm rotation:', this.upperArm.rotation);
+      console.log('sum of lower arm rotation:', this.sumOfLowArmRotation);
 
       const LboundingBox = new THREE.Box3().setFromObject(this.lowerArm);
       const RboundingBox = new THREE.Box3().setFromObject(this.upperArm);
@@ -156,6 +209,8 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
       const axis = new THREE.Vector3(0, 0, 1);
       const lowerArmPivot = new THREE.Vector3(0, 0, 0);
 
+      // need to change limit to -90 to 90 degrees (ofc need to add to default rot pos)
+      // if ((this.lowerArm.rotation.z > -2.5 * Math.PI / 12 && this.lowerArm.rotation.z < 2.5 * Math.PI / 12)) {
       if ((this.lowerArm.rotation.z > -2.5 * Math.PI / 12 && this.lowerArm.rotation.z < 2.5 * Math.PI / 12)) {
         this.lowerArm.parent.localToWorld(this.lowerArm.position);
         this.lowerArm.position.sub(lowerArmPivot);
@@ -176,7 +231,12 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
 
       }
 
-      else if (this.upperArm.rotation.z > -9 * Math.PI / 12 - this.sumOfLowArmRotation && this.upperArm.rotation.z < -2 * Math.PI / 12 + this.sumOfLowArmRotation) {
+      // default rot is 6*pi/12
+      // change limit to -225 to 225  (adding defulat rot pos)
+      // maybe instead of the boundaries, need to incorporate the actual rotation angles
+        // that represent the given linear arguments
+      // else if (this.upperArm.rotation.z > -9 * Math.PI / 12 - this.sumOfLowArmRotation && this.upperArm.rotation.z < -2 * Math.PI / 12 + this.sumOfLowArmRotation) {
+      else if (this.upperArm.rotation.z > -5 * Math.PI / 4 - this.sumOfLowArmRotation && this.upperArm.rotation.z < 5 * Math.PI / 4 + this.sumOfLowArmRotation) {
         console.log('current pos of upperArm', this.upperArm.position);
 
         const upperArmPivot = RboundingBox.getCenter();
@@ -287,6 +347,47 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
       }, timeToWait);
     }
 
+    /**testing**/
+    tweenTest() {
+      // const target = new THREE.Vector3(0, 0, 0);
+      const target = this.lowerArm.position;
+
+      this.animateVector3(this.lowerArm.position, target, {
+        duration: 5000,
+        easing: TWEEN.Easing.Quadratic.InOut,
+        update: function(d) {
+          console.log('Updating: ' + d);
+        },
+        callback: function() {
+          console.log('Completed');
+        }
+      });
+    }
+
+    animateVector3(vectorToAnimate, target, options) {
+      options = options || {};
+
+      const to = target || THREE.Vector3(),
+        easing = options.easign ||
+          TWEEN.Easing.Quadratic.In,
+        duration = options.duration || 2000;
+
+      const tweenVector3 = new TWEEN.Tween(vectorToAnimate)
+        .to({x:to.x, y:to.y, z:to.z, }, duration)
+        .easing(easing)
+        .onUpdate(function(d) {
+          if(options.update) {
+            options.update(d);
+          }
+        })
+        .onComplete(function() {
+          if(options.callback) options.callback();
+        });
+
+      tweenVector3.start();
+      return tweenVector3;
+    }
+
 
     render() {
       /*if moveArm function is called*/
@@ -294,6 +395,35 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
 
       // moveClaw function called
       // this.moveClawFunction(10);
+
+      // maybe from the blockly, we can get that string of commands without copying all our code
+
+      // const testCodeStr = 'moveArm(10,10,true)/moveClaw{10)';
+      // const commands = testCodeStr.split('/');
+      //
+      // const functionArray = [];
+      // commands.forEach(function(command) {
+      //   if (command.startsWith('moveArm')) {
+      //     functionArray.('hi');
+      //   }
+      // });
+      //
+      // console.log(functionArray.length);
+
+
+      /**Testing TWEEN**/
+      // get method returns new tween instance (functionally identical to `new Tween(...)`)
+      // call method adds an action to call the specified function
+      // wait method adds a wait (essentially an empty tween)
+      const tween = createjs.Tween.get(this.model)
+        .call(this.moveArmFunction, [10, 10, true])
+        .wait(1000)
+        .call(this.moveClawFunction, [10]);
+      // const tween = new TWEEN.Tween(this.lowerArm.position);
+      // this.tweenTest();
+      TWEEN.update();
+
+
       this.renderer.render(this.scene, this.camera);
 
       // test animation
@@ -315,7 +445,7 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
         this.createModel();
         this.startRendering();
 
-        this.moveArmFunction(10, 10, true);
+        // this.moveArmFunction(10, 10, true);
 
         // this.moveClawFunction(5);
 
