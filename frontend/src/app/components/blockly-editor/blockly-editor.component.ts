@@ -110,5 +110,8 @@ export class BlocklyEditorComponent implements OnInit {
     var xml = Blockly.Xml.textToDom(xmlTextArea);
     Blockly.Xml.domToWorkspace(xml, workspace);
   }
+  eventServiceTest() {
+    console.log('Button has been clicked!');
+  }
 }
 
