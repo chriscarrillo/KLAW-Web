@@ -1,4 +1,5 @@
 import {Component, ElementRef, HostListener, OnInit, ViewChild, AfterViewInit} from '@angular/core';
+import {Inject, Injectable} from '@angular/core';
 import * as THREE from 'three';
 import * as TWEEN from 'tween';
 // import * as THREE from 'three/build/three.min.js';
@@ -10,6 +11,8 @@ import * as createjs from 'createjs-module';
 
 import 'three/examples/js/controls/OrbitControls';
 import {ModelService} from './model.service';
+import {EventsService} from './events.service';
+import {listener} from '@angular/core/src/render3';
 
 @Component({
   selector: 'app-simulator',
@@ -31,7 +34,7 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
   rightClaw;
   sumOfLowArmRotation = 0;
 
-  constructor(private modelService: ModelService) {
+  constructor(private modelService: ModelService, private simulatorEventsService: EventsService) {
     this.render = this.render.bind(this);
   }
 
@@ -68,7 +71,7 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
 
     // adds Orbit Controls to scene
     addControls() {
-      this.controls = new THREE.OrbitControls(this.camera);
+      this.controls = new THREE.OrbitControls(this.camera, this.renderer.domElement);
       this.controls.addEventListener('change', this.render);
     }
 
@@ -89,7 +92,7 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
 
       document.getElementById('simulator').appendChild(this.renderer.domElement);
 
-      let component: SimulatorComponent = this;
+      const component: SimulatorComponent = this;
 
       (function render() {
         setTimeout(function() {
@@ -229,14 +232,7 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
 
         console.log('sum of lower arm rotation: ', this.sumOfLowArmRotation);
 
-      }
-
-      // default rot is 6*pi/12
-      // change limit to -225 to 225  (adding defulat rot pos)
-      // maybe instead of the boundaries, need to incorporate the actual rotation angles
-        // that represent the given linear arguments
-      // else if (this.upperArm.rotation.z > -9 * Math.PI / 12 - this.sumOfLowArmRotation && this.upperArm.rotation.z < -2 * Math.PI / 12 + this.sumOfLowArmRotation) {
-      else if (this.upperArm.rotation.z > -5 * Math.PI / 4 - this.sumOfLowArmRotation && this.upperArm.rotation.z < 5 * Math.PI / 4 + this.sumOfLowArmRotation) {
+      } else if (this.upperArm.rotation.z > -5 * Math.PI / 4 - this.sumOfLowArmRotation && this.upperArm.rotation.z < 5 * Math.PI / 4 + this.sumOfLowArmRotation) {
         console.log('current pos of upperArm', this.upperArm.position);
 
         const upperArmPivot = RboundingBox.getCenter();
@@ -373,15 +369,15 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
         duration = options.duration || 2000;
 
       const tweenVector3 = new TWEEN.Tween(vectorToAnimate)
-        .to({x:to.x, y:to.y, z:to.z, }, duration)
+        .to({x: to.x, y: to.y, z: to.z, }, duration)
         .easing(easing)
         .onUpdate(function(d) {
-          if(options.update) {
+          if (options.update) {
             options.update(d);
           }
         })
         .onComplete(function() {
-          if(options.callback) options.callback();
+          if (options.callback) { options.callback(); }
         });
 
       tweenVector3.start();
@@ -437,6 +433,18 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
       // const delta = 0.75 * clock.getDelta();
       // animationMixer.update(delta);
     }
+
+    static get parameters() {
+      return [new Inject(EventsService)];
+    }
+
+    init() {
+      this.simulatorEventsService.on('moveArm', function(testParams) {
+        console.log('moveArm called via event');
+        console.log('testParams: ' + testParams);
+      });
+    }
+
 
     ngAfterViewInit(): void {
         this.createScene();

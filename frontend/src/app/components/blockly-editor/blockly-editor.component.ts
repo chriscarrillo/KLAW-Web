@@ -1,4 +1,5 @@
 import { Component, AfterViewInit, ViewChild, ElementRef, OnInit } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 import '../../../../node_modules/blockly/blockly_compressed.js'
 import '../../../../node_modules/blockly/javascript_compressed.js'
 import './blockly-blocks/blocks.js';
@@ -72,6 +73,10 @@ export class BlocklyEditorComponent implements OnInit {
           }
         }
       }
+    }
+    function callMoveArmFunction(testArgs) {
+      this.eventsService.broadcast('moveArm', testArgs);
+      return (Observable.throw(testArgs));
     }
   }
 }
