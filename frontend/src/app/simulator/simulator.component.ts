@@ -459,6 +459,6 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
 
         // this.wait(5000);
 
-        this.addControls();
+        //this.addControls();
     }
   }

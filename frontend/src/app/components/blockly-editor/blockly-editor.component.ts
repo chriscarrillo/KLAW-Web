@@ -5,6 +5,8 @@ import '../../../../node_modules/blockly/javascript_compressed.js'
 import './blockly-blocks/blocks.js';
 
 declare var Blockly: any;
+var blocklyToXml: any;
+var workspace: any;
 
 @Component({
   selector: 'app-blockly-editor',
@@ -12,6 +14,7 @@ declare var Blockly: any;
   styleUrls: ['./blockly-editor.component.css']
 })
 export class BlocklyEditorComponent implements OnInit {
+
   constructor() { }
 
   ngOnInit() {
@@ -20,7 +23,7 @@ export class BlocklyEditorComponent implements OnInit {
   @ViewChild('toolbox') toolbox: ElementRef;
 
   ngAfterViewInit(): void {
-    var workspace = Blockly.inject('blocklyDiv',
+    workspace = Blockly.inject('blocklyDiv',
     {toolbox: this.toolbox.nativeElement });
 
     //get the code from blockly
@@ -28,8 +31,31 @@ export class BlocklyEditorComponent implements OnInit {
       var commandString = Blockly.JavaScript.workspaceToCode(workspace);
       return commandString;
     }
-    workspace.addChangeListener(jsUpdate);
+    
+     function renderContent() {
+     	var xmlTextArea = <HTMLInputElement>document.getElementById('xmlText');
+     	
+    	var xmlDom = Blockly.Xml.workspaceToDom(workspace);
+    	blocklyToXml = Blockly.Xml.domToPrettyText(xmlDom);
+    	
+      xmlTextArea.value = blocklyToXml;
 
+    }
+
+    function xmlUpdate() {
+      var xmlTextArea = <HTMLInputElement>document.getElementById('xmlText');
+    	var xml = Blockly.Xml.textToDom("hello");
+      Blockly.Xml.domToWorkspace(xml, workspace);
+    }
+    
+    function changeListenerCommands() {
+    	jsUpdate();
+      renderContent();
+      xmlUpdate();
+    }
+	//workspace.addChangeListener(renderContent); 
+	  workspace.addChangeListener(changeListenerCommands);  
+    
     function sendCommandsToRobot(){
       var commandString = jsUpdate(); //get the latest from blockly
       //need to send this to robot
@@ -78,6 +104,11 @@ export class BlocklyEditorComponent implements OnInit {
       this.eventsService.broadcast('moveArm', testArgs);
       return (Observable.throw(testArgs));
     }
+  }
+  xmlUpdate() {
+    var xmlTextArea = (<HTMLInputElement>document.getElementById('xmlText')).value;
+    var xml = Blockly.Xml.textToDom(xmlTextArea);
+    Blockly.Xml.domToWorkspace(xml, workspace);
   }
 }
 
