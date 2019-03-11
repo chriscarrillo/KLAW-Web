@@ -3,6 +3,9 @@ import { Observable } from 'rxjs/Observable';
 import '../../../../node_modules/blockly/blockly_compressed.js'
 import '../../../../node_modules/blockly/javascript_compressed.js'
 import './blockly-blocks/blocks.js';
+// import {throwError} from 'rxjs';
+import {EventsService} from '../../simulator/events.service';
+import {throwError} from "rxjs";
 
 declare var Blockly: any;
 var blocklyToXml: any;
@@ -15,7 +18,7 @@ var workspace: any;
 })
 export class BlocklyEditorComponent implements OnInit {
 
-  constructor() { }
+  constructor(private eventsService: EventsService) { }
 
   ngOnInit() {
   }
@@ -100,9 +103,11 @@ export class BlocklyEditorComponent implements OnInit {
         }
       }
     }
+
     function callMoveArmFunction(testArgs) {
+      console.log('test!');
       this.eventsService.broadcast('moveArm', testArgs);
-      return (Observable.throw(testArgs));
+      return (throwError(testArgs));
     }
   }
   xmlUpdate() {
@@ -110,8 +115,12 @@ export class BlocklyEditorComponent implements OnInit {
     var xml = Blockly.Xml.textToDom(xmlTextArea);
     Blockly.Xml.domToWorkspace(xml, workspace);
   }
-  eventServiceTest() {
+
+  eventServiceTest(testArgs) {
     console.log('Button has been clicked!');
+    console.log('testArgs: ' + testArgs);
+    this.eventsService.broadcast('moveArm', testArgs);
+    // return (throwError('test'));
+    return (throwError(testArgs));
   }
 }
-

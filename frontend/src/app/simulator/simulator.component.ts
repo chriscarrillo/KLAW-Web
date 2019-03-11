@@ -6,13 +6,9 @@ import * as TWEEN from 'tween';
 import './js/EnableThreeExamples';
 import './js/EnableTween';
 
-import * as createjs from 'createjs-module';
-
-
 import 'three/examples/js/controls/OrbitControls';
 import {ModelService} from './model.service';
 import {EventsService} from './events.service';
-import {listener} from '@angular/core/src/render3';
 
 @Component({
   selector: 'app-simulator',
@@ -34,7 +30,7 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
   rightClaw;
   sumOfLowArmRotation = 0;
 
-  constructor(private modelService: ModelService, private simulatorEventsService: EventsService) {
+  constructor(private modelService: ModelService, private eventsService: EventsService) {
     this.render = this.render.bind(this);
   }
 
@@ -58,25 +54,25 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
 
       // // Append to the document
       // document.getElementById('simulator').appendChild(this.renderer.domElement);
-    }
+  }
 
-    @HostListener('window:resize', ['$event'])
-    resizeWindow(event: Event) {
+  @HostListener('window:resize', ['$event'])
+  resizeWindow(event: Event) {
         const WIDTH = this.container.clientWidth,
           HEIGHT = this.container.clientHeight;
         this.renderer.setSize(WIDTH, HEIGHT);
         this.camera.aspect = WIDTH / HEIGHT;
         this.camera.updateProjectionMatrix();
-    }
+  }
 
-    // adds Orbit Controls to scene
-    addControls() {
+  // adds Orbit Controls to scene
+  addControls() {
       this.controls = new THREE.OrbitControls(this.camera, this.renderer.domElement);
       this.controls.addEventListener('change', this.render);
-    }
+  }
 
-    // inits renderer and maintains timing on animation
-    private startRendering() {
+  // inits renderer and maintains timing on animation
+  private startRendering() {
       try {
         this.renderer = new THREE.WebGLRenderer({
           antialias: true
@@ -115,10 +111,9 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
         }, 1000 / 20);
         component.render();
       }());
-    }
+  }
 
-
-    createLights() {
+  createLights() {
       // adds hemisphere light
       const hemisphereLight = new THREE.HemisphereLight( 0xffeeee, 0x111122, 1 );
 
@@ -136,9 +131,9 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
       this.scene.add(hemisphereLight);
       this.scene.add(ambientLight);
       this.scene.add(pointLight);
-    }
+  }
 
-    createPlatform() {
+  createPlatform() {
       // platform for model
       const grid = new THREE.Mesh(
         new THREE.PlaneGeometry(80, 80, 70, 70),
@@ -149,9 +144,9 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
       this.scene.add(grid);
 
       // var grid = new THREE.GridHelper( 80, 70, 0x393839, 0x393839 );
-    }
+  }
 
-    createModel() {
+  createModel() {
       console.log('before setting model');
       // THIS WORKS!!!:
       // this.modelService.SimModel.prototype = Object.create(THREE.Object3D.prototype); //commented out for test
@@ -169,9 +164,9 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
       // this.secondHolder = this.upperArm.children[2];
       this.leftClaw = this.upperArm.children[3];
       this.rightClaw = this.upperArm.children[4];
-    }
+  }
 
-    private convertLinearToDegrees(posX, posY) {
+  private convertLinearToDegrees(posX, posY) {
       /**Courtesy of Kris Hopper**/
       const startX = 0;
       const startY = 10;
@@ -194,9 +189,9 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
 
         return [lowerArmAngle, upperArmAngle];
       }
-    }
+  }
 
-    moveArmFunction(posX, posY, isElbowUp = true) {
+  moveArmFunction(posX, posY, isElbowUp = true) {
       console.log('X: ' + posX + ' Y: ' + posY + ' ElbowUp: ' + isElbowUp);
 
       // const calculatedAngles = this.convertLinearToDegrees(posX, posY);
@@ -261,9 +256,9 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
 
       /**comment out for now**/
       // alert('Moving robot arm (' + posX + ', ' + posY + '), with elbow up being ' + isElbowUp);
-    }
+  }
 
-    moveClawFunction(distanceApart) {
+  moveClawFunction(distanceApart) {
       console.log('moveClaw func called');
       const axis = new THREE.Vector3(0, 0, 1);
       const leftClawBox = new THREE.Box3().setFromObject(this.leftClaw);
@@ -332,19 +327,19 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
 
 
       // alert('Moving claw' + distanceApart + ' centimeters apart');
-    }
+  }
 
-    wait(timeToWait) {
-      // add timer here
-      setTimeout(function () {
-        console.log('Waited ' + timeToWait + ' milliseconds!');
-        alert('Waited ' + timeToWait + ' milliseconds!');
-        return;
+  wait(timeToWait) {
+    // add timer here/
+    setTimeout(function () {
+      console.log('Waited ' + timeToWait + ' milliseconds!');
+      alert('Waited ' + timeToWait + ' milliseconds!');
+      return;
       }, timeToWait);
-    }
+  }
 
-    /**testing**/
-    tweenTest() {
+  /**testing**/
+  tweenTest() {
       // const target = new THREE.Vector3(0, 0, 0);
       const target = this.lowerArm.position;
 
@@ -358,9 +353,9 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
           console.log('Completed');
         }
       });
-    }
+  }
 
-    animateVector3(vectorToAnimate, target, options) {
+  animateVector3(vectorToAnimate, target, options) {
       options = options || {};
 
       const to = target || THREE.Vector3(),
@@ -382,10 +377,10 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
 
       tweenVector3.start();
       return tweenVector3;
-    }
+  }
 
 
-    render() {
+  render() {
       /*if moveArm function is called*/
       // this.moveArmFunction(10, 10, true);
 
@@ -411,13 +406,13 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
       // get method returns new tween instance (functionally identical to `new Tween(...)`)
       // call method adds an action to call the specified function
       // wait method adds a wait (essentially an empty tween)
-      const tween = createjs.Tween.get(this.model)
-        .call(this.moveArmFunction, [10, 10, true])
-        .wait(1000)
-        .call(this.moveClawFunction, [10]);
+      // const tween = createjs.Tween.get(this.model)
+      //   .call(this.moveArmFunction, [10, 10, true])
+      //   .wait(1000)
+      //   .call(this.moveClawFunction, [10]);
       // const tween = new TWEEN.Tween(this.lowerArm.position);
       // this.tweenTest();
-      TWEEN.update();
+      // TWEEN.update();
 
 
       this.renderer.render(this.scene, this.camera);
@@ -432,33 +427,33 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
       //
       // const delta = 0.75 * clock.getDelta();
       // animationMixer.update(delta);
-    }
-
-    static get parameters() {
-      return [new Inject(EventsService)];
-    }
-
-    init() {
-      this.simulatorEventsService.on('moveArm', function(testParams) {
-        console.log('moveArm called via event');
-        console.log('testParams: ' + testParams);
-      });
-    }
-
-
-    ngAfterViewInit(): void {
-        this.createScene();
-        this.createLights();
-        this.createPlatform();
-        this.createModel();
-        this.startRendering();
-
-        // this.moveArmFunction(10, 10, true);
-
-        // this.moveClawFunction(5);
-
-        // this.wait(5000);
-
-        //this.addControls();
-    }
   }
+
+  // static get parameters() {
+  //   return [new Inject(EventsService)];
+  // }
+
+
+
+  ngAfterViewInit(): void {
+    this.createScene();
+    this.createLights();
+    this.createPlatform();
+    this.createModel();
+    this.startRendering();
+    // this.moveArmFunction(10, 10, true);
+
+    // this.moveClawFunction(5);
+
+    // this.wait(5000);
+
+    // this.init();
+
+    this.eventsService.on('moveArm', function(testParams) {
+      console.log('moveArm called via event');
+      console.log('testParams: ' + testParams);
+    });
+
+    this.addControls();
+  }
+}
