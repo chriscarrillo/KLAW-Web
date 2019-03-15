@@ -11,6 +11,9 @@ import {ModelService} from './model.service';
 import {EventsService} from './events.service';
 
 let startMoveArm: any[];
+let startMoveClaw: any[];
+let startWait: any[];
+let animationOrder: any[];
 
 @Component({
   selector: 'app-simulator',
@@ -244,7 +247,8 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
         console.log('sum of lower arm rotation: ', this.sumOfLowArmRotation);
       }
       else {
-        startMoveArm[0] = false;
+        // startMoveArm[0] = false;
+        animationOrder.shift();
       }
 
       /**comment out for now**/
@@ -253,6 +257,7 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
 
   moveClawFunction(distanceApart) {
       console.log('moveClaw func called');
+      animationOrder.shift();
       // const axis = new THREE.Vector3(0, 0, 1);
       // const leftClawBox = new THREE.Box3().setFromObject(this.leftClaw);
       // const rightClawBox = new THREE.Box3().setFromObject(this.rightClaw);
@@ -323,29 +328,14 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
   }
 
   wait(timeToWait) {
-    // add timer here/
+    // add timer here
+    console.log('in wait function');
     setTimeout(function () {
       console.log('Waited ' + timeToWait + ' milliseconds!');
-      alert('Waited ' + timeToWait + ' milliseconds!');
+      // alert('Waited ' + timeToWait + ' milliseconds!');
       return;
       }, timeToWait);
-  }
-
-  /**testing**/
-  tweenTest() {
-      // const target = new THREE.Vector3(0, 0, 0);
-      const target = this.lowerArm.position;
-
-      this.animateVector3(this.lowerArm.position, target, {
-        duration: 5000,
-        easing: TWEEN.Easing.Quadratic.InOut,
-        update: function(d) {
-          console.log('Updating: ' + d);
-        },
-        callback: function() {
-          console.log('Completed');
-        }
-      });
+    animationOrder.shift();
   }
 
   animateVector3(vectorToAnimate, target, options) {
@@ -372,33 +362,30 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
       return tweenVector3;
   }
 
-
   render() {
-      /*if moveArm function is called*/
-      // this.moveArmFunction(10, 10, true);
-      // const component: SimulatorComponent = this;
-      if (startMoveArm != null) {
-        if (startMoveArm[0]) {
-          this.moveArmFunction(startMoveArm[1], startMoveArm[2], startMoveArm[3]);
-        }
+
+    if (animationOrder != null && animationOrder.length !== 0) {
+      console.log('animationOrder: ' + animationOrder);
+      // get first method called
+      const animMethod = animationOrder[0];
+      console.log('animMethod: ' + animMethod);
+      console.log('startMoveArm: ' + startMoveArm);
+      if (animMethod[0] == 'moveArm') {
+        console.log('TEST1');
+        this.moveArmFunction(startMoveArm[1], startMoveArm[2], startMoveArm[3]);
+        this.renderer.render(this.scene, this.camera);
       }
-      // moveClaw function called
-      // this.moveClawFunction(10);
+      else if (animMethod[0] == 'moveClaw') {
+        this.moveClawFunction((startMoveClaw[1]));
+        this.renderer.render(this.scene, this.camera);
+      }
+      else if (animMethod[0] == 'wait') {
+        this.wait(startWait[1]);
+        this.renderer.render(this.scene, this.camera);
+      }
+    }
 
-
-
-      this.renderer.render(this.scene, this.camera);
-
-      // test animation
-      // this.model.rotation.y += .01;
-
-      // const clock = new THREE.Clock();
-      // const animationMixer = new THREE.AnimationMixer(this.model);
-      // const animation = THREE.AnimationClipCreator.CreateRotationAnimation(100, 'y');
-      // animationMixer.clipAction(animation).play();
-      //
-      // const delta = 0.75 * clock.getDelta();
-      // animationMixer.update(delta);
+    this.renderer.render(this.scene, this.camera);
   }
 
 
@@ -408,33 +395,39 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
     this.createPlatform();
     this.createModel();
     this.startRendering();
-    // this.moveArmFunction(10, 10, true);
 
-    // this.moveClawFunction(5);
+    animationOrder = [];
 
-    // this.wait(5000);
-
-    this.eventsService.on('moveArmTest', function(testParams) {
+    this.eventsService.on('moveArmTest', (testParams) => {
       console.log('moveArm called via event');
       console.log('testParams: ' + testParams);
     });
 
-    this.eventsService.on('moveArm', function(x, y, isElbowUp) {
+    this.eventsService.on('moveArm', (x, y, isElbowUp) => {
       console.log('moveArmFunction called via event');
       console.log('Received arguments: ' + x + ', ' + y + ', ' + isElbowUp);
       startMoveArm = [];
-      startMoveArm[0] = true;
+      startMoveArm[0] = 'moveArm';
       startMoveArm[1] = x;
       startMoveArm[2] = y;
       startMoveArm[3] = isElbowUp;
+      animationOrder.push(startMoveArm);
     });
-    this.eventsService.on('moveClaw', function(distanceApart) {
+    this.eventsService.on('moveClaw', (distanceApart) => {
       console.log('moveClawFunction called via event');
       console.log('Received arguments: ' + distanceApart);
+      startMoveClaw = [];
+      startMoveClaw[0] = 'moveClaw';
+      startMoveClaw[1] = distanceApart;
+      animationOrder.push(startMoveClaw);
     });
-    this.eventsService.on('wait', function(waitTime) {
+    this.eventsService.on('wait', (waitTime) => {
       console.log('waitFunction called via event');
       console.log('Received arguments: ' + waitTime);
+      startWait = [];
+      startWait[0] = 'wait';
+      startWait[1] = waitTime;
+      animationOrder.push(startWait);
     });
 
     this.addControls();

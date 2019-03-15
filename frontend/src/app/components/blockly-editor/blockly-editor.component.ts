@@ -85,6 +85,7 @@ export class BlocklyEditorComponent implements OnInit {
   runCommandsInSimulator() {
     console.log('commandString in runsCommandsInSimulator: ' + commandStr);
     if (commandStr == null) {
+      alert('Cannot run program without code!');
       return;
     }
     // var commandString = jsUpdate(); //get the latest from blockly
