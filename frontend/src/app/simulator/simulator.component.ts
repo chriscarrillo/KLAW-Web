@@ -364,14 +364,13 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
 
   render() {
 
+    // looks at the animation order and calls each animation method accordingly
     if (animationOrder != null && animationOrder.length !== 0) {
-      console.log('animationOrder: ' + animationOrder);
       // get first method called
       const animMethod = animationOrder[0];
-      console.log('animMethod: ' + animMethod);
-      console.log('startMoveArm: ' + startMoveArm);
+
+      // checks to see which animation method is being called
       if (animMethod[0] == 'moveArm') {
-        console.log('TEST1');
         this.moveArmFunction(startMoveArm[1], startMoveArm[2], startMoveArm[3]);
         this.renderer.render(this.scene, this.camera);
       }
@@ -396,8 +395,10 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
     this.createModel();
     this.startRendering();
 
+    // initializes the animation order
     animationOrder = [];
 
+    // event listeners that listen to any passed data from Blockly component
     this.eventsService.on('moveArmTest', (testParams) => {
       console.log('moveArm called via event');
       console.log('testParams: ' + testParams);
