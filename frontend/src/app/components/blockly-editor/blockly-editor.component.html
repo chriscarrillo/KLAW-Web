@@ -1,4 +1,20 @@
-<div id="blocklyDiv" style="height: 480px; width: 600px;"></div>
+<div class="pc-tab">
+<input checked="checked" id="tab1" type="radio" name="pct" />
+<input id="tab2" type="radio" name="pct" />
+  <nav>
+    <ul>
+      <li class="tab1">
+        <label for="tab1" #blockCode>Block Code</label>
+      </li>
+      <li class="tab2">
+        <label for="tab2">XML</label>
+      </li>
+    </ul>
+  </nav>
+  <section>
+    <div class="tab1">
+      <h2>Block Code</h2>
+      <div id="blocklyDiv"></div>
         <xml id="toolbox" #toolbox style="display: none">
                 <category name="Robot">
                         <block type="move_arm"></block>
@@ -6,5 +22,15 @@
                         <block type="wait"></block>
                 </category>
         </xml>
-        <textarea id="xmlText" style="height: 480px; width: 600px"></textarea>
-        <button type="button" (click)='xmlUpdate()'>Update Code Blocks</button>
+    </div>
+    <div class="tab2">
+      <h2>XML</h2>
+      <textarea id="xmlText"></textarea>
+      <button mat-stroked-button (click)='blockCode.click(); xmlUpdate();'> 
+        <mat-icon>code</mat-icon>
+        Update Code Blocks
+      </button>
+    </div>
+  </section>
+</div>
+  
