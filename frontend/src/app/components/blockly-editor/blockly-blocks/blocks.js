@@ -12,8 +12,6 @@ Blockly.Blocks['move_arm'] = {
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
       this.setColour(130);
-   this.setTooltip("");
-   this.setHelpUrl("");
     }
   };
   
@@ -36,8 +34,6 @@ Blockly.Blocks['move_arm'] = {
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
       this.setColour(240);
-      this.setTooltip("");
-      this.setHelpUrl("");
     }
   };
   
@@ -57,8 +53,6 @@ Blockly.Blocks['move_arm'] = {
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
       this.setColour(345);
-   this.setTooltip("");
-   this.setHelpUrl("");
     }
   };
   
