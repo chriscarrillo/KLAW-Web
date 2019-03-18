@@ -62,7 +62,7 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
 
     //adds Orbit Controls to scene
     addControls() {
-      this.controls = new THREE.OrbitControls(this.camera);
+      this.controls = new THREE.OrbitControls(this.camera, this.renderer.domElement);
       this.controls.addEventListener('change', this.render);
     }
 
@@ -294,6 +294,7 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
 
       // moveClaw function called
       // this.moveClawFunction(10);
+      this.moveArmFunction(10, 10, true);
       this.renderer.render(this.scene, this.camera);
 
       // test animation
@@ -315,12 +316,10 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
         this.createModel();
         this.startRendering();
 
-        this.moveArmFunction(10, 10, true);
-
         // this.moveClawFunction(5);
 
         // this.wait(5000);
 
-        //this.addControls();
+        this.addControls();
     }
   }

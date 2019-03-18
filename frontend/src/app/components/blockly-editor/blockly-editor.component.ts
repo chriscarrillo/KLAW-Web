@@ -10,7 +10,7 @@ var workspace: any;
 @Component({
   selector: 'app-blockly-editor',
   templateUrl: './blockly-editor.component.html',
-  styleUrls: ['./blockly-editor.component.css']
+  styleUrls: ['./blockly-editor.component.scss']
 })
 export class BlocklyEditorComponent implements OnInit {
 
