@@ -164,8 +164,8 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
       this.upperArm = this.lowerArm.children[1];
       // this.oneHolder = this.upperArm.children[1];
       // this.secondHolder = this.upperArm.children[2];
-      this.leftClaw = this.upperArm.children[3];
-      this.rightClaw = this.upperArm.children[4];
+      // this.leftClaw = this.upperArm.children[3];
+      // this.rightClaw = this.upperArm.children[4];
     }
 
     private convertLinearToDegrees(posX, posY) {
@@ -235,8 +235,8 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
       // change limit to -225 to 225  (adding defulat rot pos)
       // maybe instead of the boundaries, need to incorporate the actual rotation angles
         // that represent the given linear arguments
-      // else if (this.upperArm.rotation.z > -9 * Math.PI / 12 - this.sumOfLowArmRotation && this.upperArm.rotation.z < -2 * Math.PI / 12 + this.sumOfLowArmRotation) {
-      else if (this.upperArm.rotation.z > -5 * Math.PI / 4 - this.sumOfLowArmRotation && this.upperArm.rotation.z < 5 * Math.PI / 4 + this.sumOfLowArmRotation) {
+      else if (this.upperArm.rotation.z > -9 * Math.PI / 12 - this.sumOfLowArmRotation && this.upperArm.rotation.z < -2 * Math.PI / 12 + this.sumOfLowArmRotation) {
+      // else if (this.upperArm.rotation.z > -5 * Math.PI / 4 - this.sumOfLowArmRotation && this.upperArm.rotation.z < 5 * Math.PI / 4 + this.sumOfLowArmRotation) {
         console.log('current pos of upperArm', this.upperArm.position);
 
         const upperArmPivot = RboundingBox.getCenter();
@@ -391,7 +391,7 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
 
     render() {
       /*if moveArm function is called*/
-      // this.moveArmFunction(10, 10, true);
+      this.moveArmFunction(10, 10, true);
 
       // moveClaw function called
       // this.moveClawFunction(10);
