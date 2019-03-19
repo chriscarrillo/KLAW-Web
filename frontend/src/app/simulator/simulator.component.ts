@@ -72,6 +72,7 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
 
   // adds Orbit Controls to scene
   addControls() {
+
       this.controls = new THREE.OrbitControls(this.camera, this.renderer.domElement);
       this.controls.addEventListener('change', this.render);
   }
@@ -363,7 +364,6 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
   }
 
   render() {
-
     // looks at the animation order and calls each animation method accordingly
     if (animationOrder != null && animationOrder.length !== 0) {
       // get first method called
@@ -383,11 +383,9 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
         this.renderer.render(this.scene, this.camera);
       }
     }
-
     this.renderer.render(this.scene, this.camera);
   }
-
-
+  
   ngAfterViewInit(): void {
     this.createScene();
     this.createLights();
@@ -432,6 +430,5 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
     });
 
     this.addControls();
-
   }
 }

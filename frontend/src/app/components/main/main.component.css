@@ -9,9 +9,8 @@
 
 #blockly {
     width: 65%;
+    height: 130%;
     float: left;
-    /* height: 500px; */
-    line-height: 500px;
     text-align: center;
     background-color: rgb(207, 207, 207);
 }
