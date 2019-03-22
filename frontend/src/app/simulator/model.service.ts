@@ -75,6 +75,36 @@ export class ModelService {
       // // test:
       // this.upperRobotArm.add(this.rightClaw);
 
+    /**updated claw**/
+      // width, height, depth
+      const holderGeometry = new THREE.BoxGeometry(25, 30, 35);
+      const holderMaterial = new THREE.MeshBasicMaterial({color: 0x1cc977});
+      const holder = new THREE.Mesh(holderGeometry, holderMaterial);
+      // holder.scale.set(.8, .8, .8);
+      holder.position.set(51, 160, 3, -75);
+      // rotate slightly downward
+      holder.rotation.set(0, 0, -Math.PI / 6);
+      this.upperRobotArm.add(holder);
+
+      this.RobotClaw.prototype = Object.create(/*THREE.Object3D.prototype*/THREE.Mesh.prototype);  // changed to mesh for test
+
+      this.leftClaw = new this.RobotClaw();
+      this.leftClaw.position.set(43, 173, 27, -75);
+      this.leftClaw.rotation.set(0, 0, -Math.PI / 6);
+      this.leftClaw.scale.set(.2, .2, .2);
+      this.leftClaw.updateMatrix();
+
+      this.upperRobotArm.add(this.leftClaw);
+
+      this.rightClaw = new this.RobotClaw();
+      this.rightClaw.position.set(43, 173, 0, -75);
+      this.rightClaw.rotation.set(0, 0, -Math.PI / 6);
+      this.rightClaw.scale.set(.2, .2, .2);
+      this.rightClaw.updateMatrix();
+
+      this.upperRobotArm.add(this.rightClaw);
+
+
       this.mesh.castShadow = true;
       this.mesh.receiveShadow = true;
 
@@ -107,6 +137,9 @@ export class ModelService {
         color: 0xbd1cc9,
         flatShading: true
       }));
+
+      /**added rotation**/
+      clawMesh.rotation.y += Math.PI / 2;
 
       clawMesh.castShadow = true;
       clawMesh.receiveShadow = true;

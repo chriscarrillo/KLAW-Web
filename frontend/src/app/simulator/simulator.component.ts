@@ -68,7 +68,7 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
 
     // adds Orbit Controls to scene
     addControls() {
-      this.controls = new THREE.OrbitControls(this.camera);
+      this.controls = new THREE.OrbitControls(this.camera, this.renderer.domElement);
       this.controls.addEventListener('change', this.render);
     }
 
@@ -89,7 +89,7 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
 
       document.getElementById('simulator').appendChild(this.renderer.domElement);
 
-      let component: SimulatorComponent = this;
+      const component: SimulatorComponent = this;
 
       (function render() {
         setTimeout(function() {
@@ -150,7 +150,6 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
 
     createModel() {
       console.log('before setting model');
-      // THIS WORKS!!!:
       // this.modelService.SimModel.prototype = Object.create(THREE.Object3D.prototype); //commented out for test
       this.modelService.SimModel.prototype = Object.create(THREE.Mesh.prototype); // added for test
       this.model = this.modelService.SimModel();
@@ -162,10 +161,8 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
       this.base = this.model.children[0];
       this.lowerArm = this.model.children[1];
       this.upperArm = this.lowerArm.children[1];
-      // this.oneHolder = this.upperArm.children[1];
-      // this.secondHolder = this.upperArm.children[2];
-      // this.leftClaw = this.upperArm.children[3];
-      // this.rightClaw = this.upperArm.children[4];
+      this.leftClaw = this.upperArm.children[2];
+      this.rightClaw = this.upperArm.children[3];
     }
 
     private convertLinearToDegrees(posX, posY) {
@@ -268,72 +265,15 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
     }
 
     moveClawFunction(distanceApart) {
-      console.log('moveClaw func called');
-      const axis = new THREE.Vector3(0, 0, 1);
-      const leftClawBox = new THREE.Box3().setFromObject(this.leftClaw);
-      const rightClawBox = new THREE.Box3().setFromObject(this.rightClaw);
-      const leftClawPivot = leftClawBox.getCenter();
-      const rightClawPivot = rightClawBox.getCenter();
-      // console.log('default pos of leftClaw:', this.leftClaw.position);
-      // console.log('default rot of leftClaw:', this.leftClaw.rotation);
-      console.log('leftClaw position:', this.leftClaw.position);
-      console.log('leftClaw dimension:', leftClawBox.getSize());
-      console.log('leftClaw center:', leftClawPivot);
-      // console.log('rightClaw dimension:', rightClawBox.getSize());
-      // console.log('rightClaw center:', rightClawPivot);
-
-
-      // if (this.leftClaw.rotation.z > -11 * Math.PI / 6 + -1.5 * Math.PI / 12 && this.leftClaw.rotation.z < -11 * Math.PI / 6 + 8.5 * Math.PI / 12) {
-      //   console.log('leftClaw center:', leftClawPivot);
-        leftClawPivot.x -= (leftClawBox.getSize().x/* / 2*/) + 20;  // changes vertical direction
-        leftClawPivot.y -= (leftClawBox.getSize().y /*/ 2*/) + 37; // changes horizontal direction
-
-        console.log('new l pivot:', leftClawPivot);
-        // console.log('rotation of l:', this.leftClaw.rotation);
-
-        /**test**/
-        // this.leftClaw.rotation.z += Math.PI/24;
-        /**test**/
-
-        console.log('leftClaw min:', leftClawBox.min);
-        console.log('leftClaw max:', leftClawBox.max);
-
-        this.leftClaw.parent.localToWorld(this.leftClaw.position);
-        /**test**/
-        this.leftClaw.parent.localToWorld(leftClawBox.getCenter());
-        // this.leftClaw.position.sub(leftClawPivot);
-        console.log('new leftClaw position:', this.leftClaw.position);
-        console.log('world pivot:', leftClawBox.getCenter());
-        // this.leftClaw.position.applyAxisAngle(axis, Math.PI / 144);
-        // this.leftClaw.position.add(leftClawPivot);
-        // this.leftClaw.parent.worldToLocal(this.leftClaw.position);
-        // // this.leftClaw.rotation.z += Math.PI / 48;
-        // this.leftClaw.rotateOnAxis(axis, Math.PI / 144);
-
-        // console.log('leftClaw after position', this.leftClaw.position);
-        // console.log('leftClaw after rotation', this.leftClaw.rotation);
-        // console.log('leftClaw center after rotation', leftClawBox.getCenter());
-
-      // }
-
-      // else if (this.rightClaw.rotation.z > 12 * Math.PI / 6 + -4 * Math.PI / 12 && this.rightClaw.rotation.z < 12 * Math.PI / 6 + 3.5 * Math.PI / 12) {
-      //
-      //   rightClawPivot.x -= (rightClawBox.getSize().x / 2) - .75; // kinda works without offset
-      //   rightClawPivot.y -= (rightClawBox.getSize().y / 2) + 0; // kinda works without offset
-      //
-      //   console.log('new r pivot:', rightClawPivot);
-      //   console.log('default rot of r:', this.rightClaw.rotation);
-      //
-      //   /**Maybe this works??**/
-      //   this.rightClaw.parent.localToWorld(this.rightClaw.position);
-      //   this.rightClaw.position.sub(rightClawPivot);
-      //   console.log('test r claw position:', this.rightClaw.position);
-      //   this.rightClaw.position.applyAxisAngle(axis, Math.PI / 144);
-      //   this.rightClaw.position.add(rightClawPivot);
-      //   this.rightClaw.parent.worldToLocal(this.rightClaw.position);
-      //   this.rightClaw.rotation.z += Math.PI / 144;
-      // }
-
+      /**default linear claw movement**/
+      /**works**/
+      // console.log('leftClaw:', this.leftClaw.position.z);
+      // console.log('rightClaw:', this.rightClaw.position.z);
+      if ((this.leftClaw.position.z > 18) && (this.rightClaw.position.z < 9)) {
+        console.log(this.leftClaw.position.z);
+        this.leftClaw.position.z -= Math.PI / 60;
+        this.rightClaw.position.z += Math.PI / 60;
+      }
 
       // alert('Moving claw' + distanceApart + ' centimeters apart');
     }
@@ -390,44 +330,9 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
 
 
     render() {
-      /*if moveArm function is called*/
-      this.moveArmFunction(10, 10, true);
-
-      // moveClaw function called
-      // this.moveClawFunction(10);
-
-      // maybe from the blockly, we can get that string of commands without copying all our code
-
-      // const testCodeStr = 'moveArm(10,10,true)/moveClaw{10)';
-      // const commands = testCodeStr.split('/');
-      //
-      // const functionArray = [];
-      // commands.forEach(function(command) {
-      //   if (command.startsWith('moveArm')) {
-      //     functionArray.('hi');
-      //   }
-      // });
-      //
-      // console.log(functionArray.length);
-
-
-      /**Testing TWEEN**/
-      // get method returns new tween instance (functionally identical to `new Tween(...)`)
-      // call method adds an action to call the specified function
-      // wait method adds a wait (essentially an empty tween)
-      const tween = createjs.Tween.get(this.model)
-        .call(this.moveArmFunction, [10, 10, true])
-        .wait(1000)
-        .call(this.moveClawFunction, [10]);
-      // const tween = new TWEEN.Tween(this.lowerArm.position);
-      // this.tweenTest();
-      TWEEN.update();
-
+      this.moveClawFunction(10);
 
       this.renderer.render(this.scene, this.camera);
-
-      // test animation
-      // this.model.rotation.y += .01;
 
       // const clock = new THREE.Clock();
       // const animationMixer = new THREE.AnimationMixer(this.model);
@@ -445,12 +350,6 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
         this.createModel();
         this.startRendering();
 
-        // this.moveArmFunction(10, 10, true);
-
-        // this.moveClawFunction(5);
-
-        // this.wait(5000);
-
-        //this.addControls();
+        this.addControls();
     }
   }
