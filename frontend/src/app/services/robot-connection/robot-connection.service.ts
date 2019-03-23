@@ -5,27 +5,31 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class RobotConnectionService {
-  isRobotConnected: boolean = false;
+  private WEBHOOK_URL = 'https://hooks.slack.com/services/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';
   
-  private robotNameSource = new BehaviorSubject<string>("pibot");
+  private robotNameSource = new BehaviorSubject<string>("");
   robotName = this.robotNameSource.asObservable();
 
   constructor() { }
 
   isConnected() {
-    return this.isRobotConnected;
+    return this.robotName == null;
   }
 
   getConnectionString() {
-    return this.isRobotConnected ? "Online" : "Offline";
+    return this.isConnected() ? "Online" : "Offline";
   }
 
   disconnect() {
-    
+    this.robotName = null;
   }
 
   updateRobotName(robotName: string) {
     this.robotNameSource.next(robotName);
+  }
+
+  get WebhookURL() {
+    return this.WEBHOOK_URL;
   }
 
 }
