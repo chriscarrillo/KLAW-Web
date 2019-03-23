@@ -1,4 +1,5 @@
 import { Component, AfterViewInit, ViewChild, ElementRef, OnInit } from '@angular/core';
+import { DataService } from 'src/app/services/data.service.js';
 import '../../../../node_modules/blockly/blockly_compressed.js'
 import '../../../../node_modules/blockly/javascript_compressed.js'
 import './blockly-blocks/blocks.js';
@@ -14,20 +15,25 @@ var workspace: any;
 })
 export class BlocklyEditorComponent implements OnInit {
 
-  constructor() { }
+  // commandString: string;
+
+  constructor(private dataService: DataService) { }
 
   ngOnInit() {
+    // this.dataService.commandString.subscribe(commandString => this.commandString = commandString);
   }
   
   @ViewChild('toolbox') toolbox: ElementRef;
 
   ngAfterViewInit(): void {
     workspace = Blockly.inject('blocklyDiv',
-    {toolbox: this.toolbox.nativeElement });
+    { toolbox: this.toolbox.nativeElement });
 
     //get the code from blockly
     function jsUpdate() {
       var commandString = Blockly.JavaScript.workspaceToCode(workspace);
+      this.dataService.updateCommandString(commandString);
+      console.log(commandString);
       return commandString;
     }
     
@@ -100,6 +106,7 @@ export class BlocklyEditorComponent implements OnInit {
       }
     }
   }
+
   xmlUpdate() {
     var xmlTextArea = (<HTMLInputElement>document.getElementById('xmlText')).value;
     var xml = Blockly.Xml.textToDom(xmlTextArea);
