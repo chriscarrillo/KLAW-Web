@@ -30,6 +30,7 @@
     "rxjs": "~6.3.3",
     "rxjs-compat": "^6.3.3",
     "three": "^0.100.0",
+    "three-orbit-controls": "^82.1.0",
     "tslib": "^1.9.0",
     "tween": "^0.9.0",
     "zone.js": "~0.8.26"
