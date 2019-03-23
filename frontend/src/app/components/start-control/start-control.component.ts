@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { RobotConnectionService } from 'src/app/services/robot-connection/robot-connection.service';
 import { DataService } from 'src/app/services/data.service';
+import { BlocklyEditorComponent } from '../blockly-editor/blockly-editor.component';
 
 @Component({
+  providers: [BlocklyEditorComponent],
   selector: 'app-start-control',
   templateUrl: './start-control.component.html',
   styleUrls: ['./start-control.component.css']
@@ -12,7 +14,7 @@ export class StartControlComponent implements OnInit {
   robotName: string;
   commandString: string;
 
-  constructor(private robotConnectionService: RobotConnectionService, private dataService: DataService) { }
+  constructor(private robotConnectionService: RobotConnectionService, private dataService: DataService, private blocklyComponent: BlocklyEditorComponent) { }
 
   ngOnInit() {
     this.robotConnectionService.robotName.subscribe(robotName => this.robotName = robotName);
@@ -21,10 +23,11 @@ export class StartControlComponent implements OnInit {
 
   start() {
     this.sendDataToRobot();
+    this.blocklyComponent.runCommandsInSimulator();
   }
 
   sendDataToRobot() {
-    var slackJSON = 'payload={"text": "@' + this.robotName + ' ' + this.commandString + '"}';
+    var slackJSON = 'payload={"text": "@' + this.robotName + ' ' + this.blocklyComponent.CommandString + '"}';
     //var slackJSON = 'payload={"text": "@pibot Hello, from the Angular app."}';
 
     var xmlHttp = new XMLHttpRequest(),
