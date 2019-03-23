@@ -1246,16 +1246,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _js_EnableThreeExamples__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_js_EnableThreeExamples__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _js_EnableTween__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./js/EnableTween */ "./src/app/simulator/js/EnableTween.js");
 /* harmony import */ var _js_EnableTween__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_js_EnableTween__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var three_examples_js_controls_OrbitControls__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! three/examples/js/controls/OrbitControls */ "./node_modules/three/examples/js/controls/OrbitControls.js");
-/* harmony import */ var three_examples_js_controls_OrbitControls__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(three_examples_js_controls_OrbitControls__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var _model_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./model.service */ "./src/app/simulator/model.service.ts");
-/* harmony import */ var _events_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./events.service */ "./src/app/simulator/events.service.ts");
+/* harmony import */ var _model_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./model.service */ "./src/app/simulator/model.service.ts");
+/* harmony import */ var _events_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./events.service */ "./src/app/simulator/events.service.ts");
 
 
 
 
 // import * as THREE from 'three/build/three.min.js';
-
 
 
 
@@ -1619,7 +1616,7 @@ var SimulatorComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./simulator.component.html */ "./src/app/simulator/simulator.component.html"),
             styles: [__webpack_require__(/*! ./simulator.component.css */ "./src/app/simulator/simulator.component.css")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_model_service__WEBPACK_IMPORTED_MODULE_7__["ModelService"], _events_service__WEBPACK_IMPORTED_MODULE_8__["EventsService"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_model_service__WEBPACK_IMPORTED_MODULE_6__["ModelService"], _events_service__WEBPACK_IMPORTED_MODULE_7__["EventsService"]])
     ], SimulatorComponent);
     return SimulatorComponent;
 }());
