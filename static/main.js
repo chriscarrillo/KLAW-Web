@@ -307,16 +307,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BlocklyEditorComponent", function() { return BlocklyEditorComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var src_app_services_data_service_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/services/data.service.js */ "./src/app/services/data.service.js");
-/* harmony import */ var _simulator_events_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../simulator/events.service */ "./src/app/simulator/events.service.ts");
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
-/* harmony import */ var _node_modules_blockly_blockly_compressed_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../node_modules/blockly/blockly_compressed.js */ "./node_modules/blockly/blockly_compressed.js");
-/* harmony import */ var _node_modules_blockly_blockly_compressed_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_node_modules_blockly_blockly_compressed_js__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _node_modules_blockly_javascript_compressed_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../node_modules/blockly/javascript_compressed.js */ "./node_modules/blockly/javascript_compressed.js");
-/* harmony import */ var _node_modules_blockly_javascript_compressed_js__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_node_modules_blockly_javascript_compressed_js__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var _blockly_blocks_blocks_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./blockly-blocks/blocks.js */ "./src/app/components/blockly-editor/blockly-blocks/blocks.js");
-/* harmony import */ var _blockly_blocks_blocks_js__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_blockly_blocks_blocks_js__WEBPACK_IMPORTED_MODULE_7__);
-
+/* harmony import */ var _simulator_events_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../simulator/events.service */ "./src/app/simulator/events.service.ts");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var _node_modules_blockly_blockly_compressed_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../node_modules/blockly/blockly_compressed.js */ "./node_modules/blockly/blockly_compressed.js");
+/* harmony import */ var _node_modules_blockly_blockly_compressed_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_node_modules_blockly_blockly_compressed_js__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _node_modules_blockly_javascript_compressed_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../node_modules/blockly/javascript_compressed.js */ "./node_modules/blockly/javascript_compressed.js");
+/* harmony import */ var _node_modules_blockly_javascript_compressed_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_node_modules_blockly_javascript_compressed_js__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _blockly_blocks_blocks_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./blockly-blocks/blocks.js */ "./src/app/components/blockly-editor/blockly-blocks/blocks.js");
+/* harmony import */ var _blockly_blocks_blocks_js__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_blockly_blocks_blocks_js__WEBPACK_IMPORTED_MODULE_6__);
 
 
 
@@ -328,12 +326,10 @@ var blocklyToXml;
 var workspace;
 var commandStr;
 var BlocklyEditorComponent = /** @class */ (function () {
-    function BlocklyEditorComponent(dataService, eventsService) {
-        this.dataService = dataService;
+    function BlocklyEditorComponent(eventsService) {
         this.eventsService = eventsService;
     }
     BlocklyEditorComponent.prototype.ngOnInit = function () {
-        // this.dataService.commandString.subscribe(commandString => this.commandString = commandString);
     };
     BlocklyEditorComponent.prototype.ngAfterViewInit = function () {
         workspace = Blockly.inject('blocklyDiv', { toolbox: this.toolbox.nativeElement });
@@ -368,8 +364,7 @@ var BlocklyEditorComponent = /** @class */ (function () {
     };
     BlocklyEditorComponent.prototype.eventServiceTest = function (testArgs) {
         this.eventsService.broadcast('moveArmTest', testArgs);
-        return (Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["throwError"])('test'));
-        // return (throwError(testArgs));
+        return (Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["throwError"])('test'));
     };
     // run the commands from the blocly workspace in the simulator (this should be called with start button)
     BlocklyEditorComponent.prototype.runCommandsInSimulator = function () {
@@ -430,7 +425,7 @@ var BlocklyEditorComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./blockly-editor.component.html */ "./src/app/components/blockly-editor/blockly-editor.component.html"),
             styles: [__webpack_require__(/*! ./blockly-editor.component.scss */ "./src/app/components/blockly-editor/blockly-editor.component.scss")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [src_app_services_data_service_js__WEBPACK_IMPORTED_MODULE_2__["DataService"], _simulator_events_service__WEBPACK_IMPORTED_MODULE_3__["EventsService"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_simulator_events_service__WEBPACK_IMPORTED_MODULE_2__["EventsService"]])
     ], BlocklyEditorComponent);
     return BlocklyEditorComponent;
 }());
@@ -479,9 +474,7 @@ var MainComponent = /** @class */ (function () {
     function MainComponent() {
     }
     MainComponent.prototype.ngOnInit = function () {
-        // Sets local variables to data's values
     };
-    MainComponent.prototype.ngAfterContentInit = function () { };
     MainComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-main',
@@ -894,54 +887,6 @@ var StartControlComponent = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./src/app/services/data.service.js":
-/*!******************************************!*\
-  !*** ./src/app/services/data.service.js ***!
-  \******************************************/
-/*! exports provided: DataService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DataService", function() { return DataService; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var rxjs_BehaviorSubject__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/BehaviorSubject */ "./node_modules/rxjs-compat/_esm5/BehaviorSubject.js");
-/* This class is used to pass data from multiple components
-** This ensures that every component receiving the service receives the most recent up-to-date data.
-*/
-
-
-
-var DataService = /** @class */ (function () {
-    function DataService() {
-        this.ROOT_URL = "http://localhost:5000"; // listening to API here
-        this.commandStringSource = new rxjs_BehaviorSubject__WEBPACK_IMPORTED_MODULE_2__["BehaviorSubject"]("");
-        this.commandString = this.commandStringSource.asObservable();
-    }
-    Object.defineProperty(DataService.prototype, "APIUrl", {
-        get: function () {
-            return this.ROOT_URL;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    DataService.prototype.updateCommandString = function (commandString) {
-        this.commandStringSource.next(commandString);
-    };
-    DataService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
-            providedIn: 'root'
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], DataService);
-    return DataService;
-}());
-
-//# sourceMappingURL=data.service.js.map
-
-/***/ }),
-
 /***/ "./src/app/services/data.service.ts":
 /*!******************************************!*\
   !*** ./src/app/services/data.service.ts ***!
@@ -963,13 +908,13 @@ __webpack_require__.r(__webpack_exports__);
 
 var DataService = /** @class */ (function () {
     function DataService() {
-        this.ROOT_URL = "http://localhost:5000"; // listening to API here
+        this.API_URL = "https://klaw-web.herokuapp.com"; // listening to API here
         this.commandStringSource = new rxjs_BehaviorSubject__WEBPACK_IMPORTED_MODULE_2__["BehaviorSubject"]("");
         this.commandString = this.commandStringSource.asObservable();
     }
     Object.defineProperty(DataService.prototype, "APIUrl", {
         get: function () {
-            return this.ROOT_URL;
+            return this.API_URL;
         },
         enumerable: true,
         configurable: true
