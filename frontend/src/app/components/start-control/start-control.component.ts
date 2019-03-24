@@ -26,15 +26,16 @@ export class StartControlComponent implements OnInit {
   }
 
   sendDataToRobot() {
-    var slackJSON = 'payload={"text": "@' + this.robotName + ' ' + this.blocklyComponent.CommandString + '"}';
-    //var slackJSON = 'payload={"text": "@pibot Hello, from the Angular app."}';
+    if (this.blocklyComponent.CommandString != null) {
+      var slackJSON = 'payload={"text": "<@' + this.robotName + '> ' + this.blocklyComponent.CommandString + '"}';
 
-    var xmlHttp = new XMLHttpRequest(),
-        webhookURL = this.robotConnectionService.WebhookURL,
-        jsonToSend = slackJSON;
-    xmlHttp.open('POST', webhookURL, false);
-    xmlHttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    xmlHttp.send(jsonToSend);
+      var xmlHttp = new XMLHttpRequest(),
+          webhookURL = this.robotConnectionService.WebhookURL,
+          jsonToSend = slackJSON;
+      xmlHttp.open('POST', webhookURL, false);
+      xmlHttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+      xmlHttp.send(jsonToSend);
+    }
   }
 
 }

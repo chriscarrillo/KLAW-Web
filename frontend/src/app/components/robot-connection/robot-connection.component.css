@@ -11,3 +11,11 @@ button {
     display: block;
     margin: 2% auto;
 }
+
+.green {
+    color: green;
+}
+
+.red {
+    color: red;
+}

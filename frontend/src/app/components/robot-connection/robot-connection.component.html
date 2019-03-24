@@ -1,7 +1,7 @@
 <div id="connectionStatus">
-  <mat-icon *ngIf="connectionService.isConnected()">check_circle</mat-icon>
-  <mat-icon *ngIf="!connectionService.isConnected()">cancel</mat-icon>
+  <mat-icon class="green" *ngIf="connectionService.IsConnected">check_circle</mat-icon>
+  <mat-icon class="red" *ngIf="!connectionService.IsConnected">cancel</mat-icon>
   <span>{{ connectionService.getConnectionString() }}</span>
 </div>
-<button mat-stroked-button (click)="openConnectDialog()" *ngIf="!connectionService.isConnected()">Connect</button>
-<button mat-stroked-button (click)="connectionService.disconnect()" *ngIf="connectionService.isConnected()">Disconnect</button>
+<button mat-stroked-button (click)="openConnectDialog()" *ngIf="!connectionService.IsConnected">Connect</button>
+<button mat-stroked-button (click)="connectionService.disconnect()" *ngIf="connectionService.IsConnected">Disconnect</button>
