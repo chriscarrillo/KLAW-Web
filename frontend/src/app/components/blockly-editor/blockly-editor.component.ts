@@ -35,7 +35,6 @@ export class BlocklyEditorComponent implements OnInit {
     function jsUpdate() {
       var commandString = Blockly.JavaScript.workspaceToCode(workspace);
       commandStr = commandString;
-      console.log('in jsUpdate(), commandString: ' + commandStr);
     }
     
      function renderContent() {
@@ -68,8 +67,6 @@ export class BlocklyEditorComponent implements OnInit {
   }
 
   eventServiceTest(testArgs) {
-    console.log('Button has been clicked!');
-    console.log('testArgs: ' + testArgs);
     this.eventsService.broadcast('moveArmTest', testArgs);
     return (throwError('test'));
     // return (throwError(testArgs));
@@ -77,33 +74,28 @@ export class BlocklyEditorComponent implements OnInit {
 
   // run the commands from the blocly workspace in the simulator (this should be called with start button)
   runCommandsInSimulator() {
-    console.log('commandString in runsCommandsInSimulator: ' + commandStr);
     if (commandStr == null) {
       alert('Cannot run program without code!');
       return;
     }
-    // var commandString = jsUpdate(); //get the latest from blockly
+    
     if (commandStr.includes('\n')) { // this will occur if blocks aren't connected properly
-      console.log("ERROR: Please connect all of your blocks before executing."); // could maybe print this above simulator control buttons
     }
 
     else {
       var commandsArray = commandStr.split(';'); // split up the commands
       commandsArray.pop(); // pull off the last element of the array (will always be empty)
-      // console.log(commandsArray);
 
       var numCommands = commandsArray.length;
       for (var i = 0; i < numCommands; i++) { // loop through all of the commands
         if (commandsArray[i].includes('wait')) { // if the command is wait
           var waitTime = parseInt(commandsArray[i].substring(commandsArray[i].indexOf( '(' ) + 1, commandsArray[i].indexOf( ')' ))); //get the wait time as an int
-          console.log("Waiting this many milliseconds: " + waitTime);
           //need to call simulation service .wait()
           /**added call to broadcast**/
           this.callWaitFunction(waitTime);
         }
         else if (commandsArray[i].includes('moveClaw')) { // if the command is moveClaw
           var distanceInCentimeters = parseInt(commandsArray[i].substring(commandsArray[i].indexOf( '(' ) + 1, commandsArray[i].indexOf( ')' ))); //get the distance in centimeters as an int
-          console.log("Moving the claw this many centimeters apart: " + distanceInCentimeters);
           //need to call simulation service .moveClaw()
           /**added call to broadcast**/
           this.callMoveClawFunction(distanceInCentimeters);
@@ -116,7 +108,6 @@ export class BlocklyEditorComponent implements OnInit {
           if (isUpString == 'false'){ //if it reads false, though
             isUp = false; //make the boolean false
           }
-          console.log("Moving arm. x: " + xCoord + ", " + "y: " + yCoord + ", " + "isUp: " + isUp)
           //need to call simulation service .moveArm()
           /**added call to broadcast**/
           this.callMoveArmFunction(xCoord, yCoord, isUpString);
@@ -126,15 +117,12 @@ export class BlocklyEditorComponent implements OnInit {
   }
 
   callMoveArmFunction(x, y, isUp) {
-    console.log('broadcast arm');
     this.eventsService.broadcast('moveArm', x, y, isUp);
   }
   callMoveClawFunction(dist) {
-    console.log('broadcast claw');
     this.eventsService.broadcast('moveClaw', dist);
   }
   callWaitFunction(time) {
-    console.log('broadcast wait');
     this.eventsService.broadcast('wait', time);
   }
 }

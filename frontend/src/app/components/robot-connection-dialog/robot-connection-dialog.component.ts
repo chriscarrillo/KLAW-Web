@@ -19,9 +19,7 @@ export class RobotConnectionDialogComponent implements OnInit, OnDestroy {
       .getRobots()
       .subscribe(res => {
         this.robotList = res;
-        console.log(res);
-      },
-      console.error
+      }
       );
   }
 
