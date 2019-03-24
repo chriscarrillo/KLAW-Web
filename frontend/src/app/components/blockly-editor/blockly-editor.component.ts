@@ -19,10 +19,9 @@ var commandStr: any;
 })
 export class BlocklyEditorComponent implements OnInit {
 
-  constructor(private dataService: DataService, private eventsService: EventsService) { }
+  constructor(private eventsService: EventsService) { }
 
   ngOnInit() {
-    // this.dataService.commandString.subscribe(commandString => this.commandString = commandString);
   }
   
   @ViewChild('toolbox') toolbox: ElementRef;
@@ -69,7 +68,6 @@ export class BlocklyEditorComponent implements OnInit {
   eventServiceTest(testArgs) {
     this.eventsService.broadcast('moveArmTest', testArgs);
     return (throwError('test'));
-    // return (throwError(testArgs));
   }
 
   // run the commands from the blocly workspace in the simulator (this should be called with start button)

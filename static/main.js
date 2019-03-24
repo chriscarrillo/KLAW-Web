@@ -30,7 +30,7 @@ webpackEmptyAsyncContext.id = "./src/$$_lazy_route_resource lazy recursive";
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "/*testing css of simulation*/\r\nheader {\r\n  background: #a44fb522;\r\n}\r\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYXBwLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUEsNkJBQTZCO0FBQzdCO0VBQ0Usc0JBQXNCO0NBQ3ZCIiwiZmlsZSI6InNyYy9hcHAvYXBwLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIvKnRlc3RpbmcgY3NzIG9mIHNpbXVsYXRpb24qL1xyXG5oZWFkZXIge1xyXG4gIGJhY2tncm91bmQ6ICNhNDRmYjUyMjtcclxufVxyXG4iXX0= */"
+module.exports = "/*testing css of simulation*/\nheader {\n  background: #a44fb522;\n}\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYXBwLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUEsNkJBQTZCO0FBQzdCO0VBQ0Usc0JBQXNCO0NBQ3ZCIiwiZmlsZSI6InNyYy9hcHAvYXBwLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIvKnRlc3RpbmcgY3NzIG9mIHNpbXVsYXRpb24qL1xuaGVhZGVyIHtcbiAgYmFja2dyb3VuZDogI2E0NGZiNTIyO1xufVxuIl19 */"
 
 /***/ }),
 
@@ -41,7 +41,7 @@ module.exports = "/*testing css of simulation*/\r\nheader {\r\n  background: #a4
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"banner\">\r\n    <div id=\"title\"><h1>{{title}}</h1></div>\r\n</div>\r\n<div class=\"clear\"></div>\r\n<router-outlet></router-outlet>"
+module.exports = "<div id=\"banner\">\n    <div id=\"title\"><h1>{{title}}</h1></div>\n</div>\n<div class=\"clear\"></div>\n<router-outlet></router-outlet>"
 
 /***/ }),
 
@@ -115,6 +115,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_profile_settings_profile_settings_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/profile-settings/profile-settings.component */ "./src/app/components/profile-settings/profile-settings.component.ts");
 /* harmony import */ var _components_page_not_found_page_not_found_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/page-not-found/page-not-found.component */ "./src/app/components/page-not-found/page-not-found.component.ts");
 /* harmony import */ var _components_start_control_start_control_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/start-control/start-control.component */ "./src/app/components/start-control/start-control.component.ts");
+/* harmony import */ var _services_robot_connection_robot_connection_service__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./services/robot-connection/robot-connection.service */ "./src/app/services/robot-connection/robot-connection.service.ts");
+
 
 
 
@@ -178,11 +180,13 @@ var AppModule = /** @class */ (function () {
                 _angular_material__WEBPACK_IMPORTED_MODULE_9__["MatTabsModule"],
                 _angular_material__WEBPACK_IMPORTED_MODULE_9__["MatSnackBarModule"],
                 _angular_material__WEBPACK_IMPORTED_MODULE_9__["MatButtonModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_9__["MatDialogModule"]
+                _angular_material__WEBPACK_IMPORTED_MODULE_9__["MatDialogModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_9__["MatRadioModule"]
             ],
             entryComponents: [
                 _components_robot_connection_dialog_robot_connection_dialog_component__WEBPACK_IMPORTED_MODULE_14__["RobotConnectionDialogComponent"]
             ],
+            providers: [_services_robot_connection_robot_connection_service__WEBPACK_IMPORTED_MODULE_18__["RobotConnectionService"]],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"]],
             schemas: [_angular_core__WEBPACK_IMPORTED_MODULE_2__["NO_ERRORS_SCHEMA"]]
         })
@@ -276,7 +280,7 @@ Blockly.Blocks['move_arm'] = {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"pc-tab\">\r\n<input checked=\"checked\" id=\"tab1\" type=\"radio\" name=\"pct\" />\r\n<input id=\"tab2\" type=\"radio\" name=\"pct\" />\r\n  <nav>\r\n    <ul>\r\n      <li class=\"tab1\">\r\n        <label for=\"tab1\" #blockCode>Block Code</label>\r\n      </li>\r\n      <li class=\"tab2\">\r\n        <label for=\"tab2\">XML</label>\r\n      </li>\r\n    </ul>\r\n  </nav>\r\n  <section>\r\n    <div class=\"tab1\">\r\n      <h2>Block Code</h2>\r\n      <div id=\"blocklyDiv\"></div>\r\n        <xml id=\"toolbox\" #toolbox style=\"display: none\">\r\n                <category name=\"Robot\">\r\n                        <block type=\"move_arm\"></block>\r\n                        <block type=\"move_claw\"></block>\r\n                        <block type=\"wait\"></block>\r\n                </category>\r\n        </xml>\r\n\r\n    </div>\r\n    <div class=\"tab2\">\r\n      <h2>XML</h2>\r\n      <textarea id=\"xmlText\"></textarea>\r\n      <button mat-stroked-button (click)='blockCode.click(); xmlUpdate();'> \r\n        <mat-icon>code</mat-icon>\r\n        Update Code Blocks\r\n      </button>\r\n    </div>\r\n  </section>\r\n</div>\r\n"
+module.exports = "<div class=\"pc-tab\">\n<input checked=\"checked\" id=\"tab1\" type=\"radio\" name=\"pct\" />\n<input id=\"tab2\" type=\"radio\" name=\"pct\" />\n  <nav>\n    <ul>\n      <li class=\"tab1\">\n        <label for=\"tab1\" #blockCode>Block Code</label>\n      </li>\n      <li class=\"tab2\">\n        <label for=\"tab2\">XML</label>\n      </li>\n    </ul>\n  </nav>\n  <section>\n    <div class=\"tab1\">\n      <h2>Block Code</h2>\n      <div id=\"blocklyDiv\"></div>\n        <xml id=\"toolbox\" #toolbox style=\"display: none\">\n                <category name=\"Robot\">\n                        <block type=\"move_arm\"></block>\n                        <block type=\"move_claw\"></block>\n                        <block type=\"wait\"></block>\n                </category>\n        </xml>\n\n    </div>\n    <div class=\"tab2\">\n      <h2>XML</h2>\n      <textarea id=\"xmlText\"></textarea>\n      <button mat-stroked-button (click)='blockCode.click(); xmlUpdate();'> \n        <mat-icon>code</mat-icon>\n        Update Code Blocks\n      </button>\n    </div>\n  </section>\n</div>\n"
 
 /***/ }),
 
@@ -287,7 +291,7 @@ module.exports = "<div class=\"pc-tab\">\r\n<input checked=\"checked\" id=\"tab1
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".pc-tab > input,\n.pc-tab section > div {\n  display: none; }\n\n#tab1:checked ~ section .tab1,\n#tab2:checked ~ section .tab2,\n#tab3:checked ~ section .tab3 {\n  display: block; }\n\n#tab1:checked ~ nav .tab1,\n#tab2:checked ~ nav .tab2,\n#tab3:checked ~ nav .tab3 {\n  color: red; }\n\n*, *:after, *:before {\n  box-sizing: border-box; }\n\nbody {\n  -webkit-font-smoothing: antialiased;\n  background: #ecf0f1; }\n\n.pc-tab {\n  width: 100%;\n  max-width: 750px;\n  margin: 0 auto; }\n\n.pc-tab ul {\n    list-style: none;\n    margin: 0;\n    padding: 0; }\n\n.pc-tab ul li label {\n      float: left;\n      padding: 15px 25px;\n      border: 1px solid #ddd;\n      border-bottom: 0;\n      background: #eeeeee;\n      color: #444; }\n\n.pc-tab ul li label:hover {\n        background: #dddddd; }\n\n.pc-tab ul li label:active {\n        background: #ffffff; }\n\n.pc-tab ul li:not(:last-child) label {\n      border-right-width: 0; }\n\n.pc-tab section {\n    clear: both; }\n\n.pc-tab section div {\n      padding: 20px;\n      width: 100%;\n      border: 1px solid #ddd;\n      background: #fff;\n      line-height: 1.5em;\n      letter-spacing: 0.3px;\n      color: #444; }\n\n.pc-tab section div h2 {\n        margin: 0;\n        letter-spacing: 1px;\n        color: #34495e; }\n\n#tab1:checked ~ nav .tab1 label,\n#tab2:checked ~ nav .tab2 label,\n#tab3:checked ~ nav .tab3 label {\n  background: white;\n  color: #111;\n  position: relative; }\n\n#tab1:checked ~ nav .tab1 label:after,\n  #tab2:checked ~ nav .tab2 label:after,\n  #tab3:checked ~ nav .tab3 label:after {\n    content: '';\n    display: block;\n    position: absolute;\n    height: 2px;\n    width: 100%;\n    background: #ffffff;\n    left: 0;\n    bottom: -1px; }\n\n#blocklyDiv {\n  line-height: 500px;\n  height: 480px;\n  width: 700px; }\n\n#xmlText {\n  height: 437px;\n  width: 700px; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9ibG9ja2x5LWVkaXRvci9DOlxca2xhd1xcZnJvbnRlbmQvc3JjXFxhcHBcXGNvbXBvbmVudHNcXGJsb2NrbHktZWRpdG9yXFxibG9ja2x5LWVkaXRvci5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTs7RUFFRSxjQUFhLEVBQ2Q7O0FBRUQ7OztFQUdFLGVBQWMsRUFDZjs7QUFFRDs7O0VBR0UsV0FBVSxFQUNYOztBQU1EO0VBR0UsdUJBQXNCLEVBQ3ZCOztBQUVEO0VBQ0Usb0NBQW1DO0VBQ25DLG9CQUFtQixFQUNwQjs7QUFFRDtFQUNFLFlBQVc7RUFDWCxpQkFBZ0I7RUFDaEIsZUFBYyxFQTBDZjs7QUE3Q0Q7SUFLSSxpQkFBZ0I7SUFDaEIsVUFBUztJQUNULFdBQVUsRUFvQlg7O0FBM0JIO01BVVEsWUFBVztNQUNYLG1CQUFrQjtNQUNsQix1QkFBc0I7TUFDdEIsaUJBQWdCO01BQ2hCLG9CQTVCZTtNQTZCZixZQUFXLEVBT1o7O0FBdEJQO1FBaUJVLG9CQTlCa0IsRUErQm5COztBQWxCVDtRQW9CVSxvQkFuQ1csRUFvQ1o7O0FBckJUO01Bd0JTLHNCQUFxQixFQUN2Qjs7QUF6QlA7SUE2QkksWUFBVyxFQWVaOztBQTVDSDtNQStCTSxjQUFhO01BQ2IsWUFBVztNQUNYLHVCQUFzQjtNQUN0QixpQkFBZ0I7TUFDaEIsbUJBQWtCO01BQ2xCLHNCQUFxQjtNQUNyQixZQUFXLEVBTVo7O0FBM0NMO1FBdUNRLFVBQVM7UUFDVCxvQkFBbUI7UUFDbkIsZUFBYyxFQUNmOztBQUtQOzs7RUFJSSxrQkFBaUI7RUFDakIsWUFBVztFQUNYLG1CQUFrQixFQVduQjs7QUFqQkg7OztJQVFNLFlBQVc7SUFDWCxlQUFjO0lBQ2QsbUJBQWtCO0lBQ2xCLFlBQVc7SUFDWCxZQUFXO0lBQ1gsb0JBM0VlO0lBNEVmLFFBQU87SUFDUCxhQUFZLEVBQ2I7O0FBSUw7RUFDRSxtQkFBa0I7RUFDbEIsY0FBYTtFQUNiLGFBQVksRUFDYjs7QUFFRDtFQUNFLGNBQWE7RUFDYixhQUFZLEVBQ2IiLCJmaWxlIjoic3JjL2FwcC9jb21wb25lbnRzL2Jsb2NrbHktZWRpdG9yL2Jsb2NrbHktZWRpdG9yLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnBjLXRhYiA+IGlucHV0LFxyXG4ucGMtdGFiIHNlY3Rpb24gPiBkaXYge1xyXG4gIGRpc3BsYXk6IG5vbmU7XHJcbn1cclxuXHJcbiN0YWIxOmNoZWNrZWQgfiBzZWN0aW9uIC50YWIxLFxyXG4jdGFiMjpjaGVja2VkIH4gc2VjdGlvbiAudGFiMixcclxuI3RhYjM6Y2hlY2tlZCB+IHNlY3Rpb24gLnRhYjMge1xyXG4gIGRpc3BsYXk6IGJsb2NrO1xyXG59XHJcblxyXG4jdGFiMTpjaGVja2VkIH4gbmF2IC50YWIxLFxyXG4jdGFiMjpjaGVja2VkIH4gbmF2IC50YWIyLFxyXG4jdGFiMzpjaGVja2VkIH4gbmF2IC50YWIzIHtcclxuICBjb2xvcjogcmVkO1xyXG59XHJcblxyXG4kYWN0aXZlQ29sb3I6ICNmZmZmZmY7XHJcbiR1bmFjdGl2ZUNvbG9yOiAjZWVlZWVlO1xyXG4kdW5hY3RpdmVIb3ZlckNvbG9yOiAjZGRkZGRkO1xyXG5cclxuKiwgKjphZnRlciwgKjpiZWZvcmUge1xyXG4gIC13ZWJraXQtYm94LXNpemluZzogYm9yZGVyLWJveDtcclxuICAtbW96LWJveC1zaXppbmc6IGJvcmRlci1ib3g7XHJcbiAgYm94LXNpemluZzogYm9yZGVyLWJveDtcclxufVxyXG5cclxuYm9keSB7XHJcbiAgLXdlYmtpdC1mb250LXNtb290aGluZzogYW50aWFsaWFzZWQ7XHJcbiAgYmFja2dyb3VuZDogI2VjZjBmMTtcclxufVxyXG5cclxuLnBjLXRhYiB7IFxyXG4gIHdpZHRoOiAxMDAlO1xyXG4gIG1heC13aWR0aDogNzUwcHg7XHJcbiAgbWFyZ2luOiAwIGF1dG87XHJcbiAgdWwge1xyXG4gICAgbGlzdC1zdHlsZTogbm9uZTtcclxuICAgIG1hcmdpbjogMDtcclxuICAgIHBhZGRpbmc6IDA7XHJcbiAgICBsaSB7XHJcbiAgICAgIGxhYmVsIHtcclxuICAgICAgICBmbG9hdDogbGVmdDtcclxuICAgICAgICBwYWRkaW5nOiAxNXB4IDI1cHg7XHJcbiAgICAgICAgYm9yZGVyOiAxcHggc29saWQgI2RkZDtcclxuICAgICAgICBib3JkZXItYm90dG9tOiAwO1xyXG4gICAgICAgIGJhY2tncm91bmQ6ICR1bmFjdGl2ZUNvbG9yO1xyXG4gICAgICAgIGNvbG9yOiAjNDQ0O1xyXG4gICAgICAgICY6aG92ZXIge1xyXG4gICAgICAgICAgYmFja2dyb3VuZDogJHVuYWN0aXZlSG92ZXJDb2xvcjtcclxuICAgICAgICB9XHJcbiAgICAgICAgJjphY3RpdmUge1xyXG4gICAgICAgICAgYmFja2dyb3VuZDogJGFjdGl2ZUNvbG9yO1xyXG4gICAgICAgIH1cclxuICAgICAgfVxyXG4gICAgICAmOm5vdCg6bGFzdC1jaGlsZCkgbGFiZWwge1xyXG4gICAgICAgICBib3JkZXItcmlnaHQtd2lkdGg6IDA7IFxyXG4gICAgICB9XHJcbiAgICB9XHJcbiAgfVxyXG4gIHNlY3Rpb24ge1xyXG4gICAgY2xlYXI6IGJvdGg7XHJcbiAgICBkaXYge1xyXG4gICAgICBwYWRkaW5nOiAyMHB4OyBcclxuICAgICAgd2lkdGg6IDEwMCU7XHJcbiAgICAgIGJvcmRlcjogMXB4IHNvbGlkICNkZGQ7XHJcbiAgICAgIGJhY2tncm91bmQ6ICNmZmY7XHJcbiAgICAgIGxpbmUtaGVpZ2h0OiAxLjVlbTtcclxuICAgICAgbGV0dGVyLXNwYWNpbmc6IDAuM3B4O1xyXG4gICAgICBjb2xvcjogIzQ0NDtcclxuICAgICAgaDIge1xyXG4gICAgICAgIG1hcmdpbjogMDtcclxuICAgICAgICBsZXR0ZXItc3BhY2luZzogMXB4O1xyXG4gICAgICAgIGNvbG9yOiAjMzQ0OTVlO1xyXG4gICAgICB9XHJcbiAgICB9XHJcbiAgfVxyXG59XHJcblxyXG4jdGFiMTpjaGVja2VkIH4gbmF2IC50YWIxLFxyXG4jdGFiMjpjaGVja2VkIH4gbmF2IC50YWIyLFxyXG4jdGFiMzpjaGVja2VkIH4gbmF2IC50YWIzIHtcclxuICBsYWJlbCB7XHJcbiAgICBiYWNrZ3JvdW5kOiB3aGl0ZTtcclxuICAgIGNvbG9yOiAjMTExO1xyXG4gICAgcG9zaXRpb246IHJlbGF0aXZlO1xyXG4gICAgJjphZnRlciB7XHJcbiAgICAgIGNvbnRlbnQ6ICcnO1xyXG4gICAgICBkaXNwbGF5OiBibG9jaztcclxuICAgICAgcG9zaXRpb246IGFic29sdXRlO1xyXG4gICAgICBoZWlnaHQ6IDJweDtcclxuICAgICAgd2lkdGg6IDEwMCU7XHJcbiAgICAgIGJhY2tncm91bmQ6ICRhY3RpdmVDb2xvcjtcclxuICAgICAgbGVmdDogMDtcclxuICAgICAgYm90dG9tOiAtMXB4O1xyXG4gICAgfVxyXG4gIH1cclxufVxyXG5cclxuI2Jsb2NrbHlEaXYge1xyXG4gIGxpbmUtaGVpZ2h0OiA1MDBweDtcclxuICBoZWlnaHQ6IDQ4MHB4OyBcclxuICB3aWR0aDogNzAwcHg7XHJcbn1cclxuXHJcbiN4bWxUZXh0IHtcclxuICBoZWlnaHQ6IDQzN3B4O1xyXG4gIHdpZHRoOiA3MDBweDtcclxufSJdfQ== */"
+module.exports = ".pc-tab > input,\n.pc-tab section > div {\n  display: none; }\n\n#tab1:checked ~ section .tab1,\n#tab2:checked ~ section .tab2,\n#tab3:checked ~ section .tab3 {\n  display: block; }\n\n#tab1:checked ~ nav .tab1,\n#tab2:checked ~ nav .tab2,\n#tab3:checked ~ nav .tab3 {\n  color: red; }\n\n*, *:after, *:before {\n  box-sizing: border-box; }\n\nbody {\n  -webkit-font-smoothing: antialiased;\n  background: #ecf0f1; }\n\n.pc-tab {\n  width: 100%;\n  max-width: 750px;\n  margin: 0 auto; }\n\n.pc-tab ul {\n    list-style: none;\n    margin: 0;\n    padding: 0; }\n\n.pc-tab ul li label {\n      float: left;\n      padding: 15px 25px;\n      border: 1px solid #ddd;\n      border-bottom: 0;\n      background: #eeeeee;\n      color: #444; }\n\n.pc-tab ul li label:hover {\n        background: #dddddd; }\n\n.pc-tab ul li label:active {\n        background: #ffffff; }\n\n.pc-tab ul li:not(:last-child) label {\n      border-right-width: 0; }\n\n.pc-tab section {\n    clear: both; }\n\n.pc-tab section div {\n      padding: 20px;\n      width: 100%;\n      border: 1px solid #ddd;\n      background: #fff;\n      line-height: 1.5em;\n      letter-spacing: 0.3px;\n      color: #444; }\n\n.pc-tab section div h2 {\n        margin: 0;\n        letter-spacing: 1px;\n        color: #34495e; }\n\n#tab1:checked ~ nav .tab1 label,\n#tab2:checked ~ nav .tab2 label,\n#tab3:checked ~ nav .tab3 label {\n  background: white;\n  color: #111;\n  position: relative; }\n\n#tab1:checked ~ nav .tab1 label:after,\n  #tab2:checked ~ nav .tab2 label:after,\n  #tab3:checked ~ nav .tab3 label:after {\n    content: '';\n    display: block;\n    position: absolute;\n    height: 2px;\n    width: 100%;\n    background: #ffffff;\n    left: 0;\n    bottom: -1px; }\n\n#blocklyDiv {\n  line-height: 500px;\n  height: 480px;\n  width: 700px; }\n\n#xmlText {\n  height: 437px;\n  width: 700px; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9DaHJpcy9LTEFXLVdlYi9mcm9udGVuZC9zcmMvYXBwL2NvbXBvbmVudHMvYmxvY2tseS1lZGl0b3IvYmxvY2tseS1lZGl0b3IuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7O0VBRUUsY0FBYSxFQUNkOztBQUVEOzs7RUFHRSxlQUFjLEVBQ2Y7O0FBRUQ7OztFQUdFLFdBQVUsRUFDWDs7QUFNRDtFQUdFLHVCQUFzQixFQUN2Qjs7QUFFRDtFQUNFLG9DQUFtQztFQUNuQyxvQkFBbUIsRUFDcEI7O0FBRUQ7RUFDRSxZQUFXO0VBQ1gsaUJBQWdCO0VBQ2hCLGVBQWMsRUEwQ2Y7O0FBN0NEO0lBS0ksaUJBQWdCO0lBQ2hCLFVBQVM7SUFDVCxXQUFVLEVBb0JYOztBQTNCSDtNQVVRLFlBQVc7TUFDWCxtQkFBa0I7TUFDbEIsdUJBQXNCO01BQ3RCLGlCQUFnQjtNQUNoQixvQkE1QmU7TUE2QmYsWUFBVyxFQU9aOztBQXRCUDtRQWlCVSxvQkE5QmtCLEVBK0JuQjs7QUFsQlQ7UUFvQlUsb0JBbkNXLEVBb0NaOztBQXJCVDtNQXdCUyxzQkFBcUIsRUFDdkI7O0FBekJQO0lBNkJJLFlBQVcsRUFlWjs7QUE1Q0g7TUErQk0sY0FBYTtNQUNiLFlBQVc7TUFDWCx1QkFBc0I7TUFDdEIsaUJBQWdCO01BQ2hCLG1CQUFrQjtNQUNsQixzQkFBcUI7TUFDckIsWUFBVyxFQU1aOztBQTNDTDtRQXVDUSxVQUFTO1FBQ1Qsb0JBQW1CO1FBQ25CLGVBQWMsRUFDZjs7QUFLUDs7O0VBSUksa0JBQWlCO0VBQ2pCLFlBQVc7RUFDWCxtQkFBa0IsRUFXbkI7O0FBakJIOzs7SUFRTSxZQUFXO0lBQ1gsZUFBYztJQUNkLG1CQUFrQjtJQUNsQixZQUFXO0lBQ1gsWUFBVztJQUNYLG9CQTNFZTtJQTRFZixRQUFPO0lBQ1AsYUFBWSxFQUNiOztBQUlMO0VBQ0UsbUJBQWtCO0VBQ2xCLGNBQWE7RUFDYixhQUFZLEVBQ2I7O0FBRUQ7RUFDRSxjQUFhO0VBQ2IsYUFBWSxFQUNiIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9ibG9ja2x5LWVkaXRvci9ibG9ja2x5LWVkaXRvci5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5wYy10YWIgPiBpbnB1dCxcbi5wYy10YWIgc2VjdGlvbiA+IGRpdiB7XG4gIGRpc3BsYXk6IG5vbmU7XG59XG5cbiN0YWIxOmNoZWNrZWQgfiBzZWN0aW9uIC50YWIxLFxuI3RhYjI6Y2hlY2tlZCB+IHNlY3Rpb24gLnRhYjIsXG4jdGFiMzpjaGVja2VkIH4gc2VjdGlvbiAudGFiMyB7XG4gIGRpc3BsYXk6IGJsb2NrO1xufVxuXG4jdGFiMTpjaGVja2VkIH4gbmF2IC50YWIxLFxuI3RhYjI6Y2hlY2tlZCB+IG5hdiAudGFiMixcbiN0YWIzOmNoZWNrZWQgfiBuYXYgLnRhYjMge1xuICBjb2xvcjogcmVkO1xufVxuXG4kYWN0aXZlQ29sb3I6ICNmZmZmZmY7XG4kdW5hY3RpdmVDb2xvcjogI2VlZWVlZTtcbiR1bmFjdGl2ZUhvdmVyQ29sb3I6ICNkZGRkZGQ7XG5cbiosICo6YWZ0ZXIsICo6YmVmb3JlIHtcbiAgLXdlYmtpdC1ib3gtc2l6aW5nOiBib3JkZXItYm94O1xuICAtbW96LWJveC1zaXppbmc6IGJvcmRlci1ib3g7XG4gIGJveC1zaXppbmc6IGJvcmRlci1ib3g7XG59XG5cbmJvZHkge1xuICAtd2Via2l0LWZvbnQtc21vb3RoaW5nOiBhbnRpYWxpYXNlZDtcbiAgYmFja2dyb3VuZDogI2VjZjBmMTtcbn1cblxuLnBjLXRhYiB7IFxuICB3aWR0aDogMTAwJTtcbiAgbWF4LXdpZHRoOiA3NTBweDtcbiAgbWFyZ2luOiAwIGF1dG87XG4gIHVsIHtcbiAgICBsaXN0LXN0eWxlOiBub25lO1xuICAgIG1hcmdpbjogMDtcbiAgICBwYWRkaW5nOiAwO1xuICAgIGxpIHtcbiAgICAgIGxhYmVsIHtcbiAgICAgICAgZmxvYXQ6IGxlZnQ7XG4gICAgICAgIHBhZGRpbmc6IDE1cHggMjVweDtcbiAgICAgICAgYm9yZGVyOiAxcHggc29saWQgI2RkZDtcbiAgICAgICAgYm9yZGVyLWJvdHRvbTogMDtcbiAgICAgICAgYmFja2dyb3VuZDogJHVuYWN0aXZlQ29sb3I7XG4gICAgICAgIGNvbG9yOiAjNDQ0O1xuICAgICAgICAmOmhvdmVyIHtcbiAgICAgICAgICBiYWNrZ3JvdW5kOiAkdW5hY3RpdmVIb3ZlckNvbG9yO1xuICAgICAgICB9XG4gICAgICAgICY6YWN0aXZlIHtcbiAgICAgICAgICBiYWNrZ3JvdW5kOiAkYWN0aXZlQ29sb3I7XG4gICAgICAgIH1cbiAgICAgIH1cbiAgICAgICY6bm90KDpsYXN0LWNoaWxkKSBsYWJlbCB7XG4gICAgICAgICBib3JkZXItcmlnaHQtd2lkdGg6IDA7IFxuICAgICAgfVxuICAgIH1cbiAgfVxuICBzZWN0aW9uIHtcbiAgICBjbGVhcjogYm90aDtcbiAgICBkaXYge1xuICAgICAgcGFkZGluZzogMjBweDsgXG4gICAgICB3aWR0aDogMTAwJTtcbiAgICAgIGJvcmRlcjogMXB4IHNvbGlkICNkZGQ7XG4gICAgICBiYWNrZ3JvdW5kOiAjZmZmO1xuICAgICAgbGluZS1oZWlnaHQ6IDEuNWVtO1xuICAgICAgbGV0dGVyLXNwYWNpbmc6IDAuM3B4O1xuICAgICAgY29sb3I6ICM0NDQ7XG4gICAgICBoMiB7XG4gICAgICAgIG1hcmdpbjogMDtcbiAgICAgICAgbGV0dGVyLXNwYWNpbmc6IDFweDtcbiAgICAgICAgY29sb3I6ICMzNDQ5NWU7XG4gICAgICB9XG4gICAgfVxuICB9XG59XG5cbiN0YWIxOmNoZWNrZWQgfiBuYXYgLnRhYjEsXG4jdGFiMjpjaGVja2VkIH4gbmF2IC50YWIyLFxuI3RhYjM6Y2hlY2tlZCB+IG5hdiAudGFiMyB7XG4gIGxhYmVsIHtcbiAgICBiYWNrZ3JvdW5kOiB3aGl0ZTtcbiAgICBjb2xvcjogIzExMTtcbiAgICBwb3NpdGlvbjogcmVsYXRpdmU7XG4gICAgJjphZnRlciB7XG4gICAgICBjb250ZW50OiAnJztcbiAgICAgIGRpc3BsYXk6IGJsb2NrO1xuICAgICAgcG9zaXRpb246IGFic29sdXRlO1xuICAgICAgaGVpZ2h0OiAycHg7XG4gICAgICB3aWR0aDogMTAwJTtcbiAgICAgIGJhY2tncm91bmQ6ICRhY3RpdmVDb2xvcjtcbiAgICAgIGxlZnQ6IDA7XG4gICAgICBib3R0b206IC0xcHg7XG4gICAgfVxuICB9XG59XG5cbiNibG9ja2x5RGl2IHtcbiAgbGluZS1oZWlnaHQ6IDUwMHB4O1xuICBoZWlnaHQ6IDQ4MHB4OyBcbiAgd2lkdGg6IDcwMHB4O1xufVxuXG4jeG1sVGV4dCB7XG4gIGhlaWdodDogNDM3cHg7XG4gIHdpZHRoOiA3MDBweDtcbn0iXX0= */"
 
 /***/ }),
 
@@ -303,30 +307,33 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BlocklyEditorComponent", function() { return BlocklyEditorComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _node_modules_blockly_blockly_compressed_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/blockly/blockly_compressed.js */ "./node_modules/blockly/blockly_compressed.js");
-/* harmony import */ var _node_modules_blockly_blockly_compressed_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_node_modules_blockly_blockly_compressed_js__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _node_modules_blockly_javascript_compressed_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/blockly/javascript_compressed.js */ "./node_modules/blockly/javascript_compressed.js");
-/* harmony import */ var _node_modules_blockly_javascript_compressed_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_node_modules_blockly_javascript_compressed_js__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _blockly_blocks_blocks_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./blockly-blocks/blocks.js */ "./src/app/components/blockly-editor/blockly-blocks/blocks.js");
-/* harmony import */ var _blockly_blocks_blocks_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_blockly_blocks_blocks_js__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _simulator_events_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../simulator/events.service */ "./src/app/simulator/events.service.ts");
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var src_app_services_data_service_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/services/data.service.js */ "./src/app/services/data.service.js");
+/* harmony import */ var _simulator_events_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../simulator/events.service */ "./src/app/simulator/events.service.ts");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var _node_modules_blockly_blockly_compressed_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../node_modules/blockly/blockly_compressed.js */ "./node_modules/blockly/blockly_compressed.js");
+/* harmony import */ var _node_modules_blockly_blockly_compressed_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_node_modules_blockly_blockly_compressed_js__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _node_modules_blockly_javascript_compressed_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../node_modules/blockly/javascript_compressed.js */ "./node_modules/blockly/javascript_compressed.js");
+/* harmony import */ var _node_modules_blockly_javascript_compressed_js__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_node_modules_blockly_javascript_compressed_js__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _blockly_blocks_blocks_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./blockly-blocks/blocks.js */ "./src/app/components/blockly-editor/blockly-blocks/blocks.js");
+/* harmony import */ var _blockly_blocks_blocks_js__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_blockly_blocks_blocks_js__WEBPACK_IMPORTED_MODULE_7__);
 
 
 
 
 
-// import {throwError} from 'rxjs';
+
 
 
 var blocklyToXml;
 var workspace;
 var commandStr;
 var BlocklyEditorComponent = /** @class */ (function () {
-    function BlocklyEditorComponent(eventsService) {
+    function BlocklyEditorComponent(dataService, eventsService) {
+        this.dataService = dataService;
         this.eventsService = eventsService;
     }
     BlocklyEditorComponent.prototype.ngOnInit = function () {
+        // this.dataService.commandString.subscribe(commandString => this.commandString = commandString);
     };
     BlocklyEditorComponent.prototype.ngAfterViewInit = function () {
         workspace = Blockly.inject('blocklyDiv', { toolbox: this.toolbox.nativeElement });
@@ -334,8 +341,6 @@ var BlocklyEditorComponent = /** @class */ (function () {
         function jsUpdate() {
             var commandString = Blockly.JavaScript.workspaceToCode(workspace);
             commandStr = commandString;
-            console.log('in jsUpdate(), commandString: ' + commandStr);
-            // return commandString;
         }
         function renderContent() {
             var xmlTextArea = document.getElementById('xmlText');
@@ -343,62 +348,50 @@ var BlocklyEditorComponent = /** @class */ (function () {
             blocklyToXml = Blockly.Xml.domToPrettyText(xmlDom);
             xmlTextArea.value = blocklyToXml;
         }
-        function xmlUpdate() {
-            var xmlTextArea = document.getElementById('xmlText');
-            var xml = Blockly.Xml.textToDom("hello");
-            Blockly.Xml.domToWorkspace(xml, workspace);
-        }
         function changeListenerCommands() {
             jsUpdate();
             renderContent();
-            xmlUpdate();
         }
-        //workspace.addChangeListener(renderContent); 
         workspace.addChangeListener(changeListenerCommands);
-        function sendCommandsToRobot() {
-            var commandString = jsUpdate(); //get the latest from blockly
-            //need to send this to robot
-        }
     };
+    Object.defineProperty(BlocklyEditorComponent.prototype, "CommandString", {
+        get: function () {
+            return commandStr;
+        },
+        enumerable: true,
+        configurable: true
+    });
     BlocklyEditorComponent.prototype.xmlUpdate = function () {
         var xmlTextArea = document.getElementById('xmlText').value;
         var xml = Blockly.Xml.textToDom(xmlTextArea);
         Blockly.Xml.domToWorkspace(xml, workspace);
     };
     BlocklyEditorComponent.prototype.eventServiceTest = function (testArgs) {
-        console.log('Button has been clicked!');
-        console.log('testArgs: ' + testArgs);
         this.eventsService.broadcast('moveArmTest', testArgs);
-        return (Object(rxjs__WEBPACK_IMPORTED_MODULE_6__["throwError"])('test'));
+        return (Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["throwError"])('test'));
         // return (throwError(testArgs));
     };
     // run the commands from the blocly workspace in the simulator (this should be called with start button)
     BlocklyEditorComponent.prototype.runCommandsInSimulator = function () {
-        console.log('commandString in runsCommandsInSimulator: ' + commandStr);
         if (commandStr == null) {
             alert('Cannot run program without code!');
             return;
         }
-        // var commandString = jsUpdate(); //get the latest from blockly
         if (commandStr.includes('\n')) { // this will occur if blocks aren't connected properly
-            console.log("ERROR: Please connect all of your blocks before executing."); // could maybe print this above simulator control buttons
         }
         else {
             var commandsArray = commandStr.split(';'); // split up the commands
             commandsArray.pop(); // pull off the last element of the array (will always be empty)
-            // console.log(commandsArray);
             var numCommands = commandsArray.length;
             for (var i = 0; i < numCommands; i++) { // loop through all of the commands
                 if (commandsArray[i].includes('wait')) { // if the command is wait
                     var waitTime = parseInt(commandsArray[i].substring(commandsArray[i].indexOf('(') + 1, commandsArray[i].indexOf(')'))); //get the wait time as an int
-                    console.log("Waiting this many milliseconds: " + waitTime);
                     //need to call simulation service .wait()
                     /**added call to broadcast**/
                     this.callWaitFunction(waitTime);
                 }
                 else if (commandsArray[i].includes('moveClaw')) { // if the command is moveClaw
                     var distanceInCentimeters = parseInt(commandsArray[i].substring(commandsArray[i].indexOf('(') + 1, commandsArray[i].indexOf(')'))); //get the distance in centimeters as an int
-                    console.log("Moving the claw this many centimeters apart: " + distanceInCentimeters);
                     //need to call simulation service .moveClaw()
                     /**added call to broadcast**/
                     this.callMoveClawFunction(distanceInCentimeters);
@@ -411,7 +404,6 @@ var BlocklyEditorComponent = /** @class */ (function () {
                     if (isUpString == 'false') { //if it reads false, though
                         isUp = false; //make the boolean false
                     }
-                    console.log("Moving arm. x: " + xCoord + ", " + "y: " + yCoord + ", " + "isUp: " + isUp);
                     //need to call simulation service .moveArm()
                     /**added call to broadcast**/
                     this.callMoveArmFunction(xCoord, yCoord, isUpString);
@@ -420,15 +412,12 @@ var BlocklyEditorComponent = /** @class */ (function () {
         }
     };
     BlocklyEditorComponent.prototype.callMoveArmFunction = function (x, y, isUp) {
-        console.log('broadcast arm');
         this.eventsService.broadcast('moveArm', x, y, isUp);
     };
     BlocklyEditorComponent.prototype.callMoveClawFunction = function (dist) {
-        console.log('broadcast claw');
         this.eventsService.broadcast('moveClaw', dist);
     };
     BlocklyEditorComponent.prototype.callWaitFunction = function (time) {
-        console.log('broadcast wait');
         this.eventsService.broadcast('wait', time);
     };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
@@ -441,7 +430,7 @@ var BlocklyEditorComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./blockly-editor.component.html */ "./src/app/components/blockly-editor/blockly-editor.component.html"),
             styles: [__webpack_require__(/*! ./blockly-editor.component.scss */ "./src/app/components/blockly-editor/blockly-editor.component.scss")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_simulator_events_service__WEBPACK_IMPORTED_MODULE_5__["EventsService"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [src_app_services_data_service_js__WEBPACK_IMPORTED_MODULE_2__["DataService"], _simulator_events_service__WEBPACK_IMPORTED_MODULE_3__["EventsService"]])
     ], BlocklyEditorComponent);
     return BlocklyEditorComponent;
 }());
@@ -457,7 +446,7 @@ var BlocklyEditorComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "#container {\r\n    width: 90%;\r\n    margin: 0px auto;\r\n}\r\n\r\n#mainSectionContainer {\r\n    height: 500px;\r\n}\r\n\r\n#blockly {\r\n    width: 65%;\r\n    height: 130%;\r\n    float: left;\r\n    text-align: center;\r\n    background-color: rgb(207, 207, 207);\r\n}\r\n\r\n#simulatorSection {\r\n    width: 35%;\r\n    float: left;\r\n}\r\n\r\n#simulator {\r\n    height: 300px;\r\n    line-height: 300px;\r\n    text-align: center;\r\n    background-color: rgb(168, 168, 168);\r\n    color: rgb(255, 255, 255);\r\n}\r\n\r\n#robotConnection {\r\n    height: 100px;\r\n}\r\n\r\n#simulatorControls {\r\n    height: 100px;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9tYWluL21haW4uY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLFdBQVc7SUFDWCxpQkFBaUI7Q0FDcEI7O0FBRUQ7SUFDSSxjQUFjO0NBQ2pCOztBQUVEO0lBQ0ksV0FBVztJQUNYLGFBQWE7SUFDYixZQUFZO0lBQ1osbUJBQW1CO0lBQ25CLHFDQUFxQztDQUN4Qzs7QUFFRDtJQUNJLFdBQVc7SUFDWCxZQUFZO0NBQ2Y7O0FBRUQ7SUFDSSxjQUFjO0lBQ2QsbUJBQW1CO0lBQ25CLG1CQUFtQjtJQUNuQixxQ0FBcUM7SUFDckMsMEJBQTBCO0NBQzdCOztBQUVEO0lBQ0ksY0FBYztDQUNqQjs7QUFFRDtJQUNJLGNBQWM7Q0FDakIiLCJmaWxlIjoic3JjL2FwcC9jb21wb25lbnRzL21haW4vbWFpbi5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiI2NvbnRhaW5lciB7XHJcbiAgICB3aWR0aDogOTAlO1xyXG4gICAgbWFyZ2luOiAwcHggYXV0bztcclxufVxyXG5cclxuI21haW5TZWN0aW9uQ29udGFpbmVyIHtcclxuICAgIGhlaWdodDogNTAwcHg7XHJcbn1cclxuXHJcbiNibG9ja2x5IHtcclxuICAgIHdpZHRoOiA2NSU7XHJcbiAgICBoZWlnaHQ6IDEzMCU7XHJcbiAgICBmbG9hdDogbGVmdDtcclxuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcclxuICAgIGJhY2tncm91bmQtY29sb3I6IHJnYigyMDcsIDIwNywgMjA3KTtcclxufVxyXG5cclxuI3NpbXVsYXRvclNlY3Rpb24ge1xyXG4gICAgd2lkdGg6IDM1JTtcclxuICAgIGZsb2F0OiBsZWZ0O1xyXG59XHJcblxyXG4jc2ltdWxhdG9yIHtcclxuICAgIGhlaWdodDogMzAwcHg7XHJcbiAgICBsaW5lLWhlaWdodDogMzAwcHg7XHJcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiByZ2IoMTY4LCAxNjgsIDE2OCk7XHJcbiAgICBjb2xvcjogcmdiKDI1NSwgMjU1LCAyNTUpO1xyXG59XHJcblxyXG4jcm9ib3RDb25uZWN0aW9uIHtcclxuICAgIGhlaWdodDogMTAwcHg7XHJcbn1cclxuXHJcbiNzaW11bGF0b3JDb250cm9scyB7XHJcbiAgICBoZWlnaHQ6IDEwMHB4O1xyXG59Il19 */"
+module.exports = "#container {\n    width: 90%;\n    margin: 0px auto;\n}\n\n#mainSectionContainer {\n    height: 500px;\n}\n\n#blockly {\n    width: 65%;\n    height: 130%;\n    float: left;\n    text-align: center;\n    background-color: rgb(207, 207, 207);\n}\n\n#simulatorSection {\n    width: 35%;\n    float: left;\n}\n\n#simulator {\n    height: 300px;\n    line-height: 300px;\n    text-align: center;\n    background-color: rgb(168, 168, 168);\n    color: rgb(255, 255, 255);\n}\n\n#robotConnection {\n    height: 100px;\n}\n\n#simulatorControls {\n    height: 100px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9tYWluL21haW4uY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLFdBQVc7SUFDWCxpQkFBaUI7Q0FDcEI7O0FBRUQ7SUFDSSxjQUFjO0NBQ2pCOztBQUVEO0lBQ0ksV0FBVztJQUNYLGFBQWE7SUFDYixZQUFZO0lBQ1osbUJBQW1CO0lBQ25CLHFDQUFxQztDQUN4Qzs7QUFFRDtJQUNJLFdBQVc7SUFDWCxZQUFZO0NBQ2Y7O0FBRUQ7SUFDSSxjQUFjO0lBQ2QsbUJBQW1CO0lBQ25CLG1CQUFtQjtJQUNuQixxQ0FBcUM7SUFDckMsMEJBQTBCO0NBQzdCOztBQUVEO0lBQ0ksY0FBYztDQUNqQjs7QUFFRDtJQUNJLGNBQWM7Q0FDakIiLCJmaWxlIjoic3JjL2FwcC9jb21wb25lbnRzL21haW4vbWFpbi5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiI2NvbnRhaW5lciB7XG4gICAgd2lkdGg6IDkwJTtcbiAgICBtYXJnaW46IDBweCBhdXRvO1xufVxuXG4jbWFpblNlY3Rpb25Db250YWluZXIge1xuICAgIGhlaWdodDogNTAwcHg7XG59XG5cbiNibG9ja2x5IHtcbiAgICB3aWR0aDogNjUlO1xuICAgIGhlaWdodDogMTMwJTtcbiAgICBmbG9hdDogbGVmdDtcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gICAgYmFja2dyb3VuZC1jb2xvcjogcmdiKDIwNywgMjA3LCAyMDcpO1xufVxuXG4jc2ltdWxhdG9yU2VjdGlvbiB7XG4gICAgd2lkdGg6IDM1JTtcbiAgICBmbG9hdDogbGVmdDtcbn1cblxuI3NpbXVsYXRvciB7XG4gICAgaGVpZ2h0OiAzMDBweDtcbiAgICBsaW5lLWhlaWdodDogMzAwcHg7XG4gICAgdGV4dC1hbGlnbjogY2VudGVyO1xuICAgIGJhY2tncm91bmQtY29sb3I6IHJnYigxNjgsIDE2OCwgMTY4KTtcbiAgICBjb2xvcjogcmdiKDI1NSwgMjU1LCAyNTUpO1xufVxuXG4jcm9ib3RDb25uZWN0aW9uIHtcbiAgICBoZWlnaHQ6IDEwMHB4O1xufVxuXG4jc2ltdWxhdG9yQ29udHJvbHMge1xuICAgIGhlaWdodDogMTAwcHg7XG59Il19 */"
 
 /***/ }),
 
@@ -468,7 +457,7 @@ module.exports = "#container {\r\n    width: 90%;\r\n    margin: 0px auto;\r\n}\
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<app-banner></app-banner>\r\n<div id=\"container\">\r\n    <div class=\"clear\"></div>\r\n    <div id=\"mainSectionContainer\">\r\n      <div id=\"blockly\">\r\n        <app-blockly-editor></app-blockly-editor>\r\n      </div>\r\n      <div id=\"simulatorSection\">\r\n        <div id=\"simulator\">\r\n          <app-simulator></app-simulator>\r\n        </div>\r\n        <div id=\"robotConnection\">\r\n          <app-robot-connection></app-robot-connection>\r\n        </div>\r\n        <div id=\"simulatorControls\">\r\n          <app-start-control></app-start-control>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n  <router-outlet></router-outlet>\r\n"
+module.exports = "<app-banner></app-banner>\n<div id=\"container\">\n    <div class=\"clear\"></div>\n    <div id=\"mainSectionContainer\">\n      <div id=\"blockly\">\n        <app-blockly-editor></app-blockly-editor>\n      </div>\n      <div id=\"simulatorSection\">\n        <div id=\"simulator\">\n          <app-simulator></app-simulator>\n        </div>\n        <div id=\"robotConnection\">\n          <app-robot-connection></app-robot-connection>\n        </div>\n        <div id=\"simulatorControls\">\n          <app-start-control></app-start-control>\n        </div>\n      </div>\n    </div>\n  </div>\n  <router-outlet></router-outlet>\n"
 
 /***/ }),
 
@@ -525,7 +514,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"pageNotFound\">\r\n  <span>The requested page was not found</span>\r\n  <p>\r\n    Redirecting you...\r\n  </p>\r\n</div>"
+module.exports = "<div id=\"pageNotFound\">\n  <span>The requested page was not found</span>\n  <p>\n    Redirecting you...\n  </p>\n</div>"
 
 /***/ }),
 
@@ -588,7 +577,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<p>\r\n  profile-settings works!\r\n</p>\r\n"
+module.exports = "<p>\n  profile-settings works!\n</p>\n"
 
 /***/ }),
 
@@ -633,7 +622,7 @@ var ProfileSettingsComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2NvbXBvbmVudHMvcm9ib3QtY29ubmVjdGlvbi1kaWFsb2cvcm9ib3QtY29ubmVjdGlvbi1kaWFsb2cuY29tcG9uZW50LmNzcyJ9 */"
+module.exports = ".robot-radio-group {\n    display: flex;\n    flex-direction: column;\n    margin: 15px 0px;\n}\n\n.robot span {\n    margin: 0% 0% 0% 5%;\n    font-size: 110%;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9yb2JvdC1jb25uZWN0aW9uLWRpYWxvZy9yb2JvdC1jb25uZWN0aW9uLWRpYWxvZy5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0ksY0FBYztJQUNkLHVCQUF1QjtJQUN2QixpQkFBaUI7Q0FDcEI7O0FBRUQ7SUFDSSxvQkFBb0I7SUFDcEIsZ0JBQWdCO0NBQ25CIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9yb2JvdC1jb25uZWN0aW9uLWRpYWxvZy9yb2JvdC1jb25uZWN0aW9uLWRpYWxvZy5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnJvYm90LXJhZGlvLWdyb3VwIHtcbiAgICBkaXNwbGF5OiBmbGV4O1xuICAgIGZsZXgtZGlyZWN0aW9uOiBjb2x1bW47XG4gICAgbWFyZ2luOiAxNXB4IDBweDtcbn1cblxuLnJvYm90IHNwYW4ge1xuICAgIG1hcmdpbjogMCUgMCUgMCUgNSU7XG4gICAgZm9udC1zaXplOiAxMTAlO1xufSJdfQ== */"
 
 /***/ }),
 
@@ -644,7 +633,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<h1>Connect to Robot</h1>\r\n\r\n"
+module.exports = "<h1>Select a Robot</h1>\n<span *ngIf=\"robotList?.length == 0\">There are no robots available</span>\n<mat-radio-group *ngIf=\"robotList?.length > 0\" class=\"robot-radio-group\" aria-label=\"Select a robot\">\n    <mat-radio-button *ngFor=\"let robot of robotList\" [value]=\"robot.name\" (change)=\"selectRobot($event)\" name=\"robotName\" ngDefaultControl>\n        <div class=\"robot\">\n            <img src=\"{{ robot.profile.image_original }}\" alt=\"avatar\" width=\"50px\" />\n            <span>{{ robot.name }}</span>\n        </div>\n    </mat-radio-button>\n</mat-radio-group>"
 
 /***/ }),
 
@@ -660,12 +649,28 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RobotConnectionDialogComponent", function() { return RobotConnectionDialogComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var src_app_services_robot_connection_robot_connection_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/services/robot-connection/robot-connection.service */ "./src/app/services/robot-connection/robot-connection.service.ts");
+
 
 
 var RobotConnectionDialogComponent = /** @class */ (function () {
-    function RobotConnectionDialogComponent() {
+    function RobotConnectionDialogComponent(robotConnectionService) {
+        this.robotConnectionService = robotConnectionService;
     }
     RobotConnectionDialogComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.robotListSubs = this.robotConnectionService
+            .getRobots()
+            .subscribe(function (res) {
+            _this.robotList = res;
+        });
+    };
+    RobotConnectionDialogComponent.prototype.ngOnDestroy = function () {
+        this.robotListSubs.unsubscribe();
+    };
+    RobotConnectionDialogComponent.prototype.selectRobot = function (event) {
+        this.robotConnectionService.updateRobotName(event.value);
+        this.robotConnectionService.connect();
     };
     RobotConnectionDialogComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -673,7 +678,7 @@ var RobotConnectionDialogComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./robot-connection-dialog.component.html */ "./src/app/components/robot-connection-dialog/robot-connection-dialog.component.html"),
             styles: [__webpack_require__(/*! ./robot-connection-dialog.component.css */ "./src/app/components/robot-connection-dialog/robot-connection-dialog.component.css")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [src_app_services_robot_connection_robot_connection_service__WEBPACK_IMPORTED_MODULE_2__["RobotConnectionService"]])
     ], RobotConnectionDialogComponent);
     return RobotConnectionDialogComponent;
 }());
@@ -689,7 +694,7 @@ var RobotConnectionDialogComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "#connectionStatus {\r\n    text-align: center;\r\n}\r\n\r\n#connectionStatus > mat-icon {\r\n    display: inline-flex;\r\n    vertical-align: middle;\r\n}\r\n\r\nbutton {\r\n    display: block;\r\n    margin: 2% auto;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9yb2JvdC1jb25uZWN0aW9uL3JvYm90LWNvbm5lY3Rpb24uY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLG1CQUFtQjtDQUN0Qjs7QUFFRDtJQUNJLHFCQUFxQjtJQUNyQix1QkFBdUI7Q0FDMUI7O0FBRUQ7SUFDSSxlQUFlO0lBQ2YsZ0JBQWdCO0NBQ25CIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9yb2JvdC1jb25uZWN0aW9uL3JvYm90LWNvbm5lY3Rpb24uY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIiNjb25uZWN0aW9uU3RhdHVzIHtcclxuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcclxufVxyXG5cclxuI2Nvbm5lY3Rpb25TdGF0dXMgPiBtYXQtaWNvbiB7XHJcbiAgICBkaXNwbGF5OiBpbmxpbmUtZmxleDtcclxuICAgIHZlcnRpY2FsLWFsaWduOiBtaWRkbGU7XHJcbn1cclxuXHJcbmJ1dHRvbiB7XHJcbiAgICBkaXNwbGF5OiBibG9jaztcclxuICAgIG1hcmdpbjogMiUgYXV0bztcclxufSJdfQ== */"
+module.exports = "#connectionStatus {\n    text-align: center;\n}\n\n#connectionStatus > mat-icon {\n    display: inline-flex;\n    vertical-align: middle;\n}\n\nbutton {\n    display: block;\n    margin: 2% auto;\n}\n\n.green {\n    color: green;\n}\n\n.red {\n    color: red;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9yb2JvdC1jb25uZWN0aW9uL3JvYm90LWNvbm5lY3Rpb24uY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLG1CQUFtQjtDQUN0Qjs7QUFFRDtJQUNJLHFCQUFxQjtJQUNyQix1QkFBdUI7Q0FDMUI7O0FBRUQ7SUFDSSxlQUFlO0lBQ2YsZ0JBQWdCO0NBQ25COztBQUVEO0lBQ0ksYUFBYTtDQUNoQjs7QUFFRDtJQUNJLFdBQVc7Q0FDZCIsImZpbGUiOiJzcmMvYXBwL2NvbXBvbmVudHMvcm9ib3QtY29ubmVjdGlvbi9yb2JvdC1jb25uZWN0aW9uLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIjY29ubmVjdGlvblN0YXR1cyB7XG4gICAgdGV4dC1hbGlnbjogY2VudGVyO1xufVxuXG4jY29ubmVjdGlvblN0YXR1cyA+IG1hdC1pY29uIHtcbiAgICBkaXNwbGF5OiBpbmxpbmUtZmxleDtcbiAgICB2ZXJ0aWNhbC1hbGlnbjogbWlkZGxlO1xufVxuXG5idXR0b24ge1xuICAgIGRpc3BsYXk6IGJsb2NrO1xuICAgIG1hcmdpbjogMiUgYXV0bztcbn1cblxuLmdyZWVuIHtcbiAgICBjb2xvcjogZ3JlZW47XG59XG5cbi5yZWQge1xuICAgIGNvbG9yOiByZWQ7XG59Il19 */"
 
 /***/ }),
 
@@ -700,7 +705,7 @@ module.exports = "#connectionStatus {\r\n    text-align: center;\r\n}\r\n\r\n#co
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"connectionStatus\">\r\n  <mat-icon *ngIf=\"connectionService.isConnected()\">check_circle</mat-icon>\r\n  <mat-icon *ngIf=\"!connectionService.isConnected()\">cancel</mat-icon>\r\n  <span>{{ connectionService.getConnectionString() }}</span>\r\n</div>\r\n<button mat-stroked-button (click)=\"openConnectDialog()\" *ngIf=\"!connectionService.isConnected()\">Connect</button>\r\n<button mat-stroked-button (click)=\"connectionService.disconnect()\" *ngIf=\"connectionService.isConnected()\">Disconnect</button>"
+module.exports = "<div id=\"connectionStatus\">\n  <mat-icon class=\"green\" *ngIf=\"connectionService.IsConnected\">check_circle</mat-icon>\n  <mat-icon class=\"red\" *ngIf=\"!connectionService.IsConnected\">cancel</mat-icon>\n  <span>{{ connectionService.getConnectionString() }}</span>\n</div>\n<button mat-stroked-button (click)=\"openConnectDialog()\" *ngIf=\"!connectionService.IsConnected\">Connect</button>\n<button mat-stroked-button (click)=\"connectionService.disconnect()\" *ngIf=\"connectionService.IsConnected\">Disconnect</button>"
 
 /***/ }),
 
@@ -734,7 +739,6 @@ var RobotConnectionComponent = /** @class */ (function () {
     RobotConnectionComponent.prototype.openConnectDialog = function () {
         var dialogRef = this.dialog.open(_robot_connection_dialog_robot_connection_dialog_component__WEBPACK_IMPORTED_MODULE_3__["RobotConnectionDialogComponent"]);
         dialogRef.afterClosed().subscribe(function (result) {
-            console.log("Dialog result: " + result);
         });
     };
     RobotConnectionComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
@@ -770,7 +774,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<p>\r\n  save-procedure works!\r\n</p>\r\n"
+module.exports = "<p>\n  save-procedure works!\n</p>\n"
 
 /***/ }),
 
@@ -815,7 +819,7 @@ var SaveProcedureComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "#container {\r\n    position: relative;\r\n}\r\n\r\nbutton {\r\n    display: block;\r\n    margin: 2% auto;\r\n}\r\n\r\n.greenIcon {\r\n    color: green;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9zdGFydC1jb250cm9sL3N0YXJ0LWNvbnRyb2wuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLG1CQUFtQjtDQUN0Qjs7QUFFRDtJQUNJLGVBQWU7SUFDZixnQkFBZ0I7Q0FDbkI7O0FBRUQ7SUFDSSxhQUFhO0NBQ2hCIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9zdGFydC1jb250cm9sL3N0YXJ0LWNvbnRyb2wuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIiNjb250YWluZXIge1xyXG4gICAgcG9zaXRpb246IHJlbGF0aXZlO1xyXG59XHJcblxyXG5idXR0b24ge1xyXG4gICAgZGlzcGxheTogYmxvY2s7XHJcbiAgICBtYXJnaW46IDIlIGF1dG87XHJcbn1cclxuXHJcbi5ncmVlbkljb24ge1xyXG4gICAgY29sb3I6IGdyZWVuO1xyXG59Il19 */"
+module.exports = "#container {\n    position: relative;\n}\n\nbutton {\n    display: block;\n    margin: 2% auto;\n}\n\n.greenIcon {\n    color: green;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9zdGFydC1jb250cm9sL3N0YXJ0LWNvbnRyb2wuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLG1CQUFtQjtDQUN0Qjs7QUFFRDtJQUNJLGVBQWU7SUFDZixnQkFBZ0I7Q0FDbkI7O0FBRUQ7SUFDSSxhQUFhO0NBQ2hCIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9zdGFydC1jb250cm9sL3N0YXJ0LWNvbnRyb2wuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIiNjb250YWluZXIge1xuICAgIHBvc2l0aW9uOiByZWxhdGl2ZTtcbn1cblxuYnV0dG9uIHtcbiAgICBkaXNwbGF5OiBibG9jaztcbiAgICBtYXJnaW46IDIlIGF1dG87XG59XG5cbi5ncmVlbkljb24ge1xuICAgIGNvbG9yOiBncmVlbjtcbn0iXX0= */"
 
 /***/ }),
 
@@ -826,7 +830,7 @@ module.exports = "#container {\r\n    position: relative;\r\n}\r\n\r\nbutton {\r
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"container\">\r\n  <button mat-stroked-button (click)=\"start()\">\r\n    <mat-icon class=\"greenIcon\">play_arrow</mat-icon>\r\n    Start\r\n  </button>\r\n</div>"
+module.exports = "<div id=\"container\">\n  <button mat-stroked-button (click)=\"start()\">\n    <mat-icon class=\"greenIcon\">play_arrow</mat-icon>\n    Start\n  </button>\n</div>"
 
 /***/ }),
 
@@ -842,32 +846,99 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "StartControlComponent", function() { return StartControlComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _blockly_editor_blockly_editor_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../blockly-editor/blockly-editor.component */ "./src/app/components/blockly-editor/blockly-editor.component.ts");
+/* harmony import */ var src_app_services_robot_connection_robot_connection_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/services/robot-connection/robot-connection.service */ "./src/app/services/robot-connection/robot-connection.service.ts");
+/* harmony import */ var src_app_services_data_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/data.service */ "./src/app/services/data.service.ts");
+/* harmony import */ var _blockly_editor_blockly_editor_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../blockly-editor/blockly-editor.component */ "./src/app/components/blockly-editor/blockly-editor.component.ts");
+
+
 
 
 
 var StartControlComponent = /** @class */ (function () {
-    function StartControlComponent(blocklyComponent) {
+    function StartControlComponent(robotConnectionService, dataService, blocklyComponent) {
+        this.robotConnectionService = robotConnectionService;
+        this.dataService = dataService;
         this.blocklyComponent = blocklyComponent;
     }
     StartControlComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.robotConnectionService.robotName.subscribe(function (robotName) { return _this.robotName = robotName; });
+        this.dataService.commandString.subscribe(function (commandString) { return _this.commandString = commandString; });
     };
     StartControlComponent.prototype.start = function () {
+        this.sendDataToRobot();
         this.blocklyComponent.runCommandsInSimulator();
+    };
+    StartControlComponent.prototype.sendDataToRobot = function () {
+        if (this.blocklyComponent.CommandString != null) {
+            var slackJSON = 'payload={"text": "<@' + this.robotName + '> ' + this.blocklyComponent.CommandString + '"}';
+            var xmlHttp = new XMLHttpRequest(), webhookURL = this.robotConnectionService.WebhookURL, jsonToSend = slackJSON;
+            xmlHttp.open('POST', webhookURL, false);
+            xmlHttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xmlHttp.send(jsonToSend);
+        }
     };
     StartControlComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            providers: [_blockly_editor_blockly_editor_component__WEBPACK_IMPORTED_MODULE_2__["BlocklyEditorComponent"]],
+            providers: [_blockly_editor_blockly_editor_component__WEBPACK_IMPORTED_MODULE_4__["BlocklyEditorComponent"]],
             selector: 'app-start-control',
             template: __webpack_require__(/*! ./start-control.component.html */ "./src/app/components/start-control/start-control.component.html"),
             styles: [__webpack_require__(/*! ./start-control.component.css */ "./src/app/components/start-control/start-control.component.css")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_blockly_editor_blockly_editor_component__WEBPACK_IMPORTED_MODULE_2__["BlocklyEditorComponent"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [src_app_services_robot_connection_robot_connection_service__WEBPACK_IMPORTED_MODULE_2__["RobotConnectionService"], src_app_services_data_service__WEBPACK_IMPORTED_MODULE_3__["DataService"], _blockly_editor_blockly_editor_component__WEBPACK_IMPORTED_MODULE_4__["BlocklyEditorComponent"]])
     ], StartControlComponent);
     return StartControlComponent;
 }());
 
 
+
+/***/ }),
+
+/***/ "./src/app/services/data.service.js":
+/*!******************************************!*\
+  !*** ./src/app/services/data.service.js ***!
+  \******************************************/
+/*! exports provided: DataService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DataService", function() { return DataService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var rxjs_BehaviorSubject__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/BehaviorSubject */ "./node_modules/rxjs-compat/_esm5/BehaviorSubject.js");
+/* This class is used to pass data from multiple components
+** This ensures that every component receiving the service receives the most recent up-to-date data.
+*/
+
+
+
+var DataService = /** @class */ (function () {
+    function DataService() {
+        this.ROOT_URL = "http://localhost:5000"; // listening to API here
+        this.commandStringSource = new rxjs_BehaviorSubject__WEBPACK_IMPORTED_MODULE_2__["BehaviorSubject"]("");
+        this.commandString = this.commandStringSource.asObservable();
+    }
+    Object.defineProperty(DataService.prototype, "APIUrl", {
+        get: function () {
+            return this.ROOT_URL;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    DataService.prototype.updateCommandString = function (commandString) {
+        this.commandStringSource.next(commandString);
+    };
+    DataService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], DataService);
+    return DataService;
+}());
+
+//# sourceMappingURL=data.service.js.map
 
 /***/ }),
 
@@ -892,11 +963,19 @@ __webpack_require__.r(__webpack_exports__);
 
 var DataService = /** @class */ (function () {
     function DataService() {
-        this.ROOT_URL = new rxjs_BehaviorSubject__WEBPACK_IMPORTED_MODULE_2__["BehaviorSubject"]("http://127.0.0.1:5000/api"); //listening to API here
-        this.currentRootUrl = this.ROOT_URL.asObservable();
+        this.ROOT_URL = "http://localhost:5000"; // listening to API here
+        this.commandStringSource = new rxjs_BehaviorSubject__WEBPACK_IMPORTED_MODULE_2__["BehaviorSubject"]("");
+        this.commandString = this.commandStringSource.asObservable();
     }
-    DataService.prototype.updateRootUrl = function (newRootUrl) {
-        this.ROOT_URL.next(newRootUrl);
+    Object.defineProperty(DataService.prototype, "APIUrl", {
+        get: function () {
+            return this.ROOT_URL;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    DataService.prototype.updateCommandString = function (commandString) {
+        this.commandStringSource.next(commandString);
     };
     DataService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
@@ -923,25 +1002,59 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RobotConnectionService", function() { return RobotConnectionService; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _data_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../data.service */ "./src/app/services/data.service.ts");
+
+
+
 
 
 var RobotConnectionService = /** @class */ (function () {
-    function RobotConnectionService() {
-        this.isRobotConnected = false;
+    function RobotConnectionService(http, dataService) {
+        this.http = http;
+        this.dataService = dataService;
+        this.WEBHOOK_URL = 'https://hooks.slack.com/services/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';
+        this.robotNameSource = new rxjs__WEBPACK_IMPORTED_MODULE_2__["BehaviorSubject"]("");
+        this.robotName = this.robotNameSource.asObservable();
+        this.isConnected = this.robotName == null;
     }
-    RobotConnectionService.prototype.isConnected = function () {
-        return this.isRobotConnected;
+    RobotConnectionService.prototype.getRobots = function () {
+        return this.http
+            .get(this.dataService.APIUrl + '/get_robots');
     };
+    Object.defineProperty(RobotConnectionService.prototype, "IsConnected", {
+        get: function () {
+            return this.isConnected;
+        },
+        enumerable: true,
+        configurable: true
+    });
     RobotConnectionService.prototype.getConnectionString = function () {
-        return this.isRobotConnected ? "Online" : "Offline";
+        return this.isConnected ? "Online" : "Offline";
+    };
+    RobotConnectionService.prototype.connect = function () {
+        this.isConnected = true;
     };
     RobotConnectionService.prototype.disconnect = function () {
+        this.robotName = null;
+        this.isConnected = false;
     };
+    RobotConnectionService.prototype.updateRobotName = function (robotName) {
+        this.robotNameSource.next(robotName);
+    };
+    Object.defineProperty(RobotConnectionService.prototype, "WebhookURL", {
+        get: function () {
+            return this.WEBHOOK_URL;
+        },
+        enumerable: true,
+        configurable: true
+    });
     RobotConnectionService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
             providedIn: 'root'
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"], _data_service__WEBPACK_IMPORTED_MODULE_4__["DataService"]])
     ], RobotConnectionService);
     return RobotConnectionService;
 }());
@@ -1212,7 +1325,7 @@ var ModelService = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = " /*body{*/\r\n   /*height: 500px;*/\r\n   /*line-height: 300px;*/\r\n   /*text-align: center;*/\r\n   /*background-color: rgb(168, 168, 168);*/\r\n   /*color: rgb(255, 255, 255);*/\r\n   /*}*/\r\n   /*body{*/\r\n   /*overflow: scroll;*/\r\n   /*}*/\r\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvc2ltdWxhdG9yL3NpbXVsYXRvci5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJDQUFDLFNBQVM7R0FDUCxrQkFBa0I7R0FDbEIsdUJBQXVCO0dBQ3ZCLHVCQUF1QjtHQUN2Qix5Q0FBeUM7R0FDekMsOEJBQThCO0dBQ2hDLEtBQUs7R0FDTixTQUFTO0dBQ1AscUJBQXFCO0dBQ3ZCLEtBQUsiLCJmaWxlIjoic3JjL2FwcC9zaW11bGF0b3Ivc2ltdWxhdG9yLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIgLypib2R5eyovXHJcbiAgIC8qaGVpZ2h0OiA1MDBweDsqL1xyXG4gICAvKmxpbmUtaGVpZ2h0OiAzMDBweDsqL1xyXG4gICAvKnRleHQtYWxpZ246IGNlbnRlcjsqL1xyXG4gICAvKmJhY2tncm91bmQtY29sb3I6IHJnYigxNjgsIDE2OCwgMTY4KTsqL1xyXG4gICAvKmNvbG9yOiByZ2IoMjU1LCAyNTUsIDI1NSk7Ki9cclxuIC8qfSovXHJcbi8qYm9keXsqL1xyXG4gIC8qb3ZlcmZsb3c6IHNjcm9sbDsqL1xyXG4vKn0qL1xyXG4iXX0= */"
+module.exports = " /*body{*/\n   /*height: 500px;*/\n   /*line-height: 300px;*/\n   /*text-align: center;*/\n   /*background-color: rgb(168, 168, 168);*/\n   /*color: rgb(255, 255, 255);*/\n   /*}*/\n   /*body{*/\n   /*overflow: scroll;*/\n   /*}*/\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvc2ltdWxhdG9yL3NpbXVsYXRvci5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJDQUFDLFNBQVM7R0FDUCxrQkFBa0I7R0FDbEIsdUJBQXVCO0dBQ3ZCLHVCQUF1QjtHQUN2Qix5Q0FBeUM7R0FDekMsOEJBQThCO0dBQ2hDLEtBQUs7R0FDTixTQUFTO0dBQ1AscUJBQXFCO0dBQ3ZCLEtBQUsiLCJmaWxlIjoic3JjL2FwcC9zaW11bGF0b3Ivc2ltdWxhdG9yLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIgLypib2R5eyovXG4gICAvKmhlaWdodDogNTAwcHg7Ki9cbiAgIC8qbGluZS1oZWlnaHQ6IDMwMHB4OyovXG4gICAvKnRleHQtYWxpZ246IGNlbnRlcjsqL1xuICAgLypiYWNrZ3JvdW5kLWNvbG9yOiByZ2IoMTY4LCAxNjgsIDE2OCk7Ki9cbiAgIC8qY29sb3I6IHJnYigyNTUsIDI1NSwgMjU1KTsqL1xuIC8qfSovXG4vKmJvZHl7Ki9cbiAgLypvdmVyZmxvdzogc2Nyb2xsOyovXG4vKn0qL1xuIl19 */"
 
 /***/ }),
 
@@ -1223,7 +1336,7 @@ module.exports = " /*body{*/\r\n   /*height: 500px;*/\r\n   /*line-height: 300px
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!--&lt;!&ndash;in this file you will add {{}} which is define in component.ts&ndash;&gt;-->\r\n<!--<script src=\"./js/three.min.js\"></script>-->\r\n\r\n<script src=\"three/examples/js/controls/OrbitControls\"></script>\r\n\r\n<!--<script src=\"./js/simulatorModel.js\"></script>-->\r\n\r\n\r\n<!--<body>-->\r\n<!--</body>-->\r\n<!--<p>-->\r\n  <!--simulator works!-->\r\n<!--</p>-->\r\n\r\n<!--<p>{{moveClaw(10)}}</p>-->\r\n<!--<p>{{moveArm(3, 4, true)}}</p>-->\r\n<!--<p>{{returnToHome()}}</p>-->\r\n<!--<p>{{wait(1000)}}</p>-->\r\n<!--<p>{{start()}}</p>-->\r\n<!--<p>{{stop()}}</p>-->\r\n<!--<p>{{connectToRobot(1)}}</p>-->\r\n<!--<p>{{disconnectFromRobot()}}</p>-->\r\n"
+module.exports = "<!--&lt;!&ndash;in this file you will add {{}} which is define in component.ts&ndash;&gt;-->\n<!--<script src=\"./js/three.min.js\"></script>-->\n\n<script src=\"three/examples/js/controls/OrbitControls\"></script>\n\n<!--<script src=\"./js/simulatorModel.js\"></script>-->\n\n\n<!--<body>-->\n<!--</body>-->\n<!--<p>-->\n  <!--simulator works!-->\n<!--</p>-->\n\n<!--<p>{{moveClaw(10)}}</p>-->\n<!--<p>{{moveArm(3, 4, true)}}</p>-->\n<!--<p>{{returnToHome()}}</p>-->\n<!--<p>{{wait(1000)}}</p>-->\n<!--<p>{{start()}}</p>-->\n<!--<p>{{stop()}}</p>-->\n<!--<p>{{connectToRobot(1)}}</p>-->\n<!--<p>{{disconnectFromRobot()}}</p>-->\n"
 
 /***/ }),
 
@@ -1692,7 +1805,7 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_2__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\klaw\frontend\src\main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! /Users/Chris/KLAW-Web/frontend/src/main.ts */"./src/main.ts");
 
 
 /***/ })
