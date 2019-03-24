@@ -8,7 +8,6 @@ Flask==1.0.2
 Flask-Bcrypt==0.7.1
 Flask-Caching==1.4.0
 Flask-Cors==3.0.7
-Flask-Login==0.4.1
 flask-marshmallow==0.9.0
 gunicorn==19.9.0
 isort==4.3.4
@@ -23,6 +22,7 @@ pycparser==2.19
 pylint==2.2.2
 pyserial==3.4
 six==1.12.0
+slackclient==1.3.1
 virtualenv==16.2.0
 virtualenv-clone==0.4.0
 Werkzeug==0.14.1
