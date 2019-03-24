@@ -10,7 +10,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 })
 export class DataService {
 
-  private ROOT_URL: string = "http://localhost:5000"; // listening to API here
+  private ROOT_URL: string = "https://klaw-web.herokuapp.com"; // listening to API here
 
   private commandStringSource = new BehaviorSubject<string>("");
   commandString = this.commandStringSource.asObservable();
