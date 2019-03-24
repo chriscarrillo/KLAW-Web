@@ -19,7 +19,6 @@ export class RobotConnectionComponent implements OnInit {
     const dialogRef = this.dialog.open(RobotConnectionDialogComponent);
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
     });
   }
 
