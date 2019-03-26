@@ -1150,29 +1150,58 @@ var ModelService = /** @class */ (function () {
             this.upperRobotArm.position.y += 210;
             this.lowerRobotArm.add(this.upperRobotArm);
             // create the pieces that will hold both claws together
-            for (var i = 0; i < 2; i++) {
-                var geometry = new three__WEBPACK_IMPORTED_MODULE_2__["BoxGeometry"](4, 20, .5);
-                var material = new three__WEBPACK_IMPORTED_MODULE_2__["MeshBasicMaterial"]({ color: 0x1cc977 });
-                var holder = new three__WEBPACK_IMPORTED_MODULE_2__["Mesh"](geometry, material);
-                holder.position.set(60, 175, -.45, -75);
-                if (i === 1) {
-                    holder.position.set(66, 153, -.43, -75);
-                }
-                holder.rotation.set(0, 0, (7 * Math.PI / 4));
-                this.upperRobotArm.add(holder);
-            }
-            // create actual claws
-            this.RobotClaw.prototype = Object.create(/*THREE.Object3D.prototype*/ three__WEBPACK_IMPORTED_MODULE_2__["Mesh"].prototype); //changed to meh for test
+            // for (let i = 0; i < 2; i++) {
+            //   const geometry = new THREE.BoxGeometry(4, 20, .5);
+            //   const material = new THREE.MeshBasicMaterial({color: 0x1cc977});
+            //   const holder = new THREE.Mesh(geometry, material);
+            //
+            //   holder.position.set(60, 175, -.45, -75);
+            //   if (i === 1) {
+            //     holder.position.set(66, 153, -.43, -75);
+            //   }
+            //   holder.rotation.set(0, 0, (7 * Math.PI / 4));
+            //   this.upperRobotArm.add(holder);
+            // }
+            //
+            // // create actual claws
+            // this.RobotClaw.prototype = Object.create(/*THREE.Object3D.prototype*/THREE.Mesh.prototype);  //changed to meh for test
+            //
+            // this.leftClaw = new this.RobotClaw();
+            // this.leftClaw.position.set(80, 125, -0.1, -75);
+            // this.leftClaw.rotation.set(0, 0, -(11 * Math.PI / 6));
+            // this.leftClaw.scale.set(.2,.2,.2);
+            //
+            // this.upperRobotArm.add(this.leftClaw);
+            //
+            // this.rightClaw = new this.RobotClaw();
+            // this.rightClaw.position.set(55, 171, -0.1, -75);
+            // this.rightClaw.rotation.set(0, 0, (12 * Math.PI / 6)); //changed for testing (was 12pi/6)
+            // this.rightClaw.scale.set(.2, .2, .2);
+            //
+            // // test:
+            // this.upperRobotArm.add(this.rightClaw);
+            /**updated claw**/
+            // width, height, depth
+            var holderGeometry = new three__WEBPACK_IMPORTED_MODULE_2__["BoxGeometry"](25, 30, 35);
+            var holderMaterial = new three__WEBPACK_IMPORTED_MODULE_2__["MeshBasicMaterial"]({ color: 0x1cc977 });
+            var holder = new three__WEBPACK_IMPORTED_MODULE_2__["Mesh"](holderGeometry, holderMaterial);
+            // holder.scale.set(.8, .8, .8);
+            holder.position.set(51, 160, 3, -75);
+            // rotate slightly downward
+            holder.rotation.set(0, 0, -Math.PI / 6);
+            this.upperRobotArm.add(holder);
+            this.RobotClaw.prototype = Object.create(/*THREE.Object3D.prototype*/ three__WEBPACK_IMPORTED_MODULE_2__["Mesh"].prototype); // changed to mesh for test
             this.leftClaw = new this.RobotClaw();
-            this.leftClaw.position.set(80, 125, -0.1, -75);
-            this.leftClaw.rotation.set(0, 0, -(11 * Math.PI / 6));
+            this.leftClaw.position.set(43, 173, 27, -75);
+            this.leftClaw.rotation.set(0, 0, -Math.PI / 6);
             this.leftClaw.scale.set(.2, .2, .2);
+            this.leftClaw.updateMatrix();
             this.upperRobotArm.add(this.leftClaw);
             this.rightClaw = new this.RobotClaw();
-            this.rightClaw.position.set(55, 171, -0.1, -75);
-            this.rightClaw.rotation.set(0, 0, (12 * Math.PI / 6)); //changed for testing (was 12pi/6)
+            this.rightClaw.position.set(43, 173, 0, -75);
+            this.rightClaw.rotation.set(0, 0, -Math.PI / 6);
             this.rightClaw.scale.set(.2, .2, .2);
-            // test:
+            this.rightClaw.updateMatrix();
             this.upperRobotArm.add(this.rightClaw);
             this.mesh.castShadow = true;
             this.mesh.receiveShadow = true;
@@ -1201,6 +1230,8 @@ var ModelService = /** @class */ (function () {
                 color: 0xbd1cc9,
                 flatShading: true
             }));
+            /**added rotation**/
+            clawMesh.rotation.y += Math.PI / 2;
             clawMesh.castShadow = true;
             clawMesh.receiveShadow = true;
             this.mesh.add(clawMesh);
@@ -1297,17 +1328,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var three__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! three */ "./node_modules/three/build/three.module.js");
-/* harmony import */ var tween__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! tween */ "./node_modules/tween/tween.js");
-/* harmony import */ var tween__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(tween__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _js_EnableThreeExamples__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./js/EnableThreeExamples */ "./src/app/simulator/js/EnableThreeExamples.js");
-/* harmony import */ var _js_EnableThreeExamples__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_js_EnableThreeExamples__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _js_EnableTween__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./js/EnableTween */ "./src/app/simulator/js/EnableTween.js");
-/* harmony import */ var _js_EnableTween__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_js_EnableTween__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var three_examples_js_controls_OrbitControls__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! three/examples/js/controls/OrbitControls */ "./node_modules/three/examples/js/controls/OrbitControls.js");
-/* harmony import */ var three_examples_js_controls_OrbitControls__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(three_examples_js_controls_OrbitControls__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var _model_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./model.service */ "./src/app/simulator/model.service.ts");
-/* harmony import */ var _events_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./events.service */ "./src/app/simulator/events.service.ts");
-
+/* harmony import */ var _js_EnableThreeExamples__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./js/EnableThreeExamples */ "./src/app/simulator/js/EnableThreeExamples.js");
+/* harmony import */ var _js_EnableThreeExamples__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_js_EnableThreeExamples__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _js_EnableTween__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./js/EnableTween */ "./src/app/simulator/js/EnableTween.js");
+/* harmony import */ var _js_EnableTween__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_js_EnableTween__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var three_examples_js_controls_OrbitControls__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! three/examples/js/controls/OrbitControls */ "./node_modules/three/examples/js/controls/OrbitControls.js");
+/* harmony import */ var three_examples_js_controls_OrbitControls__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(three_examples_js_controls_OrbitControls__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _model_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./model.service */ "./src/app/simulator/model.service.ts");
+/* harmony import */ var _events_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./events.service */ "./src/app/simulator/events.service.ts");
 
 
 
@@ -1321,11 +1349,14 @@ var startMoveArm;
 var startMoveClaw;
 var startWait;
 var animationOrder;
+var prevMethod;
 var SimulatorComponent = /** @class */ (function () {
     function SimulatorComponent(modelService, eventsService) {
         this.modelService = modelService;
         this.eventsService = eventsService;
         this.sumOfLowArmRotation = 0;
+        // tests the reset animation
+        this.test = true;
         this.render = this.render.bind(this);
     }
     SimulatorComponent.prototype.createScene = function () {
@@ -1390,7 +1421,6 @@ var SimulatorComponent = /** @class */ (function () {
         pointLight.castShadow = true;
         pointLight.shadow.mapSize.width = 1024;
         pointLight.shadow.mapSize.height = 1024;
-        console.log(this.scene);
         this.scene.add(hemisphereLight);
         this.scene.add(ambientLight);
         this.scene.add(pointLight);
@@ -1404,44 +1434,201 @@ var SimulatorComponent = /** @class */ (function () {
         // var grid = new THREE.GridHelper( 80, 70, 0x393839, 0x393839 );
     };
     SimulatorComponent.prototype.createModel = function () {
-        console.log('before setting model');
-        // THIS WORKS!!!:
-        // this.modelService.SimModel.prototype = Object.create(THREE.Object3D.prototype); //commented out for test
-        this.modelService.SimModel.prototype = Object.create(three__WEBPACK_IMPORTED_MODULE_2__["Mesh"].prototype); // added for test
+        this.modelService.SimModel.prototype = Object.create(three__WEBPACK_IMPORTED_MODULE_2__["Mesh"].prototype);
         this.model = this.modelService.SimModel();
-        console.log(this.model);
-        console.log('after setting model');
         this.scene.add(this.model);
-        // 7 children in general
         this.base = this.model.children[0];
         this.lowerArm = this.model.children[1];
         this.upperArm = this.lowerArm.children[1];
-        // this.oneHolder = this.upperArm.children[1];
-        // this.secondHolder = this.upperArm.children[2];
-        this.leftClaw = this.upperArm.children[3];
-        this.rightClaw = this.upperArm.children[4];
+        this.leftClaw = this.upperArm.children[2];
+        this.rightClaw = this.upperArm.children[3];
+        /**added**/
+        this.lowerArmLength = (new three__WEBPACK_IMPORTED_MODULE_2__["Box3"]().setFromObject(this.lowerArm)).getSize().y;
+        this.upperArmLength = (new three__WEBPACK_IMPORTED_MODULE_2__["Box3"]().setFromObject(this.upperArm)).getSize().x;
+        /**added**/
     };
     SimulatorComponent.prototype.convertLinearToDegrees = function (posX, posY) {
         /**Courtesy of Kris Hopper**/
-        var startX = 0;
-        var startY = 10;
-        var leg1 = 22.941;
-        var leg2 = 37.252;
-        var moveX = posX - startX;
-        var moveY = posY - startY;
-        var coordLimit = Math.pow(moveX, 2) + Math.pow(moveY, 2);
-        var r = Math.sqrt(coordLimit);
-        if (1914.001 <= coordLimit && coordLimit <= 3623.197) {
-            var q_2 = Math.acos((Math.pow(moveX, 2) + Math.pow(moveY, 2) - Math.pow(leg1, 2) - Math.pow(leg2, 2)) / (2 * leg1 * leg2));
-            var q_1 = Math.atan(moveY / moveX) - Math.atan((leg2 * Math.sin(q_2) / (leg1 + leg2 * Math.cos(q_2))));
-            // convert radians to degrees
-            q_1 = q_1 * (180 / Math.PI);
-            q_2 = q_2 * (180 / Math.PI);
-            var lowerArmAngle = -(90 - q_1);
-            var upperArmAngle = -(180 - q_2);
-            return [lowerArmAngle, upperArmAngle];
+        /**updated code**/
+        // A
+        // const lowerArmLength = (new THREE.Box3().setFromObject(this.lowerArm)).getSize().y;
+        // B
+        // const upperArmLength = (new THREE.Box3().setFromObject(this.upperArm)).getSize().x;
+        // console.log('lowerArmLength:', this.lowerArmLength);
+        // console.log('upperArmLength:', this.upperArmLength);
+        var stepBase = 0;
+        var stepElbow = 0;
+        var inputDist = Math.sqrt(Math.pow(posX, 2) + Math.pow(posY, 2));
+        var inputAngle = Math.acos((Math.pow(this.lowerArmLength, 2) + Math.pow(this.upperArmLength, 2) - Math.pow(inputDist, 2)) / (2 * this.lowerArmLength * this.upperArmLength));
+        var lowerArmAngle = Math.acos((Math.pow(this.upperArmLength, 2) + Math.pow(inputDist, 2) - Math.pow(this.lowerArmLength, 2)) / (2 * this.upperArmLength * inputDist));
+        var angShift = Math.acos((Math.pow(posY, 2) - Math.pow(posX, 2) - Math.pow(inputDist, 2)) / (2 * posX * inputDist));
+        // Kris converted radians to degree here
+        var inputDegree = (180 / Math.PI) * inputAngle;
+        var lowerArmDegree = (180 / Math.PI) * lowerArmAngle;
+        var degreeShift = (180 / Math.PI) * angShift;
+        var degreeElbow = inputDegree + degreeShift;
+        var degreeBase = 90 - lowerArmDegree;
+        degreeShift = 180 - degreeShift;
+        if (posY < 0) {
+            degreeBase = degreeBase + degreeShift;
         }
+        else if (posY > 0) {
+            degreeBase = degreeBase - degreeShift;
+        }
+        if (degreeElbow > 150) {
+            degreeElbow = 150;
+        }
+        stepBase = degreeBase;
+        stepElbow = degreeElbow;
+        stepBase = Math.round(stepBase);
+        stepElbow = Math.round(stepElbow);
+        // console.log('inputDist:', inputDist);
+        // console.log('degreeElbow:', degreeElbow);
+        // console.log('degreeShift:', degreeShift);
+        // console.log('degreeBase:', degreeBase);
+        return [degreeBase, degreeElbow];
     };
+    /**Comment this method for now, still testing it with the linear to degrees:**/
+    // moveArmFunction(posX, posY, isElbowUp = true) {
+    //   console.log('moving in posX:', posX);
+    //
+    //   const calculatedAngles = this.convertLinearToDegrees(posX, posY);
+    //   let lowerArmAngle = calculatedAngles[0];
+    //   let upperArmAngle = calculatedAngles[1];
+    //   lowerArmAngle *= (Math.PI / 180);
+    //   upperArmAngle *= -(Math.PI / 180); /**added negative for testing**/
+    //   // degreeElbow: 150 == 2.61799 == PI/12 (positive)
+    //   // degreeBase: -12.622221338044753 == -0.22029932126 == -0.07012345187*PI
+    //   // approx PI/ 15
+    //
+    //   console.log('goal low arm angle:', lowerArmAngle);
+    //   console.log('goal upper arm angle:', upperArmAngle);
+    //
+    //   /**problem:
+    //    * the rotation angles of the lower and upper arm do change
+    //    * but for the upper arm rotation, it goes way off model...
+    //    * is there some sort of limitation that the robot cannot move??
+    //    * well, already have boundaries set within the if statements...
+    //    * figure out the angle it is rotating to currently and compare to boundaries
+    //    */
+    //
+    //   // 0, 0, 0
+    //   console.log('lowerArmAngle:', this.lowerArm.rotation.z);
+    //   // 0, 0, -1.5707963267948966
+    //   console.log('upperArmAngle:', this.upperArm.rotation.z);
+    //
+    //   const LboundingBox = new THREE.Box3().setFromObject(this.lowerArm);
+    //   const UboundingBox = new THREE.Box3().setFromObject(this.upperArm);
+    //
+    //   const axis = new THREE.Vector3(0, 0, 1);
+    //   const lowerArmPivot = new THREE.Vector3(0, 0, 0);
+    //
+    //   /***uncomment later***/
+    //   // apply degreeBase
+    //   if ((this.lowerArm.rotation.z > -2.5 * Math.PI / 12 && this.lowerArm.rotation.z < 2.5 * Math.PI / 12)
+    //         && (lowerArmAngle >= 0 ? this.lowerArm.rotation.z < lowerArmAngle : this.lowerArm.rotation.z > lowerArmAngle)) {
+    //     this.lowerArm.parent.localToWorld(this.lowerArm.position);
+    //     this.lowerArm.position.sub(lowerArmPivot);
+    //     if (lowerArmAngle < 0) {
+    //       this.lowerArm.position.applyAxisAngle(axis, -Math.PI / 144);
+    //     }
+    //     else {
+    //       this.lowerArm.position.applyAxisAngle(axis, Math.PI / 144);
+    //     }
+    //     this.lowerArm.position.add(lowerArmPivot);
+    //     this.lowerArm.parent.worldToLocal(this.lowerArm.position);
+    //
+    //     if (lowerArmAngle < 0) {
+    //       this.lowerArm.rotation.z += -Math.PI / 144;
+    //       this.sumOfLowArmRotation += -Math.PI / 144;
+    //     }
+    //     else {
+    //       this.lowerArm.rotation.z += Math.PI / 144;
+    //       this.sumOfLowArmRotation += Math.PI / 144;
+    //     }
+    //
+    //     this.testPivot = new THREE.Vector3((new THREE.Box3().setFromObject(this.lowerArm)).getSize().x,
+    //       (new THREE.Box3().setFromObject(this.lowerArm)).getSize().y, 0);
+    //
+    //     /** this works about the same as prev**/
+    //     // this.testPivot.x -= 18;
+    //
+    //     /**test**/
+    //     this.testPivot.x += 18;
+    //     this.testPivot.y -= 30;
+    //
+    //   }
+    //
+    //   // console.log('sumOFLowArmRotation:', this.sumOfLowArmRotation);
+    //   // console.log('upperArm lower boundaries:', -9 * Math.PI / 12 - this.sumOfLowArmRotation);
+    //   // console.log('upperArm upper boundaries:', -2 * Math.PI / 12 + this.sumOfLowArmRotation);
+    //   /**uncomment later**/
+    //   else if ((this.upperArm.rotation.z > -9 * Math.PI / 12 - this.sumOfLowArmRotation && this.upperArm.rotation.z < -2 * Math.PI / 12 + this.sumOfLowArmRotation)
+    //       && (upperArmAngle >= 0 ? this.upperArm.rotation.z < upperArmAngle : this.upperArm.rotation.z > upperArmAngle)) {
+    //
+    //     const upperArmPivot = UboundingBox.getCenter();
+    //     upperArmPivot.x -= (UboundingBox.getSize().x / 2) - 2;
+    //     upperArmPivot.y -= (UboundingBox.getSize().y / 2) - 18;
+    //
+    //     console.log('testArmPivot', this.testPivot);
+    //
+    //     console.log('old pos:', this.upperArm.position);
+    //
+    //     /**comment for now
+    //     this.upperArm.parent.localToWorld(this.upperArm.position);
+    //     this.upperArm.position.sub(this.testPivot);
+    //     // if (upperArmAngle < 0) {
+    //       this.upperArm.position.applyAxisAngle(axis, -Math.PI / 144);
+    //     // }
+    //     // else {
+    //     //   this.upperArm.position.applyAxisAngle(axis, Math.PI / 144);
+    //     // }
+    //     this.upperArm.position.add(this.testPivot);
+    //     this.upperArm.parent.worldToLocal(this.upperArm.position);
+    //     // if (upperArmAngle < 0) {
+    //       this.upperArm.rotation.z += -Math.PI / 144;
+    //     // }
+    //     // else {
+    //     //    this.upperArm.rotation.z += Math.PI / 144;
+    //     // }
+    //      **/
+    //
+    //       this.upperArm.position.sub(this.testPivot);
+    //       console.log('new pos:', this.upperArm.position);
+    //       if (upperArmAngle < this.upperArm.rotation.z) {
+    //         this.upperArm.position.applyAxisAngle(axis, -Math.PI / 144);
+    //       }
+    //       else {
+    //         this.upperArm.position.applyAxisAngle(axis, Math.PI / 144);
+    //       }
+    //       this.upperArm.position.add(this.testPivot);
+    //       if (upperArmAngle < this.upperArm.rotation.z) {
+    //         this.upperArm.rotation.z += -Math.PI / 144;
+    //       }
+    //       else {
+    //         this.upperArm.rotation.z += Math.PI / 144;
+    //       }
+    //
+    //
+    //     /**test**/
+    //     // this.upperArm.parent.localToWorld(this.upperArm.position);
+    //     // this.upperArm.position.sub(this.testPivot)
+    //     // this.upperArm.rotation.z += -Math.PI / 144;
+    //     // this.upperArm.position.add(this.testPivot);
+    //     // this.upperArm.parent.worldToLocal(this.upperArm.position);
+    //
+    //
+    //   }
+    //   /**comment for now
+    //   else {
+    //     prevMethod = animationOrder[0][0];
+    //     animationOrder.shift();
+    //   }
+    //    **/
+    //   // -1.7016960206944711
+    //   console.log('current upper arm rotation', this.upperArm.rotation.z);
+    // }
+    /**'Working' moveArm function**/
     SimulatorComponent.prototype.moveArmFunction = function (posX, posY, isElbowUp) {
         if (isElbowUp === void 0) { isElbowUp = true; }
         console.log('X: ' + posX + ' Y: ' + posY + ' ElbowUp: ' + isElbowUp);
@@ -1495,82 +1682,35 @@ var SimulatorComponent = /** @class */ (function () {
             console.log('sum of lower arm rotation: ', this.sumOfLowArmRotation);
         }
         else {
-            // startMoveArm[0] = false;
+            prevMethod = animationOrder[0][0];
             animationOrder.shift();
         }
         /**comment out for now**/
         // alert('Moving robot arm (' + posX + ', ' + posY + '), with elbow up being ' + isElbowUp);
     };
+    // default is 27 centimeters apart
     SimulatorComponent.prototype.moveClawFunction = function (distanceApart) {
-        console.log('moveClaw func called');
-        animationOrder.shift();
-        // const axis = new THREE.Vector3(0, 0, 1);
-        // const leftClawBox = new THREE.Box3().setFromObject(this.leftClaw);
-        // const rightClawBox = new THREE.Box3().setFromObject(this.rightClaw);
-        // const leftClawPivot = leftClawBox.getCenter();
-        // const rightClawPivot = rightClawBox.getCenter();
-        // // console.log('default pos of leftClaw:', this.leftClaw.position);
-        // // console.log('default rot of leftClaw:', this.leftClaw.rotation);
-        // console.log('leftClaw position:', this.leftClaw.position);
-        // console.log('leftClaw dimension:', leftClawBox.getSize());
-        // console.log('leftClaw center:', leftClawPivot);
-        // // console.log('rightClaw dimension:', rightClawBox.getSize());
-        // // console.log('rightClaw center:', rightClawPivot);
-        //
-        //
-        // // if (this.leftClaw.rotation.z > -11 * Math.PI / 6 + -1.5 * Math.PI / 12 && this.leftClaw.rotation.z < -11 * Math.PI / 6 + 8.5 * Math.PI / 12) {
-        // //   console.log('leftClaw center:', leftClawPivot);
-        //   leftClawPivot.x -= (leftClawBox.getSize().x/* / 2*/) + 20;  // changes vertical direction
-        //   leftClawPivot.y -= (leftClawBox.getSize().y /*/ 2*/) + 37; // changes horizontal direction
-        //
-        //   console.log('new l pivot:', leftClawPivot);
-        //   // console.log('rotation of l:', this.leftClaw.rotation);
-        //
-        //   /**test**/
-        //   // this.leftClaw.rotation.z += Math.PI/24;
-        //   /**test**/
-        //
-        //   console.log('leftClaw min:', leftClawBox.min);
-        //   console.log('leftClaw max:', leftClawBox.max);
-        //
-        //   this.leftClaw.parent.localToWorld(this.leftClaw.position);
-        //   /**test**/
-        //   this.leftClaw.parent.localToWorld(leftClawBox.getCenter());
-        //   // this.leftClaw.position.sub(leftClawPivot);
-        //   console.log('new leftClaw position:', this.leftClaw.position);
-        //   console.log('world pivot:', leftClawBox.getCenter());
-        //   // this.leftClaw.position.applyAxisAngle(axis, Math.PI / 144);
-        //   // this.leftClaw.position.add(leftClawPivot);
-        //   // this.leftClaw.parent.worldToLocal(this.leftClaw.position);
-        //   // // this.leftClaw.rotation.z += Math.PI / 48;
-        //   // this.leftClaw.rotateOnAxis(axis, Math.PI / 144);
-        //
-        //   // console.log('leftClaw after position', this.leftClaw.position);
-        //   // console.log('leftClaw after rotation', this.leftClaw.rotation);
-        //   // console.log('leftClaw center after rotation', leftClawBox.getCenter());
-        //
-        // // }
-        //
-        // // else if (this.rightClaw.rotation.z > 12 * Math.PI / 6 + -4 * Math.PI / 12 && this.rightClaw.rotation.z < 12 * Math.PI / 6 + 3.5 * Math.PI / 12) {
-        // //
-        // //   rightClawPivot.x -= (rightClawBox.getSize().x / 2) - .75; // kinda works without offset
-        // //   rightClawPivot.y -= (rightClawBox.getSize().y / 2) + 0; // kinda works without offset
-        // //
-        // //   console.log('new r pivot:', rightClawPivot);
-        // //   console.log('default rot of r:', this.rightClaw.rotation);
-        // //
-        // //   /**Maybe this works??**/
-        // //   this.rightClaw.parent.localToWorld(this.rightClaw.position);
-        // //   this.rightClaw.position.sub(rightClawPivot);
-        // //   console.log('test r claw position:', this.rightClaw.position);
-        // //   this.rightClaw.position.applyAxisAngle(axis, Math.PI / 144);
-        // //   this.rightClaw.position.add(rightClawPivot);
-        // //   this.rightClaw.parent.worldToLocal(this.rightClaw.position);
-        // //   this.rightClaw.rotation.z += Math.PI / 144;
-        // // }
-        //
-        //
-        // // alert('Moving claw' + distanceApart + ' centimeters apart');
+        /**default linear claw movement**/
+        /**works**/
+        var currentDistApart = this.leftClaw.position.z - this.rightClaw.position.z;
+        console.log('currDist:', currentDistApart);
+        // if (!this.test) {
+        //   return;
+        // }
+        if ((this.leftClaw.position.z > 18) && (this.rightClaw.position.z < 9)
+            && (currentDistApart >= distanceApart)) {
+            this.leftClaw.position.z -= Math.PI / 60;
+            this.rightClaw.position.z += Math.PI / 60;
+        }
+        else {
+            prevMethod = animationOrder[0][0];
+            animationOrder.shift();
+        }
+        // else {
+        //   // reset animation test
+        //   this.resetModel();
+        //   this.test = false;
+        // }
     };
     SimulatorComponent.prototype.wait = function (timeToWait) {
         // add timer here
@@ -1580,50 +1720,55 @@ var SimulatorComponent = /** @class */ (function () {
             // alert('Waited ' + timeToWait + ' milliseconds!');
             return;
         }, timeToWait);
+        prevMethod = animationOrder[0][0];
         animationOrder.shift();
     };
-    SimulatorComponent.prototype.animateVector3 = function (vectorToAnimate, target, options) {
-        options = options || {};
-        var to = target || three__WEBPACK_IMPORTED_MODULE_2__["Vector3"](), easing = options.easign ||
-            tween__WEBPACK_IMPORTED_MODULE_3__["Easing"].Quadratic.In, duration = options.duration || 2000;
-        var tweenVector3 = new tween__WEBPACK_IMPORTED_MODULE_3__["Tween"](vectorToAnimate)
-            .to({ x: to.x, y: to.y, z: to.z, }, duration)
-            .easing(easing)
-            .onUpdate(function (d) {
-            if (options.update) {
-                options.update(d);
-            }
-        })
-            .onComplete(function () {
-            if (options.callback) {
-                options.callback();
-            }
-        });
-        tweenVector3.start();
-        return tweenVector3;
+    SimulatorComponent.prototype.resetModel = function () {
+        this.scene.remove(this.model);
+        this.createModel();
     };
     SimulatorComponent.prototype.render = function () {
+        var component = this;
         // looks at the animation order and calls each animation method accordingly
         if (animationOrder != null && animationOrder.length !== 0) {
             // get first method called
             var animMethod = animationOrder[0];
             // checks to see which animation method is being called
             if (animMethod[0] == 'moveArm') {
-                this.moveArmFunction(startMoveArm[1], startMoveArm[2], startMoveArm[3]);
+                if (prevMethod != null && prevMethod == 'moveArm') {
+                    console.log('MODEL TEST');
+                    // add wait to make transition less jerky
+                    // setTimeout(function () {
+                    //   component.resetModel();
+                    //   // return;
+                    // }, 4000);
+                    // console.log('reseted model!');
+                    this.resetModel();
+                    component.sumOfLowArmRotation = 0;
+                    prevMethod = '';
+                }
+                // this.moveArmFunction(startMoveArm[1], startMoveArm[2], startMoveArm[3]);
+                this.moveArmFunction(animMethod[1], animMethod[2], animMethod[3]);
                 this.renderer.render(this.scene, this.camera);
             }
             else if (animMethod[0] == 'moveClaw') {
-                this.moveClawFunction((startMoveClaw[1]));
+                // this.moveClawFunction((startMoveClaw[1]));
+                this.moveClawFunction((animMethod[1]));
                 this.renderer.render(this.scene, this.camera);
             }
             else if (animMethod[0] == 'wait') {
-                this.wait(startWait[1]);
+                // this.wait(startWait[1]);
+                this.wait(animMethod[1]);
                 this.renderer.render(this.scene, this.camera);
             }
         }
+        // /**test**/
+        // this.moveArmFunction(10, 10);
+        // this.moveClawFunction(15);
         this.renderer.render(this.scene, this.camera);
     };
     SimulatorComponent.prototype.ngAfterViewInit = function () {
+        var _this = this;
         this.createScene();
         this.createLights();
         this.createPlatform();
@@ -1645,6 +1790,11 @@ var SimulatorComponent = /** @class */ (function () {
             startMoveArm[2] = y;
             startMoveArm[3] = isElbowUp;
             animationOrder.push(startMoveArm);
+            if (animationOrder.length == 1) {
+                _this.sumOfLowArmRotation = 0;
+                prevMethod = '';
+                _this.resetModel();
+            }
         });
         this.eventsService.on('moveClaw', function (distanceApart) {
             console.log('moveClawFunction called via event');
@@ -1653,6 +1803,11 @@ var SimulatorComponent = /** @class */ (function () {
             startMoveClaw[0] = 'moveClaw';
             startMoveClaw[1] = distanceApart;
             animationOrder.push(startMoveClaw);
+            if (animationOrder.length == 1) {
+                _this.sumOfLowArmRotation = 0;
+                prevMethod = '';
+                _this.resetModel();
+            }
         });
         this.eventsService.on('wait', function (waitTime) {
             console.log('waitFunction called via event');
@@ -1661,6 +1816,11 @@ var SimulatorComponent = /** @class */ (function () {
             startWait[0] = 'wait';
             startWait[1] = waitTime;
             animationOrder.push(startWait);
+            if (animationOrder.length == 1) {
+                _this.sumOfLowArmRotation = 0;
+                prevMethod = '';
+                _this.resetModel();
+            }
         });
         this.addControls();
     };
@@ -1676,7 +1836,7 @@ var SimulatorComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./simulator.component.html */ "./src/app/simulator/simulator.component.html"),
             styles: [__webpack_require__(/*! ./simulator.component.css */ "./src/app/simulator/simulator.component.css")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_model_service__WEBPACK_IMPORTED_MODULE_7__["ModelService"], _events_service__WEBPACK_IMPORTED_MODULE_8__["EventsService"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_model_service__WEBPACK_IMPORTED_MODULE_6__["ModelService"], _events_service__WEBPACK_IMPORTED_MODULE_7__["EventsService"]])
     ], SimulatorComponent);
     return SimulatorComponent;
 }());

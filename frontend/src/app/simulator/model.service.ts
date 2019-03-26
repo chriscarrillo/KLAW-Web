@@ -44,36 +44,66 @@ export class ModelService {
       this.lowerRobotArm.add(this.upperRobotArm);
 
       // create the pieces that will hold both claws together
-      for (let i = 0; i < 2; i++) {
-        const geometry = new THREE.BoxGeometry(4, 20, .5);
-        const material = new THREE.MeshBasicMaterial({color: 0x1cc977});
-        const holder = new THREE.Mesh(geometry, material);
+      // for (let i = 0; i < 2; i++) {
+      //   const geometry = new THREE.BoxGeometry(4, 20, .5);
+      //   const material = new THREE.MeshBasicMaterial({color: 0x1cc977});
+      //   const holder = new THREE.Mesh(geometry, material);
+      //
+      //   holder.position.set(60, 175, -.45, -75);
+      //   if (i === 1) {
+      //     holder.position.set(66, 153, -.43, -75);
+      //   }
+      //   holder.rotation.set(0, 0, (7 * Math.PI / 4));
+      //   this.upperRobotArm.add(holder);
+      // }
+      //
+      // // create actual claws
+      // this.RobotClaw.prototype = Object.create(/*THREE.Object3D.prototype*/THREE.Mesh.prototype);  //changed to meh for test
+      //
+      // this.leftClaw = new this.RobotClaw();
+      // this.leftClaw.position.set(80, 125, -0.1, -75);
+      // this.leftClaw.rotation.set(0, 0, -(11 * Math.PI / 6));
+      // this.leftClaw.scale.set(.2,.2,.2);
+      //
+      // this.upperRobotArm.add(this.leftClaw);
+      //
+      // this.rightClaw = new this.RobotClaw();
+      // this.rightClaw.position.set(55, 171, -0.1, -75);
+      // this.rightClaw.rotation.set(0, 0, (12 * Math.PI / 6)); //changed for testing (was 12pi/6)
+      // this.rightClaw.scale.set(.2, .2, .2);
+      //
+      // // test:
+      // this.upperRobotArm.add(this.rightClaw);
 
-        holder.position.set(60, 175, -.45, -75);
-        if (i === 1) {
-          holder.position.set(66, 153, -.43, -75);
-        }
-        holder.rotation.set(0, 0, (7 * Math.PI / 4));
-        this.upperRobotArm.add(holder);
-      }
+    /**updated claw**/
+      // width, height, depth
+      const holderGeometry = new THREE.BoxGeometry(25, 30, 35);
+      const holderMaterial = new THREE.MeshBasicMaterial({color: 0x1cc977});
+      const holder = new THREE.Mesh(holderGeometry, holderMaterial);
+      // holder.scale.set(.8, .8, .8);
+      holder.position.set(51, 160, 3, -75);
+      // rotate slightly downward
+      holder.rotation.set(0, 0, -Math.PI / 6);
+      this.upperRobotArm.add(holder);
 
-      // create actual claws
-      this.RobotClaw.prototype = Object.create(/*THREE.Object3D.prototype*/THREE.Mesh.prototype);  //changed to meh for test
+      this.RobotClaw.prototype = Object.create(/*THREE.Object3D.prototype*/THREE.Mesh.prototype);  // changed to mesh for test
 
       this.leftClaw = new this.RobotClaw();
-      this.leftClaw.position.set(80, 125, -0.1, -75);
-      this.leftClaw.rotation.set(0, 0, -(11 * Math.PI / 6));
-      this.leftClaw.scale.set(.2,.2,.2);
+      this.leftClaw.position.set(43, 173, 27, -75);
+      this.leftClaw.rotation.set(0, 0, -Math.PI / 6);
+      this.leftClaw.scale.set(.2, .2, .2);
+      this.leftClaw.updateMatrix();
 
       this.upperRobotArm.add(this.leftClaw);
 
       this.rightClaw = new this.RobotClaw();
-      this.rightClaw.position.set(55, 171, -0.1, -75);
-      this.rightClaw.rotation.set(0, 0, (12 * Math.PI / 6)); //changed for testing (was 12pi/6)
+      this.rightClaw.position.set(43, 173, 0, -75);
+      this.rightClaw.rotation.set(0, 0, -Math.PI / 6);
       this.rightClaw.scale.set(.2, .2, .2);
+      this.rightClaw.updateMatrix();
 
-      // test:
       this.upperRobotArm.add(this.rightClaw);
+
 
       this.mesh.castShadow = true;
       this.mesh.receiveShadow = true;
@@ -107,6 +137,9 @@ export class ModelService {
         color: 0xbd1cc9,
         flatShading: true
       }));
+
+      /**added rotation**/
+      clawMesh.rotation.y += Math.PI / 2;
 
       clawMesh.castShadow = true;
       clawMesh.receiveShadow = true;
