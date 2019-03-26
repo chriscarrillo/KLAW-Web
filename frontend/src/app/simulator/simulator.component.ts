@@ -14,6 +14,7 @@ let startMoveArm: any[];
 let startMoveClaw: any[];
 let startWait: any[];
 let animationOrder: any[];
+let prevMethod: any;
 
 @Component({
   selector: 'app-simulator',
@@ -34,6 +35,11 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
   leftClaw;
   rightClaw;
   sumOfLowArmRotation = 0;
+  lowerArmLength;
+  upperArmLength;
+  testPivot;
+  // tests the reset animation
+  test = true;
 
   constructor(private modelService: ModelService, private eventsService: EventsService) {
     this.render = this.render.bind(this);
@@ -70,11 +76,10 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
         this.camera.updateProjectionMatrix();
   }
 
-  // adds Orbit Controls to scene
+    // adds Orbit Controls to scene
   addControls() {
-
-      this.controls = new THREE.OrbitControls(this.camera, this.renderer.domElement);
-      this.controls.addEventListener('change', this.render);
+    this.controls = new THREE.OrbitControls(this.camera, this.renderer.domElement);
+    this.controls.addEventListener('change', this.render);
   }
 
   // inits renderer and maintains timing on animation
@@ -119,7 +124,6 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
       pointLight.shadow.mapSize.width = 1024;
       pointLight.shadow.mapSize.height = 1024;
 
-      console.log(this.scene);
       this.scene.add(hemisphereLight);
       this.scene.add(ambientLight);
       this.scene.add(pointLight);
@@ -139,51 +143,223 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
   }
 
   createModel() {
-      console.log('before setting model');
-      // THIS WORKS!!!:
-      // this.modelService.SimModel.prototype = Object.create(THREE.Object3D.prototype); //commented out for test
-      this.modelService.SimModel.prototype = Object.create(THREE.Mesh.prototype); // added for test
+      this.modelService.SimModel.prototype = Object.create(THREE.Mesh.prototype);
       this.model = this.modelService.SimModel();
-      console.log(this.model);
-      console.log('after setting model');
 
       this.scene.add(this.model);
-      // 7 children in general
       this.base = this.model.children[0];
       this.lowerArm = this.model.children[1];
       this.upperArm = this.lowerArm.children[1];
-      // this.oneHolder = this.upperArm.children[1];
-      // this.secondHolder = this.upperArm.children[2];
-      this.leftClaw = this.upperArm.children[3];
-      this.rightClaw = this.upperArm.children[4];
-  }
+      this.leftClaw = this.upperArm.children[2];
+      this.rightClaw = this.upperArm.children[3];
+
+      /**added**/
+      this.lowerArmLength = (new THREE.Box3().setFromObject(this.lowerArm)).getSize().y;
+      this.upperArmLength = (new THREE.Box3().setFromObject(this.upperArm)).getSize().x;
+
+      /**added**/
+    }
 
   private convertLinearToDegrees(posX, posY) {
       /**Courtesy of Kris Hopper**/
-      const startX = 0;
-      const startY = 10;
-      const leg1 = 22.941;
-      const leg2 = 37.252;
-      const moveX = posX - startX;
-      const moveY = posY - startY;
-      const coordLimit = Math.pow(moveX, 2) + Math.pow(moveY, 2);
-      const r = Math.sqrt(coordLimit);
+      /**updated code**/
+      // A
+      // const lowerArmLength = (new THREE.Box3().setFromObject(this.lowerArm)).getSize().y;
+      // B
+      // const upperArmLength = (new THREE.Box3().setFromObject(this.upperArm)).getSize().x;
 
-      if (1914.001 <= coordLimit && coordLimit <= 3623.197) {
-        let q_2 = Math.acos((Math.pow(moveX, 2) + Math.pow(moveY, 2) - Math.pow(leg1, 2) - Math.pow(leg2, 2)) / (2 * leg1 * leg2));
-        let q_1 = Math.atan(moveY / moveX) - Math.atan((leg2 * Math.sin(q_2) / (leg1 + leg2 * Math.cos(q_2))));
-        // convert radians to degrees
-        q_1 = q_1 * (180 / Math.PI);
-        q_2 = q_2 * (180 / Math.PI);
+      // console.log('lowerArmLength:', this.lowerArmLength);
+      // console.log('upperArmLength:', this.upperArmLength);
 
-        const lowerArmAngle = -(90 - q_1);
-        const upperArmAngle = -(180 - q_2);
+      let stepBase = 0;
+      let stepElbow = 0;
 
-        return [lowerArmAngle, upperArmAngle];
+      const inputDist = Math.sqrt(Math.pow(posX, 2) + Math.pow(posY, 2));
+      const inputAngle = Math.acos((Math.pow(this.lowerArmLength, 2) + Math.pow(this.upperArmLength, 2) - Math.pow(inputDist, 2)) / (2 * this.lowerArmLength * this.upperArmLength) );
+      const lowerArmAngle = Math.acos((Math.pow(this.upperArmLength, 2) + Math.pow(inputDist, 2) - Math.pow(this.lowerArmLength, 2)) / (2 * this.upperArmLength * inputDist));
+      const angShift = Math.acos((Math.pow(posY, 2) - Math.pow(posX, 2) - Math.pow(inputDist, 2)) / (2 * posX * inputDist));
+
+      // Kris converted radians to degree here
+      const inputDegree = (180 / Math.PI) * inputAngle;
+      const lowerArmDegree = (180 / Math.PI) * lowerArmAngle;
+      let degreeShift =  (180 / Math.PI) * angShift;
+
+      let degreeElbow = inputDegree + degreeShift;
+      let degreeBase = 90 - lowerArmDegree;
+      degreeShift = 180 - degreeShift;
+
+      if (posY < 0) {
+        degreeBase = degreeBase + degreeShift;
       }
-  }
+      else if (posY > 0) {
+        degreeBase = degreeBase - degreeShift;
+      }
 
-  moveArmFunction(posX, posY, isElbowUp = true) {
+      if (degreeElbow > 150) {
+        degreeElbow = 150;
+      }
+
+      stepBase = degreeBase;
+      stepElbow = degreeElbow;
+
+      stepBase = Math.round(stepBase);
+      stepElbow = Math.round(stepElbow);
+
+      // console.log('inputDist:', inputDist);
+      // console.log('degreeElbow:', degreeElbow);
+      // console.log('degreeShift:', degreeShift);
+      // console.log('degreeBase:', degreeBase);
+
+      return [degreeBase, degreeElbow];
+    }
+
+
+  /**Comment this method for now, still testing it with the linear to degrees:**/
+  // moveArmFunction(posX, posY, isElbowUp = true) {
+  //   console.log('moving in posX:', posX);
+  //
+  //   const calculatedAngles = this.convertLinearToDegrees(posX, posY);
+  //   let lowerArmAngle = calculatedAngles[0];
+  //   let upperArmAngle = calculatedAngles[1];
+  //   lowerArmAngle *= (Math.PI / 180);
+  //   upperArmAngle *= -(Math.PI / 180); /**added negative for testing**/
+  //   // degreeElbow: 150 == 2.61799 == PI/12 (positive)
+  //   // degreeBase: -12.622221338044753 == -0.22029932126 == -0.07012345187*PI
+  //   // approx PI/ 15
+  //
+  //   console.log('goal low arm angle:', lowerArmAngle);
+  //   console.log('goal upper arm angle:', upperArmAngle);
+  //
+  //   /**problem:
+  //    * the rotation angles of the lower and upper arm do change
+  //    * but for the upper arm rotation, it goes way off model...
+  //    * is there some sort of limitation that the robot cannot move??
+  //    * well, already have boundaries set within the if statements...
+  //    * figure out the angle it is rotating to currently and compare to boundaries
+  //    */
+  //
+  //   // 0, 0, 0
+  //   console.log('lowerArmAngle:', this.lowerArm.rotation.z);
+  //   // 0, 0, -1.5707963267948966
+  //   console.log('upperArmAngle:', this.upperArm.rotation.z);
+  //
+  //   const LboundingBox = new THREE.Box3().setFromObject(this.lowerArm);
+  //   const UboundingBox = new THREE.Box3().setFromObject(this.upperArm);
+  //
+  //   const axis = new THREE.Vector3(0, 0, 1);
+  //   const lowerArmPivot = new THREE.Vector3(0, 0, 0);
+  //
+  //   /***uncomment later***/
+  //   // apply degreeBase
+  //   if ((this.lowerArm.rotation.z > -2.5 * Math.PI / 12 && this.lowerArm.rotation.z < 2.5 * Math.PI / 12)
+  //         && (lowerArmAngle >= 0 ? this.lowerArm.rotation.z < lowerArmAngle : this.lowerArm.rotation.z > lowerArmAngle)) {
+  //     this.lowerArm.parent.localToWorld(this.lowerArm.position);
+  //     this.lowerArm.position.sub(lowerArmPivot);
+  //     if (lowerArmAngle < 0) {
+  //       this.lowerArm.position.applyAxisAngle(axis, -Math.PI / 144);
+  //     }
+  //     else {
+  //       this.lowerArm.position.applyAxisAngle(axis, Math.PI / 144);
+  //     }
+  //     this.lowerArm.position.add(lowerArmPivot);
+  //     this.lowerArm.parent.worldToLocal(this.lowerArm.position);
+  //
+  //     if (lowerArmAngle < 0) {
+  //       this.lowerArm.rotation.z += -Math.PI / 144;
+  //       this.sumOfLowArmRotation += -Math.PI / 144;
+  //     }
+  //     else {
+  //       this.lowerArm.rotation.z += Math.PI / 144;
+  //       this.sumOfLowArmRotation += Math.PI / 144;
+  //     }
+  //
+  //     this.testPivot = new THREE.Vector3((new THREE.Box3().setFromObject(this.lowerArm)).getSize().x,
+  //       (new THREE.Box3().setFromObject(this.lowerArm)).getSize().y, 0);
+  //
+  //     /** this works about the same as prev**/
+  //     // this.testPivot.x -= 18;
+  //
+  //     /**test**/
+  //     this.testPivot.x += 18;
+  //     this.testPivot.y -= 30;
+  //
+  //   }
+  //
+  //   // console.log('sumOFLowArmRotation:', this.sumOfLowArmRotation);
+  //   // console.log('upperArm lower boundaries:', -9 * Math.PI / 12 - this.sumOfLowArmRotation);
+  //   // console.log('upperArm upper boundaries:', -2 * Math.PI / 12 + this.sumOfLowArmRotation);
+  //   /**uncomment later**/
+  //   else if ((this.upperArm.rotation.z > -9 * Math.PI / 12 - this.sumOfLowArmRotation && this.upperArm.rotation.z < -2 * Math.PI / 12 + this.sumOfLowArmRotation)
+  //       && (upperArmAngle >= 0 ? this.upperArm.rotation.z < upperArmAngle : this.upperArm.rotation.z > upperArmAngle)) {
+  //
+  //     const upperArmPivot = UboundingBox.getCenter();
+  //     upperArmPivot.x -= (UboundingBox.getSize().x / 2) - 2;
+  //     upperArmPivot.y -= (UboundingBox.getSize().y / 2) - 18;
+  //
+  //     console.log('testArmPivot', this.testPivot);
+  //
+  //     console.log('old pos:', this.upperArm.position);
+  //
+  //     /**comment for now
+  //     this.upperArm.parent.localToWorld(this.upperArm.position);
+  //     this.upperArm.position.sub(this.testPivot);
+  //     // if (upperArmAngle < 0) {
+  //       this.upperArm.position.applyAxisAngle(axis, -Math.PI / 144);
+  //     // }
+  //     // else {
+  //     //   this.upperArm.position.applyAxisAngle(axis, Math.PI / 144);
+  //     // }
+  //     this.upperArm.position.add(this.testPivot);
+  //     this.upperArm.parent.worldToLocal(this.upperArm.position);
+  //     // if (upperArmAngle < 0) {
+  //       this.upperArm.rotation.z += -Math.PI / 144;
+  //     // }
+  //     // else {
+  //     //    this.upperArm.rotation.z += Math.PI / 144;
+  //     // }
+  //      **/
+  //
+  //       this.upperArm.position.sub(this.testPivot);
+  //       console.log('new pos:', this.upperArm.position);
+  //       if (upperArmAngle < this.upperArm.rotation.z) {
+  //         this.upperArm.position.applyAxisAngle(axis, -Math.PI / 144);
+  //       }
+  //       else {
+  //         this.upperArm.position.applyAxisAngle(axis, Math.PI / 144);
+  //       }
+  //       this.upperArm.position.add(this.testPivot);
+  //       if (upperArmAngle < this.upperArm.rotation.z) {
+  //         this.upperArm.rotation.z += -Math.PI / 144;
+  //       }
+  //       else {
+  //         this.upperArm.rotation.z += Math.PI / 144;
+  //       }
+  //
+  //
+  //     /**test**/
+  //     // this.upperArm.parent.localToWorld(this.upperArm.position);
+  //     // this.upperArm.position.sub(this.testPivot)
+  //     // this.upperArm.rotation.z += -Math.PI / 144;
+  //     // this.upperArm.position.add(this.testPivot);
+  //     // this.upperArm.parent.worldToLocal(this.upperArm.position);
+  //
+  //
+  //   }
+  //   /**comment for now
+  //   else {
+  //     prevMethod = animationOrder[0][0];
+  //     animationOrder.shift();
+  //   }
+  //    **/
+  //   // -1.7016960206944711
+  //   console.log('current upper arm rotation', this.upperArm.rotation.z);
+  // }
+
+
+
+
+  /**'Working' moveArm function**/
+   moveArmFunction(posX, posY, isElbowUp = true) {
       console.log('X: ' + posX + ' Y: ' + posY + ' ElbowUp: ' + isElbowUp);
 
       // const calculatedAngles = this.convertLinearToDegrees(posX, posY);
@@ -248,7 +424,7 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
         console.log('sum of lower arm rotation: ', this.sumOfLowArmRotation);
       }
       else {
-        // startMoveArm[0] = false;
+        prevMethod = animationOrder[0][0];
         animationOrder.shift();
       }
 
@@ -256,114 +432,51 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
       // alert('Moving robot arm (' + posX + ', ' + posY + '), with elbow up being ' + isElbowUp);
   }
 
-  moveClawFunction(distanceApart) {
-      console.log('moveClaw func called');
-      animationOrder.shift();
-      // const axis = new THREE.Vector3(0, 0, 1);
-      // const leftClawBox = new THREE.Box3().setFromObject(this.leftClaw);
-      // const rightClawBox = new THREE.Box3().setFromObject(this.rightClaw);
-      // const leftClawPivot = leftClawBox.getCenter();
-      // const rightClawPivot = rightClawBox.getCenter();
-      // // console.log('default pos of leftClaw:', this.leftClaw.position);
-      // // console.log('default rot of leftClaw:', this.leftClaw.rotation);
-      // console.log('leftClaw position:', this.leftClaw.position);
-      // console.log('leftClaw dimension:', leftClawBox.getSize());
-      // console.log('leftClaw center:', leftClawPivot);
-      // // console.log('rightClaw dimension:', rightClawBox.getSize());
-      // // console.log('rightClaw center:', rightClawPivot);
-      //
-      //
-      // // if (this.leftClaw.rotation.z > -11 * Math.PI / 6 + -1.5 * Math.PI / 12 && this.leftClaw.rotation.z < -11 * Math.PI / 6 + 8.5 * Math.PI / 12) {
-      // //   console.log('leftClaw center:', leftClawPivot);
-      //   leftClawPivot.x -= (leftClawBox.getSize().x/* / 2*/) + 20;  // changes vertical direction
-      //   leftClawPivot.y -= (leftClawBox.getSize().y /*/ 2*/) + 37; // changes horizontal direction
-      //
-      //   console.log('new l pivot:', leftClawPivot);
-      //   // console.log('rotation of l:', this.leftClaw.rotation);
-      //
-      //   /**test**/
-      //   // this.leftClaw.rotation.z += Math.PI/24;
-      //   /**test**/
-      //
-      //   console.log('leftClaw min:', leftClawBox.min);
-      //   console.log('leftClaw max:', leftClawBox.max);
-      //
-      //   this.leftClaw.parent.localToWorld(this.leftClaw.position);
-      //   /**test**/
-      //   this.leftClaw.parent.localToWorld(leftClawBox.getCenter());
-      //   // this.leftClaw.position.sub(leftClawPivot);
-      //   console.log('new leftClaw position:', this.leftClaw.position);
-      //   console.log('world pivot:', leftClawBox.getCenter());
-      //   // this.leftClaw.position.applyAxisAngle(axis, Math.PI / 144);
-      //   // this.leftClaw.position.add(leftClawPivot);
-      //   // this.leftClaw.parent.worldToLocal(this.leftClaw.position);
-      //   // // this.leftClaw.rotation.z += Math.PI / 48;
-      //   // this.leftClaw.rotateOnAxis(axis, Math.PI / 144);
-      //
-      //   // console.log('leftClaw after position', this.leftClaw.position);
-      //   // console.log('leftClaw after rotation', this.leftClaw.rotation);
-      //   // console.log('leftClaw center after rotation', leftClawBox.getCenter());
-      //
-      // // }
-      //
-      // // else if (this.rightClaw.rotation.z > 12 * Math.PI / 6 + -4 * Math.PI / 12 && this.rightClaw.rotation.z < 12 * Math.PI / 6 + 3.5 * Math.PI / 12) {
-      // //
-      // //   rightClawPivot.x -= (rightClawBox.getSize().x / 2) - .75; // kinda works without offset
-      // //   rightClawPivot.y -= (rightClawBox.getSize().y / 2) + 0; // kinda works without offset
-      // //
-      // //   console.log('new r pivot:', rightClawPivot);
-      // //   console.log('default rot of r:', this.rightClaw.rotation);
-      // //
-      // //   /**Maybe this works??**/
-      // //   this.rightClaw.parent.localToWorld(this.rightClaw.position);
-      // //   this.rightClaw.position.sub(rightClawPivot);
-      // //   console.log('test r claw position:', this.rightClaw.position);
-      // //   this.rightClaw.position.applyAxisAngle(axis, Math.PI / 144);
-      // //   this.rightClaw.position.add(rightClawPivot);
-      // //   this.rightClaw.parent.worldToLocal(this.rightClaw.position);
-      // //   this.rightClaw.rotation.z += Math.PI / 144;
-      // // }
-      //
-      //
-      // // alert('Moving claw' + distanceApart + ' centimeters apart');
-  }
 
-  wait(timeToWait) {
-    // add timer here
-    console.log('in wait function');
-    setTimeout(function () {
-      console.log('Waited ' + timeToWait + ' milliseconds!');
-      // alert('Waited ' + timeToWait + ' milliseconds!');
-      return;
+    // default is 27 centimeters apart
+    moveClawFunction(distanceApart) {
+      /**default linear claw movement**/
+      /**works**/
+      const currentDistApart = this.leftClaw.position.z - this.rightClaw.position.z;
+      console.log('currDist:', currentDistApart);
+      // if (!this.test) {
+      //   return;
+      // }
+      if ((this.leftClaw.position.z > 18) && (this.rightClaw.position.z < 9)
+          && (currentDistApart >= distanceApart)) {
+        this.leftClaw.position.z -= Math.PI / 60;
+        this.rightClaw.position.z += Math.PI / 60;
+      }
+      else {
+        prevMethod = animationOrder[0][0];
+        animationOrder.shift();
+      }
+      // else {
+      //   // reset animation test
+      //   this.resetModel();
+      //   this.test = false;
+      // }
+    }
+
+    wait(timeToWait) {
+      // add timer here
+      console.log('in wait function');
+      setTimeout(function () {
+        console.log('Waited ' + timeToWait + ' milliseconds!');
+        // alert('Waited ' + timeToWait + ' milliseconds!');
+        return;
       }, timeToWait);
-    animationOrder.shift();
-  }
+      prevMethod = animationOrder[0][0];
+      animationOrder.shift();
+    }
 
-  animateVector3(vectorToAnimate, target, options) {
-      options = options || {};
-
-      const to = target || THREE.Vector3(),
-        easing = options.easign ||
-          TWEEN.Easing.Quadratic.In,
-        duration = options.duration || 2000;
-
-      const tweenVector3 = new TWEEN.Tween(vectorToAnimate)
-        .to({x: to.x, y: to.y, z: to.z, }, duration)
-        .easing(easing)
-        .onUpdate(function(d) {
-          if (options.update) {
-            options.update(d);
-          }
-        })
-        .onComplete(function() {
-          if (options.callback) { options.callback(); }
-        });
-
-      tweenVector3.start();
-      return tweenVector3;
-  }
+    resetModel() {
+        this.scene.remove(this.model);
+        this.createModel();
+    }
 
   render() {
+     const component: SimulatorComponent = this;
     // looks at the animation order and calls each animation method accordingly
     if (animationOrder != null && animationOrder.length !== 0) {
       // get first method called
@@ -371,18 +484,38 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
 
       // checks to see which animation method is being called
       if (animMethod[0] == 'moveArm') {
-        this.moveArmFunction(startMoveArm[1], startMoveArm[2], startMoveArm[3]);
+        if (prevMethod != null && prevMethod == 'moveArm') {
+          console.log('MODEL TEST');
+          // add wait to make transition less jerky
+          // setTimeout(function () {
+          //   component.resetModel();
+          //   // return;
+          // }, 4000);
+          // console.log('reseted model!');
+          this.resetModel();
+          component.sumOfLowArmRotation = 0;
+          prevMethod = '';
+        }
+        // this.moveArmFunction(startMoveArm[1], startMoveArm[2], startMoveArm[3]);
+        this.moveArmFunction(animMethod[1], animMethod[2], animMethod[3]);
         this.renderer.render(this.scene, this.camera);
       }
       else if (animMethod[0] == 'moveClaw') {
-        this.moveClawFunction((startMoveClaw[1]));
+        // this.moveClawFunction((startMoveClaw[1]));
+        this.moveClawFunction((animMethod[1]));
         this.renderer.render(this.scene, this.camera);
       }
       else if (animMethod[0] == 'wait') {
-        this.wait(startWait[1]);
+        // this.wait(startWait[1]);
+        this.wait(animMethod[1]);
         this.renderer.render(this.scene, this.camera);
       }
     }
+
+    // /**test**/
+    // this.moveArmFunction(10, 10);
+    // this.moveClawFunction(15);
+
     this.renderer.render(this.scene, this.camera);
   }
   
@@ -411,6 +544,12 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
       startMoveArm[2] = y;
       startMoveArm[3] = isElbowUp;
       animationOrder.push(startMoveArm);
+
+      if (animationOrder.length == 1) {
+        this.sumOfLowArmRotation = 0;
+        prevMethod = '';
+        this.resetModel();
+      }
     });
     this.eventsService.on('moveClaw', (distanceApart) => {
       console.log('moveClawFunction called via event');
@@ -419,6 +558,12 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
       startMoveClaw[0] = 'moveClaw';
       startMoveClaw[1] = distanceApart;
       animationOrder.push(startMoveClaw);
+
+      if (animationOrder.length == 1) {
+        this.sumOfLowArmRotation = 0;
+        prevMethod = '';
+        this.resetModel();
+      }
     });
     this.eventsService.on('wait', (waitTime) => {
       console.log('waitFunction called via event');
@@ -427,6 +572,12 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
       startWait[0] = 'wait';
       startWait[1] = waitTime;
       animationOrder.push(startWait);
+
+      if (animationOrder.length == 1) {
+        this.sumOfLowArmRotation = 0;
+        prevMethod = '';
+        this.resetModel();
+      }
     });
 
     this.addControls();
