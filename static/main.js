@@ -1350,6 +1350,7 @@ var startMoveArm;
 var startMoveClaw;
 var startWait;
 var animationOrder;
+var prevMethod;
 var SimulatorComponent = /** @class */ (function () {
     function SimulatorComponent(modelService, eventsService) {
         this.modelService = modelService;
@@ -1559,20 +1560,20 @@ var SimulatorComponent = /** @class */ (function () {
             console.log('testArmPivot', this.testPivot);
             this.upperArm.parent.localToWorld(this.upperArm.position);
             this.upperArm.position.sub(this.testPivot);
-            if (upperArmAngle < 0) {
-                this.upperArm.position.applyAxisAngle(axis, -Math.PI / 144);
-            }
-            else {
-                this.upperArm.position.applyAxisAngle(axis, Math.PI / 144);
-            }
+            // if (upperArmAngle < 0) {
+            this.upperArm.position.applyAxisAngle(axis, -Math.PI / 144);
+            // }
+            // else {
+            //   this.upperArm.position.applyAxisAngle(axis, Math.PI / 144);
+            // }
             this.upperArm.position.add(this.testPivot);
             this.upperArm.parent.worldToLocal(this.upperArm.position);
-            if (upperArmAngle < 0) {
-                this.upperArm.rotation.z += -Math.PI / 144;
-            }
-            else {
-                this.upperArm.rotation.z += Math.PI / 144;
-            }
+            // if (upperArmAngle < 0) {
+            this.upperArm.rotation.z += -Math.PI / 144;
+            // }
+            // else {
+            //    this.upperArm.rotation.z += Math.PI / 144;
+            // }
             /**test**/
             // this.upperArm.parent.localToWorld(this.upperArm.position);
             // this.upperArm.position.sub(this.testPivot)
@@ -1581,6 +1582,7 @@ var SimulatorComponent = /** @class */ (function () {
             // this.upperArm.parent.worldToLocal(this.upperArm.position);
         }
         else {
+            prevMethod = animationOrder[0][0];
             animationOrder.shift();
         }
         // -1.7016960206944711
@@ -1588,7 +1590,6 @@ var SimulatorComponent = /** @class */ (function () {
     };
     // default is 27 centimeters apart
     SimulatorComponent.prototype.moveClawFunction = function (distanceApart) {
-        animationOrder.shift();
         /**default linear claw movement**/
         /**works**/
         var currentDistApart = this.leftClaw.position.z - this.rightClaw.position.z;
@@ -1602,6 +1603,7 @@ var SimulatorComponent = /** @class */ (function () {
             this.rightClaw.position.z += Math.PI / 60;
         }
         else {
+            prevMethod = animationOrder[0][0];
             animationOrder.shift();
         }
         // else {
@@ -1618,6 +1620,7 @@ var SimulatorComponent = /** @class */ (function () {
             // alert('Waited ' + timeToWait + ' milliseconds!');
             return;
         }, timeToWait);
+        prevMethod = animationOrder[0][0];
         animationOrder.shift();
     };
     SimulatorComponent.prototype.resetModel = function () {
@@ -1631,18 +1634,27 @@ var SimulatorComponent = /** @class */ (function () {
             var animMethod = animationOrder[0];
             // checks to see which animation method is being called
             if (animMethod[0] == 'moveArm') {
-                this.moveArmFunction(startMoveArm[1], startMoveArm[2], startMoveArm[3]);
+                if (prevMethod != null && prevMethod == 'moveArm') {
+                    this.resetModel();
+                }
+                // this.moveArmFunction(startMoveArm[1], startMoveArm[2], startMoveArm[3]);
+                this.moveArmFunction(animMethod[1], animMethod[2], animMethod[3]);
                 this.renderer.render(this.scene, this.camera);
             }
             else if (animMethod[0] == 'moveClaw') {
-                this.moveClawFunction((startMoveClaw[1]));
+                // this.moveClawFunction((startMoveClaw[1]));
+                this.moveClawFunction((animMethod[1]));
                 this.renderer.render(this.scene, this.camera);
             }
             else if (animMethod[0] == 'wait') {
-                this.wait(startWait[1]);
+                // this.wait(startWait[1]);
+                this.wait(animMethod[1]);
                 this.renderer.render(this.scene, this.camera);
             }
         }
+        /**test**/
+        // this.moveArmFunction(10, 10);
+        // this.moveClawFunction(15);
         this.renderer.render(this.scene, this.camera);
     };
     SimulatorComponent.prototype.ngAfterViewInit = function () {
