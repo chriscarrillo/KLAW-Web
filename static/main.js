@@ -206,70 +206,69 @@ var AppModule = /** @class */ (function () {
 /***/ (function(module, exports) {
 
 Blockly.Blocks['move_arm'] = {
-    init: function() {
-      this.appendDummyInput()
-          .appendField("Move robot arm to (")
-          .appendField(new Blockly.FieldNumber(0), "armX")
-          .appendField(",")
-          .appendField(new Blockly.FieldNumber(0), "armY")
-          .appendField(").");
-      this.appendDummyInput()
-          .appendField("Is robot elbow up?")
-          .appendField(new Blockly.FieldCheckbox("TRUE"), "isElbowUp");
-      this.setPreviousStatement(true, null);
-      this.setNextStatement(true, null);
-      this.setColour(130);
-    }
-  };
-  
-  Blockly.JavaScript['move_arm'] = function(block) {
-    var numberArmX = block.getFieldValue('armX');
-    var numberArmY = block.getFieldValue('armY');
-    var checkboxIsElbowUp = block.getFieldValue('isElbowUp') == 'TRUE';
-    // TODO: Assemble JavaScript into code variable.
-    var code = 'moveArm(' + numberArmX + ',' + numberArmY + ',' + checkboxIsElbowUp + ');';
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Move robot arm to (")
+        .appendField(new Blockly.FieldNumber(0), "armX")
+        .appendField(",")
+        .appendField(new Blockly.FieldNumber(0), "armY")
+        .appendField(").");
+    this.appendDummyInput()
+        .appendField("Is robot elbow up?")
+        .appendField(new Blockly.FieldCheckbox("TRUE"), "isElbowUp");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(240);
+  }
+};
 
-    return code;
-  };
-  
-  Blockly.Blocks['move_claw'] = {
-    init: function() {
-      this.appendDummyInput()
-          .appendField("Move claw")
-          .appendField(new Blockly.FieldTextInput("0"), "distanceBetweenFingersInCentimeters")
-          .appendField("centimeters apart");
-      this.setPreviousStatement(true, null);
-      this.setNextStatement(true, null);
-      this.setColour(240);
-    }
-  };
-  
-  Blockly.JavaScript['move_claw'] = function(block) {
-    var distanceBetweenFingersInCentimeters = block.getFieldValue('distanceBetweenFingersInCentimeters');
-    // TODO: Assemble JavaScript into code variable.
-    var code = 'moveClaw(' + distanceBetweenFingersInCentimeters + ');';
-    return code;
-  };
-  
-  Blockly.Blocks['wait'] = {
-    init: function() {
-      this.appendDummyInput("wait")
-          .appendField("Wait for")
-          .appendField(new Blockly.FieldNumber(0), "waitInMilliseconds")
-          .appendField("milliseconds");
-      this.setPreviousStatement(true, null);
-      this.setNextStatement(true, null);
-      this.setColour(345);
-    }
-  };
-  
-  Blockly.JavaScript['wait'] = function(block) {
-    var numberWaitInMilliseconds = block.getFieldValue('waitInMilliseconds');
-    // TODO: Assemble JavaScript into code variable.
-    var code = 'wait(' + numberWaitInMilliseconds + ');';
-    return code;
-  };
+Blockly.JavaScript['move_arm'] = function(block) {
+  var numberArmX = block.getFieldValue('armX');
+  var numberArmY = block.getFieldValue('armY');
+  var checkboxIsElbowUp = block.getFieldValue('isElbowUp') == 'TRUE';
+  // TODO: Assemble JavaScript into code variable.
+  var code = 'moveArm(' + numberArmX + ',' + numberArmY + ',' + checkboxIsElbowUp + ');';
 
+  return code;
+};
+
+Blockly.Blocks['move_claw'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Move claw")
+        .appendField(new Blockly.FieldTextInput("0"), "distanceBetweenFingersInCentimeters")
+        .appendField("centimeters apart");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(290);
+  }
+};
+
+Blockly.JavaScript['move_claw'] = function(block) {
+  var distanceBetweenFingersInCentimeters = block.getFieldValue('distanceBetweenFingersInCentimeters');
+  // TODO: Assemble JavaScript into code variable.
+  var code = 'moveClaw(' + distanceBetweenFingersInCentimeters + ');';
+  return code;
+};
+
+Blockly.Blocks['wait'] = {
+  init: function() {
+    this.appendDummyInput("wait")
+        .appendField("Wait for")
+        .appendField(new Blockly.FieldNumber(0), "waitInMilliseconds")
+        .appendField("milliseconds");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(100);
+  }
+};
+
+Blockly.JavaScript['wait'] = function(block) {
+  var numberWaitInMilliseconds = block.getFieldValue('waitInMilliseconds');
+  // TODO: Assemble JavaScript into code variable.
+  var code = 'wait(' + numberWaitInMilliseconds + ');';
+  return code;
+};
 
 /***/ }),
 
@@ -291,7 +290,7 @@ module.exports = "<div class=\"pc-tab\">\r\n<input checked=\"checked\" id=\"tab1
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".pc-tab > input,\n.pc-tab section > div {\n  display: none; }\n\n#tab1:checked ~ section .tab1,\n#tab2:checked ~ section .tab2,\n#tab3:checked ~ section .tab3 {\n  display: block; }\n\n#tab1:checked ~ nav .tab1,\n#tab2:checked ~ nav .tab2,\n#tab3:checked ~ nav .tab3 {\n  color: red; }\n\n*, *:after, *:before {\n  box-sizing: border-box; }\n\nbody {\n  -webkit-font-smoothing: antialiased;\n  background: #ecf0f1; }\n\n.pc-tab {\n  width: 100%;\n  max-width: 750px;\n  margin: 0 auto; }\n\n.pc-tab ul {\n    list-style: none;\n    margin: 0;\n    padding: 0; }\n\n.pc-tab ul li label {\n      float: left;\n      padding: 15px 25px;\n      border: 1px solid #ddd;\n      border-bottom: 0;\n      background: #eeeeee;\n      color: #444; }\n\n.pc-tab ul li label:hover {\n        background: #dddddd; }\n\n.pc-tab ul li label:active {\n        background: #ffffff; }\n\n.pc-tab ul li:not(:last-child) label {\n      border-right-width: 0; }\n\n.pc-tab section {\n    clear: both; }\n\n.pc-tab section div {\n      padding: 20px;\n      width: 100%;\n      border: 1px solid #ddd;\n      background: #fff;\n      line-height: 1.5em;\n      letter-spacing: 0.3px;\n      color: #444; }\n\n.pc-tab section div h2 {\n        margin: 0;\n        letter-spacing: 1px;\n        color: #34495e; }\n\n#tab1:checked ~ nav .tab1 label,\n#tab2:checked ~ nav .tab2 label,\n#tab3:checked ~ nav .tab3 label {\n  background: white;\n  color: #111;\n  position: relative; }\n\n#tab1:checked ~ nav .tab1 label:after,\n  #tab2:checked ~ nav .tab2 label:after,\n  #tab3:checked ~ nav .tab3 label:after {\n    content: '';\n    display: block;\n    position: absolute;\n    height: 2px;\n    width: 100%;\n    background: #ffffff;\n    left: 0;\n    bottom: -1px; }\n\n#blocklyDiv {\n  line-height: 500px;\n  height: 480px;\n  width: 700px; }\n\n#xmlText {\n  height: 437px;\n  width: 700px; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9ibG9ja2x5LWVkaXRvci9DOlxcUHVsbGVkX0tMQVdcXEtMQVctV2ViXFxmcm9udGVuZC9zcmNcXGFwcFxcY29tcG9uZW50c1xcYmxvY2tseS1lZGl0b3JcXGJsb2NrbHktZWRpdG9yLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBOztFQUVFLGNBQWEsRUFDZDs7QUFFRDs7O0VBR0UsZUFBYyxFQUNmOztBQUVEOzs7RUFHRSxXQUFVLEVBQ1g7O0FBTUQ7RUFHRSx1QkFBc0IsRUFDdkI7O0FBRUQ7RUFDRSxvQ0FBbUM7RUFDbkMsb0JBQW1CLEVBQ3BCOztBQUVEO0VBQ0UsWUFBVztFQUNYLGlCQUFnQjtFQUNoQixlQUFjLEVBMENmOztBQTdDRDtJQUtJLGlCQUFnQjtJQUNoQixVQUFTO0lBQ1QsV0FBVSxFQW9CWDs7QUEzQkg7TUFVUSxZQUFXO01BQ1gsbUJBQWtCO01BQ2xCLHVCQUFzQjtNQUN0QixpQkFBZ0I7TUFDaEIsb0JBNUJlO01BNkJmLFlBQVcsRUFPWjs7QUF0QlA7UUFpQlUsb0JBOUJrQixFQStCbkI7O0FBbEJUO1FBb0JVLG9CQW5DVyxFQW9DWjs7QUFyQlQ7TUF3QlMsc0JBQXFCLEVBQ3ZCOztBQXpCUDtJQTZCSSxZQUFXLEVBZVo7O0FBNUNIO01BK0JNLGNBQWE7TUFDYixZQUFXO01BQ1gsdUJBQXNCO01BQ3RCLGlCQUFnQjtNQUNoQixtQkFBa0I7TUFDbEIsc0JBQXFCO01BQ3JCLFlBQVcsRUFNWjs7QUEzQ0w7UUF1Q1EsVUFBUztRQUNULG9CQUFtQjtRQUNuQixlQUFjLEVBQ2Y7O0FBS1A7OztFQUlJLGtCQUFpQjtFQUNqQixZQUFXO0VBQ1gsbUJBQWtCLEVBV25COztBQWpCSDs7O0lBUU0sWUFBVztJQUNYLGVBQWM7SUFDZCxtQkFBa0I7SUFDbEIsWUFBVztJQUNYLFlBQVc7SUFDWCxvQkEzRWU7SUE0RWYsUUFBTztJQUNQLGFBQVksRUFDYjs7QUFJTDtFQUNFLG1CQUFrQjtFQUNsQixjQUFhO0VBQ2IsYUFBWSxFQUNiOztBQUVEO0VBQ0UsY0FBYTtFQUNiLGFBQVksRUFDYiIsImZpbGUiOiJzcmMvYXBwL2NvbXBvbmVudHMvYmxvY2tseS1lZGl0b3IvYmxvY2tseS1lZGl0b3IuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIucGMtdGFiID4gaW5wdXQsXHJcbi5wYy10YWIgc2VjdGlvbiA+IGRpdiB7XHJcbiAgZGlzcGxheTogbm9uZTtcclxufVxyXG5cclxuI3RhYjE6Y2hlY2tlZCB+IHNlY3Rpb24gLnRhYjEsXHJcbiN0YWIyOmNoZWNrZWQgfiBzZWN0aW9uIC50YWIyLFxyXG4jdGFiMzpjaGVja2VkIH4gc2VjdGlvbiAudGFiMyB7XHJcbiAgZGlzcGxheTogYmxvY2s7XHJcbn1cclxuXHJcbiN0YWIxOmNoZWNrZWQgfiBuYXYgLnRhYjEsXHJcbiN0YWIyOmNoZWNrZWQgfiBuYXYgLnRhYjIsXHJcbiN0YWIzOmNoZWNrZWQgfiBuYXYgLnRhYjMge1xyXG4gIGNvbG9yOiByZWQ7XHJcbn1cclxuXHJcbiRhY3RpdmVDb2xvcjogI2ZmZmZmZjtcclxuJHVuYWN0aXZlQ29sb3I6ICNlZWVlZWU7XHJcbiR1bmFjdGl2ZUhvdmVyQ29sb3I6ICNkZGRkZGQ7XHJcblxyXG4qLCAqOmFmdGVyLCAqOmJlZm9yZSB7XHJcbiAgLXdlYmtpdC1ib3gtc2l6aW5nOiBib3JkZXItYm94O1xyXG4gIC1tb3otYm94LXNpemluZzogYm9yZGVyLWJveDtcclxuICBib3gtc2l6aW5nOiBib3JkZXItYm94O1xyXG59XHJcblxyXG5ib2R5IHtcclxuICAtd2Via2l0LWZvbnQtc21vb3RoaW5nOiBhbnRpYWxpYXNlZDtcclxuICBiYWNrZ3JvdW5kOiAjZWNmMGYxO1xyXG59XHJcblxyXG4ucGMtdGFiIHsgXHJcbiAgd2lkdGg6IDEwMCU7XHJcbiAgbWF4LXdpZHRoOiA3NTBweDtcclxuICBtYXJnaW46IDAgYXV0bztcclxuICB1bCB7XHJcbiAgICBsaXN0LXN0eWxlOiBub25lO1xyXG4gICAgbWFyZ2luOiAwO1xyXG4gICAgcGFkZGluZzogMDtcclxuICAgIGxpIHtcclxuICAgICAgbGFiZWwge1xyXG4gICAgICAgIGZsb2F0OiBsZWZ0O1xyXG4gICAgICAgIHBhZGRpbmc6IDE1cHggMjVweDtcclxuICAgICAgICBib3JkZXI6IDFweCBzb2xpZCAjZGRkO1xyXG4gICAgICAgIGJvcmRlci1ib3R0b206IDA7XHJcbiAgICAgICAgYmFja2dyb3VuZDogJHVuYWN0aXZlQ29sb3I7XHJcbiAgICAgICAgY29sb3I6ICM0NDQ7XHJcbiAgICAgICAgJjpob3ZlciB7XHJcbiAgICAgICAgICBiYWNrZ3JvdW5kOiAkdW5hY3RpdmVIb3ZlckNvbG9yO1xyXG4gICAgICAgIH1cclxuICAgICAgICAmOmFjdGl2ZSB7XHJcbiAgICAgICAgICBiYWNrZ3JvdW5kOiAkYWN0aXZlQ29sb3I7XHJcbiAgICAgICAgfVxyXG4gICAgICB9XHJcbiAgICAgICY6bm90KDpsYXN0LWNoaWxkKSBsYWJlbCB7XHJcbiAgICAgICAgIGJvcmRlci1yaWdodC13aWR0aDogMDsgXHJcbiAgICAgIH1cclxuICAgIH1cclxuICB9XHJcbiAgc2VjdGlvbiB7XHJcbiAgICBjbGVhcjogYm90aDtcclxuICAgIGRpdiB7XHJcbiAgICAgIHBhZGRpbmc6IDIwcHg7IFxyXG4gICAgICB3aWR0aDogMTAwJTtcclxuICAgICAgYm9yZGVyOiAxcHggc29saWQgI2RkZDtcclxuICAgICAgYmFja2dyb3VuZDogI2ZmZjtcclxuICAgICAgbGluZS1oZWlnaHQ6IDEuNWVtO1xyXG4gICAgICBsZXR0ZXItc3BhY2luZzogMC4zcHg7XHJcbiAgICAgIGNvbG9yOiAjNDQ0O1xyXG4gICAgICBoMiB7XHJcbiAgICAgICAgbWFyZ2luOiAwO1xyXG4gICAgICAgIGxldHRlci1zcGFjaW5nOiAxcHg7XHJcbiAgICAgICAgY29sb3I6ICMzNDQ5NWU7XHJcbiAgICAgIH1cclxuICAgIH1cclxuICB9XHJcbn1cclxuXHJcbiN0YWIxOmNoZWNrZWQgfiBuYXYgLnRhYjEsXHJcbiN0YWIyOmNoZWNrZWQgfiBuYXYgLnRhYjIsXHJcbiN0YWIzOmNoZWNrZWQgfiBuYXYgLnRhYjMge1xyXG4gIGxhYmVsIHtcclxuICAgIGJhY2tncm91bmQ6IHdoaXRlO1xyXG4gICAgY29sb3I6ICMxMTE7XHJcbiAgICBwb3NpdGlvbjogcmVsYXRpdmU7XHJcbiAgICAmOmFmdGVyIHtcclxuICAgICAgY29udGVudDogJyc7XHJcbiAgICAgIGRpc3BsYXk6IGJsb2NrO1xyXG4gICAgICBwb3NpdGlvbjogYWJzb2x1dGU7XHJcbiAgICAgIGhlaWdodDogMnB4O1xyXG4gICAgICB3aWR0aDogMTAwJTtcclxuICAgICAgYmFja2dyb3VuZDogJGFjdGl2ZUNvbG9yO1xyXG4gICAgICBsZWZ0OiAwO1xyXG4gICAgICBib3R0b206IC0xcHg7XHJcbiAgICB9XHJcbiAgfVxyXG59XHJcblxyXG4jYmxvY2tseURpdiB7XHJcbiAgbGluZS1oZWlnaHQ6IDUwMHB4O1xyXG4gIGhlaWdodDogNDgwcHg7IFxyXG4gIHdpZHRoOiA3MDBweDtcclxufVxyXG5cclxuI3htbFRleHQge1xyXG4gIGhlaWdodDogNDM3cHg7XHJcbiAgd2lkdGg6IDcwMHB4O1xyXG59Il19 */"
+module.exports = ".pc-tab > input,\n.pc-tab section > div {\n  display: none; }\n\n#tab1:checked ~ section .tab1,\n#tab2:checked ~ section .tab2,\n#tab3:checked ~ section .tab3 {\n  display: block; }\n\n#tab1:checked ~ nav .tab1,\n#tab2:checked ~ nav .tab2,\n#tab3:checked ~ nav .tab3 {\n  color: red; }\n\n*, *:after, *:before {\n  box-sizing: border-box; }\n\nbody {\n  -webkit-font-smoothing: antialiased;\n  background: #ecf0f1; }\n\n.pc-tab {\n  width: 100%;\n  max-width: 750px;\n  margin: 0 auto; }\n\n.pc-tab ul {\n    list-style: none;\n    margin: 0;\n    padding: 0; }\n\n.pc-tab ul li label {\n      float: left;\n      padding: 15px 25px;\n      border: 1px solid #ddd;\n      border-bottom: 0;\n      background: #ffffff;\n      color: #1B404F; }\n\n.pc-tab ul li label:hover {\n        background: #137A86; }\n\n.pc-tab ul li label:active {\n        background: #031A23;\n        color: #ffffff; }\n\n.pc-tab ul li:not(:last-child) label {\n      border-right-width: 0; }\n\n.pc-tab section {\n    clear: both; }\n\n.pc-tab section div {\n      padding: 20px;\n      width: 100%;\n      background: #fff;\n      line-height: 1.5em;\n      letter-spacing: 0.3px;\n      border-top: 1px solid #34495e;\n      color: #1B404F; }\n\n.pc-tab section div h2 {\n        margin: 0;\n        letter-spacing: 1px;\n        color: #34495e; }\n\n#tab1:checked ~ nav .tab1 label,\n#tab2:checked ~ nav .tab2 label,\n#tab3:checked ~ nav .tab3 label {\n  background: white;\n  color: #111;\n  position: relative; }\n\n#tab1:checked ~ nav .tab1 label:after,\n  #tab2:checked ~ nav .tab2 label:after,\n  #tab3:checked ~ nav .tab3 label:after {\n    content: '';\n    display: block;\n    position: absolute;\n    height: 2px;\n    width: 100%;\n    background: #031A23;\n    left: 0;\n    bottom: -1px; }\n\n#blocklyDiv {\n  line-height: 500px;\n  height: 480px;\n  width: 100%;\n  border-top: 1px solid #ffffff; }\n\n#xmlText {\n  height: 437px;\n  width: 100%; }\n\n.tab2 h2 {\n  padding-bottom: 20px; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9ibG9ja2x5LWVkaXRvci9DOlxca2xhd1xcZnJvbnRlbmQvc3JjXFxhcHBcXGNvbXBvbmVudHNcXGJsb2NrbHktZWRpdG9yXFxibG9ja2x5LWVkaXRvci5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTs7RUFFRSxjQUFhLEVBQ2Q7O0FBRUQ7OztFQUdFLGVBQWMsRUFDZjs7QUFFRDs7O0VBR0UsV0FBVSxFQUNYOztBQVFEO0VBR0UsdUJBQXNCLEVBQ3ZCOztBQUVEO0VBQ0Usb0NBQW1DO0VBQ25DLG9CQUFtQixFQUNwQjs7QUFFRDtFQUNFLFlBQVc7RUFDWCxpQkFBZ0I7RUFDaEIsZUFBYyxFQTJDZjs7QUE5Q0Q7SUFLSSxpQkFBZ0I7SUFDaEIsVUFBUztJQUNULFdBQVUsRUFxQlg7O0FBNUJIO01BVVEsWUFBVztNQUNYLG1CQUFrQjtNQUNsQix1QkFBc0I7TUFDdEIsaUJBQWdCO01BQ2hCLG9CQTlCZTtNQStCZixlQTVCbUIsRUFvQ3BCOztBQXZCUDtRQWlCVSxvQkFoQ2tCLEVBaUNuQjs7QUFsQlQ7UUFvQlUsb0JBckNXO1FBc0NYLGVBbkNlLEVBb0NoQjs7QUF0QlQ7TUF5QlMsc0JBQXFCLEVBQ3ZCOztBQTFCUDtJQThCSSxZQUFXLEVBZVo7O0FBN0NIO01BZ0NNLGNBQWE7TUFDYixZQUFXO01BQ1gsaUJBQWdCO01BQ2hCLG1CQUFrQjtNQUNsQixzQkFBcUI7TUFDckIsOEJBQTZCO01BQzdCLGVBQWMsRUFNZjs7QUE1Q0w7UUF3Q1EsVUFBUztRQUNULG9CQUFtQjtRQUNuQixlQUFjLEVBQ2Y7O0FBS1A7OztFQUlJLGtCQUFpQjtFQUNqQixZQUFXO0VBQ1gsbUJBQWtCLEVBV25COztBQWpCSDs7O0lBUU0sWUFBVztJQUNYLGVBQWM7SUFDZCxtQkFBa0I7SUFDbEIsWUFBVztJQUNYLFlBQVc7SUFDWCxvQkE5RWU7SUErRWYsUUFBTztJQUNQLGFBQVksRUFDYjs7QUFJTDtFQUNFLG1CQUFrQjtFQUNsQixjQUFhO0VBQ2IsWUFBVztFQUNYLDhCQUE2QixFQUM5Qjs7QUFFRDtFQUNFLGNBQWE7RUFDYixZQUFXLEVBQ1o7O0FBRUQ7RUFDQyxxQkFBb0IsRUFDcEIiLCJmaWxlIjoic3JjL2FwcC9jb21wb25lbnRzL2Jsb2NrbHktZWRpdG9yL2Jsb2NrbHktZWRpdG9yLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnBjLXRhYiA+IGlucHV0LFxyXG4ucGMtdGFiIHNlY3Rpb24gPiBkaXYge1xyXG4gIGRpc3BsYXk6IG5vbmU7XHJcbn1cclxuXHJcbiN0YWIxOmNoZWNrZWQgfiBzZWN0aW9uIC50YWIxLFxyXG4jdGFiMjpjaGVja2VkIH4gc2VjdGlvbiAudGFiMixcclxuI3RhYjM6Y2hlY2tlZCB+IHNlY3Rpb24gLnRhYjMge1xyXG4gIGRpc3BsYXk6IGJsb2NrO1xyXG59XHJcblxyXG4jdGFiMTpjaGVja2VkIH4gbmF2IC50YWIxLFxyXG4jdGFiMjpjaGVja2VkIH4gbmF2IC50YWIyLFxyXG4jdGFiMzpjaGVja2VkIH4gbmF2IC50YWIzIHtcclxuICBjb2xvcjogcmVkO1xyXG59XHJcblxyXG4kYWN0aXZlQ29sb3I6ICMwMzFBMjM7XHJcbiR1bmFjdGl2ZUNvbG9yOiAjZmZmZmZmO1xyXG4kdW5hY3RpdmVIb3ZlckNvbG9yOiAjMTM3QTg2O1xyXG4kYWN0aXZlVGV4dENvbG9yOiAjZmZmZmZmO1xyXG4kdW5hY3RpdmVUZXh0Q29sb3I6ICMxQjQwNEY7XHJcblxyXG4qLCAqOmFmdGVyLCAqOmJlZm9yZSB7XHJcbiAgLXdlYmtpdC1ib3gtc2l6aW5nOiBib3JkZXItYm94O1xyXG4gIC1tb3otYm94LXNpemluZzogYm9yZGVyLWJveDtcclxuICBib3gtc2l6aW5nOiBib3JkZXItYm94O1xyXG59XHJcblxyXG5ib2R5IHtcclxuICAtd2Via2l0LWZvbnQtc21vb3RoaW5nOiBhbnRpYWxpYXNlZDtcclxuICBiYWNrZ3JvdW5kOiAjZWNmMGYxO1xyXG59XHJcblxyXG4ucGMtdGFiIHsgXHJcbiAgd2lkdGg6IDEwMCU7XHJcbiAgbWF4LXdpZHRoOiA3NTBweDtcclxuICBtYXJnaW46IDAgYXV0bztcclxuICB1bCB7XHJcbiAgICBsaXN0LXN0eWxlOiBub25lO1xyXG4gICAgbWFyZ2luOiAwO1xyXG4gICAgcGFkZGluZzogMDtcclxuICAgIGxpIHtcclxuICAgICAgbGFiZWwge1xyXG4gICAgICAgIGZsb2F0OiBsZWZ0O1xyXG4gICAgICAgIHBhZGRpbmc6IDE1cHggMjVweDtcclxuICAgICAgICBib3JkZXI6IDFweCBzb2xpZCAjZGRkO1xyXG4gICAgICAgIGJvcmRlci1ib3R0b206IDA7XHJcbiAgICAgICAgYmFja2dyb3VuZDogJHVuYWN0aXZlQ29sb3I7XHJcbiAgICAgICAgY29sb3I6ICR1bmFjdGl2ZVRleHRDb2xvcjtcclxuICAgICAgICAmOmhvdmVyIHtcclxuICAgICAgICAgIGJhY2tncm91bmQ6ICR1bmFjdGl2ZUhvdmVyQ29sb3I7XHJcbiAgICAgICAgfVxyXG4gICAgICAgICY6YWN0aXZlIHtcclxuICAgICAgICAgIGJhY2tncm91bmQ6ICRhY3RpdmVDb2xvcjtcclxuICAgICAgICAgIGNvbG9yOiAkYWN0aXZlVGV4dENvbG9yO1xyXG4gICAgICAgIH1cclxuICAgICAgfVxyXG4gICAgICAmOm5vdCg6bGFzdC1jaGlsZCkgbGFiZWwge1xyXG4gICAgICAgICBib3JkZXItcmlnaHQtd2lkdGg6IDA7IFxyXG4gICAgICB9XHJcbiAgICB9XHJcbiAgfVxyXG4gIHNlY3Rpb24ge1xyXG4gICAgY2xlYXI6IGJvdGg7XHJcbiAgICBkaXYge1xyXG4gICAgICBwYWRkaW5nOiAyMHB4OyBcclxuICAgICAgd2lkdGg6IDEwMCU7XHJcbiAgICAgIGJhY2tncm91bmQ6ICNmZmY7XHJcbiAgICAgIGxpbmUtaGVpZ2h0OiAxLjVlbTtcclxuICAgICAgbGV0dGVyLXNwYWNpbmc6IDAuM3B4O1xyXG4gICAgICBib3JkZXItdG9wOiAxcHggc29saWQgIzM0NDk1ZTtcclxuICAgICAgY29sb3I6ICMxQjQwNEY7XHJcbiAgICAgIGgyIHtcclxuICAgICAgICBtYXJnaW46IDA7XHJcbiAgICAgICAgbGV0dGVyLXNwYWNpbmc6IDFweDtcclxuICAgICAgICBjb2xvcjogIzM0NDk1ZTtcclxuICAgICAgfVxyXG4gICAgfVxyXG4gIH1cclxufVxyXG5cclxuI3RhYjE6Y2hlY2tlZCB+IG5hdiAudGFiMSxcclxuI3RhYjI6Y2hlY2tlZCB+IG5hdiAudGFiMixcclxuI3RhYjM6Y2hlY2tlZCB+IG5hdiAudGFiMyB7XHJcbiAgbGFiZWwge1xyXG4gICAgYmFja2dyb3VuZDogd2hpdGU7XHJcbiAgICBjb2xvcjogIzExMTtcclxuICAgIHBvc2l0aW9uOiByZWxhdGl2ZTtcclxuICAgICY6YWZ0ZXIge1xyXG4gICAgICBjb250ZW50OiAnJztcclxuICAgICAgZGlzcGxheTogYmxvY2s7XHJcbiAgICAgIHBvc2l0aW9uOiBhYnNvbHV0ZTtcclxuICAgICAgaGVpZ2h0OiAycHg7XHJcbiAgICAgIHdpZHRoOiAxMDAlO1xyXG4gICAgICBiYWNrZ3JvdW5kOiAkYWN0aXZlQ29sb3I7XHJcbiAgICAgIGxlZnQ6IDA7XHJcbiAgICAgIGJvdHRvbTogLTFweDtcclxuICAgIH1cclxuICB9XHJcbn1cclxuXHJcbiNibG9ja2x5RGl2IHtcclxuICBsaW5lLWhlaWdodDogNTAwcHg7XHJcbiAgaGVpZ2h0OiA0ODBweDsgXHJcbiAgd2lkdGg6IDEwMCU7XHJcbiAgYm9yZGVyLXRvcDogMXB4IHNvbGlkICNmZmZmZmY7XHJcbn1cclxuXHJcbiN4bWxUZXh0IHtcclxuICBoZWlnaHQ6IDQzN3B4O1xyXG4gIHdpZHRoOiAxMDAlO1xyXG59XHJcblxyXG4udGFiMiBoMiB7XHJcblx0cGFkZGluZy1ib3R0b206IDIwcHg7XHJcbn0iXX0= */"
 
 /***/ }),
 
@@ -441,7 +440,7 @@ var BlocklyEditorComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "#container {\r\n    width: 90%;\r\n    margin: 0px auto;\r\n}\r\n\r\n#mainSectionContainer {\r\n    height: 500px;\r\n}\r\n\r\n#blockly {\r\n    width: 65%;\r\n    height: 130%;\r\n    float: left;\r\n    text-align: center;\r\n    background-color: rgb(207, 207, 207);\r\n}\r\n\r\n#simulatorSection {\r\n    width: 35%;\r\n    float: left;\r\n}\r\n\r\n#simulator {\r\n    height: 300px;\r\n    line-height: 300px;\r\n    text-align: center;\r\n    background-color: rgb(168, 168, 168);\r\n    color: rgb(255, 255, 255);\r\n}\r\n\r\n#robotConnection {\r\n    height: 100px;\r\n}\r\n\r\n#simulatorControls {\r\n    height: 100px;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9tYWluL21haW4uY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLFdBQVc7SUFDWCxpQkFBaUI7Q0FDcEI7O0FBRUQ7SUFDSSxjQUFjO0NBQ2pCOztBQUVEO0lBQ0ksV0FBVztJQUNYLGFBQWE7SUFDYixZQUFZO0lBQ1osbUJBQW1CO0lBQ25CLHFDQUFxQztDQUN4Qzs7QUFFRDtJQUNJLFdBQVc7SUFDWCxZQUFZO0NBQ2Y7O0FBRUQ7SUFDSSxjQUFjO0lBQ2QsbUJBQW1CO0lBQ25CLG1CQUFtQjtJQUNuQixxQ0FBcUM7SUFDckMsMEJBQTBCO0NBQzdCOztBQUVEO0lBQ0ksY0FBYztDQUNqQjs7QUFFRDtJQUNJLGNBQWM7Q0FDakIiLCJmaWxlIjoic3JjL2FwcC9jb21wb25lbnRzL21haW4vbWFpbi5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiI2NvbnRhaW5lciB7XHJcbiAgICB3aWR0aDogOTAlO1xyXG4gICAgbWFyZ2luOiAwcHggYXV0bztcclxufVxyXG5cclxuI21haW5TZWN0aW9uQ29udGFpbmVyIHtcclxuICAgIGhlaWdodDogNTAwcHg7XHJcbn1cclxuXHJcbiNibG9ja2x5IHtcclxuICAgIHdpZHRoOiA2NSU7XHJcbiAgICBoZWlnaHQ6IDEzMCU7XHJcbiAgICBmbG9hdDogbGVmdDtcclxuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcclxuICAgIGJhY2tncm91bmQtY29sb3I6IHJnYigyMDcsIDIwNywgMjA3KTtcclxufVxyXG5cclxuI3NpbXVsYXRvclNlY3Rpb24ge1xyXG4gICAgd2lkdGg6IDM1JTtcclxuICAgIGZsb2F0OiBsZWZ0O1xyXG59XHJcblxyXG4jc2ltdWxhdG9yIHtcclxuICAgIGhlaWdodDogMzAwcHg7XHJcbiAgICBsaW5lLWhlaWdodDogMzAwcHg7XHJcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiByZ2IoMTY4LCAxNjgsIDE2OCk7XHJcbiAgICBjb2xvcjogcmdiKDI1NSwgMjU1LCAyNTUpO1xyXG59XHJcblxyXG4jcm9ib3RDb25uZWN0aW9uIHtcclxuICAgIGhlaWdodDogMTAwcHg7XHJcbn1cclxuXHJcbiNzaW11bGF0b3JDb250cm9scyB7XHJcbiAgICBoZWlnaHQ6IDEwMHB4O1xyXG59Il19 */"
+module.exports = "#container {\r\n    width: 100%;\r\n    margin: 0px auto;\r\n}\r\n\r\n#mainSectionContainer {\r\n    height: 100%;\r\n}\r\n\r\n#blockly {\r\n    width: 65%;\r\n    height: 100%;\r\n    float: left;\r\n    text-align: center;\r\n    background-color: #ffffff;\r\n}\r\n\r\n#simulatorSection {\r\n    width: 30%;\t\r\n    float: right;\r\n    background-color: #ffffff;\r\n}\r\n\r\n#simulator {\r\n    height: 300px;\r\n    line-height: 300px;\r\n    text-align: center;\r\n    background-color: rgb(168, 168, 168);\r\n    color: rgb(255, 255, 255);\r\n}\r\n\r\n#belowSimulator {\r\n\tbackground-color: #ffffff;\r\n}\r\n\r\n#robotConnection {\r\n    height: 100px;\r\n    padding-top:50px;\r\n}\r\n\r\n#simulatorControls {\r\n    height: 100px;\r\n}\r\n\r\n@media only screen and (max-width:800px) {\r\n\t#simulatorSection, #mainSectionContainer, #blockly {\r\n\t\twidth: 100%;\r\n\t\tdisplay: block;\r\n\t}\r\n}\r\n\r\n#container {\r\n    width: 100%;\r\n    margin: 0px auto;\r\n}\r\n\r\n#mainSectionContainer {\r\n    height: 100%;\r\n}\r\n\r\n#blockly {\r\n    width: 65%;\r\n    height: 100%;\r\n    float: left;\r\n    text-align: center;\r\n    background-color: #ffffff;\r\n}\r\n\r\n#simulatorSection {\r\n    width: 30%;\t\r\n    float: right;\r\n    background-color: #ffffff;\r\n}\r\n\r\n#simulator {\r\n    height: 300px;\r\n    line-height: 300px;\r\n    text-align: center;\r\n    background-color: rgb(168, 168, 168);\r\n    color: rgb(255, 255, 255);\r\n}\r\n\r\n#belowSimulator {\r\n\tbackground-color: #ffffff;\r\n}\r\n\r\n#robotConnection {\r\n    height: 100px;\r\n    padding-top:50px;\r\n}\r\n\r\n#simulatorControls {\r\n    height: 100px;\r\n}\r\n\r\n@media only screen and (max-width:800px) {\r\n\t#simulatorSection, #mainSectionContainer, #blockly {\r\n\t\twidth: 100%;\r\n\t\tdisplay: block;\r\n\t}\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9tYWluL21haW4uY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLFlBQVk7SUFDWixpQkFBaUI7Q0FDcEI7O0FBRUQ7SUFDSSxhQUFhO0NBQ2hCOztBQUVEO0lBQ0ksV0FBVztJQUNYLGFBQWE7SUFDYixZQUFZO0lBQ1osbUJBQW1CO0lBQ25CLDBCQUEwQjtDQUM3Qjs7QUFFRDtJQUNJLFdBQVc7SUFDWCxhQUFhO0lBQ2IsMEJBQTBCO0NBQzdCOztBQUVEO0lBQ0ksY0FBYztJQUNkLG1CQUFtQjtJQUNuQixtQkFBbUI7SUFDbkIscUNBQXFDO0lBQ3JDLDBCQUEwQjtDQUM3Qjs7QUFFRDtDQUNDLDBCQUEwQjtDQUMxQjs7QUFFRDtJQUNJLGNBQWM7SUFDZCxpQkFBaUI7Q0FDcEI7O0FBRUQ7SUFDSSxjQUFjO0NBQ2pCOztBQUVEO0NBQ0M7RUFDQyxZQUFZO0VBQ1osZUFBZTtFQUNmO0NBQ0Q7O0FBQUE7SUFDRyxZQUFZO0lBQ1osaUJBQWlCO0NBQ3BCOztBQUVEO0lBQ0ksYUFBYTtDQUNoQjs7QUFFRDtJQUNJLFdBQVc7SUFDWCxhQUFhO0lBQ2IsWUFBWTtJQUNaLG1CQUFtQjtJQUNuQiwwQkFBMEI7Q0FDN0I7O0FBRUQ7SUFDSSxXQUFXO0lBQ1gsYUFBYTtJQUNiLDBCQUEwQjtDQUM3Qjs7QUFFRDtJQUNJLGNBQWM7SUFDZCxtQkFBbUI7SUFDbkIsbUJBQW1CO0lBQ25CLHFDQUFxQztJQUNyQywwQkFBMEI7Q0FDN0I7O0FBRUQ7Q0FDQywwQkFBMEI7Q0FDMUI7O0FBRUQ7SUFDSSxjQUFjO0lBQ2QsaUJBQWlCO0NBQ3BCOztBQUVEO0lBQ0ksY0FBYztDQUNqQjs7QUFFRDtDQUNDO0VBQ0MsWUFBWTtFQUNaLGVBQWU7RUFDZjtDQUNEIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9tYWluL21haW4uY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIiNjb250YWluZXIge1xyXG4gICAgd2lkdGg6IDEwMCU7XHJcbiAgICBtYXJnaW46IDBweCBhdXRvO1xyXG59XHJcblxyXG4jbWFpblNlY3Rpb25Db250YWluZXIge1xyXG4gICAgaGVpZ2h0OiAxMDAlO1xyXG59XHJcblxyXG4jYmxvY2tseSB7XHJcbiAgICB3aWR0aDogNjUlO1xyXG4gICAgaGVpZ2h0OiAxMDAlO1xyXG4gICAgZmxvYXQ6IGxlZnQ7XHJcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjZmZmZmZmO1xyXG59XHJcblxyXG4jc2ltdWxhdG9yU2VjdGlvbiB7XHJcbiAgICB3aWR0aDogMzAlO1x0XHJcbiAgICBmbG9hdDogcmlnaHQ7XHJcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjZmZmZmZmO1xyXG59XHJcblxyXG4jc2ltdWxhdG9yIHtcclxuICAgIGhlaWdodDogMzAwcHg7XHJcbiAgICBsaW5lLWhlaWdodDogMzAwcHg7XHJcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiByZ2IoMTY4LCAxNjgsIDE2OCk7XHJcbiAgICBjb2xvcjogcmdiKDI1NSwgMjU1LCAyNTUpO1xyXG59XHJcblxyXG4jYmVsb3dTaW11bGF0b3Ige1xyXG5cdGJhY2tncm91bmQtY29sb3I6ICNmZmZmZmY7XHJcbn1cclxuXHJcbiNyb2JvdENvbm5lY3Rpb24ge1xyXG4gICAgaGVpZ2h0OiAxMDBweDtcclxuICAgIHBhZGRpbmctdG9wOjUwcHg7XHJcbn1cclxuXHJcbiNzaW11bGF0b3JDb250cm9scyB7XHJcbiAgICBoZWlnaHQ6IDEwMHB4O1xyXG59XHJcblxyXG5AbWVkaWEgb25seSBzY3JlZW4gYW5kIChtYXgtd2lkdGg6ODAwcHgpIHtcclxuXHQjc2ltdWxhdG9yU2VjdGlvbiwgI21haW5TZWN0aW9uQ29udGFpbmVyLCAjYmxvY2tseSB7XHJcblx0XHR3aWR0aDogMTAwJTtcclxuXHRcdGRpc3BsYXk6IGJsb2NrO1xyXG5cdH1cclxufSNjb250YWluZXIge1xyXG4gICAgd2lkdGg6IDEwMCU7XHJcbiAgICBtYXJnaW46IDBweCBhdXRvO1xyXG59XHJcblxyXG4jbWFpblNlY3Rpb25Db250YWluZXIge1xyXG4gICAgaGVpZ2h0OiAxMDAlO1xyXG59XHJcblxyXG4jYmxvY2tseSB7XHJcbiAgICB3aWR0aDogNjUlO1xyXG4gICAgaGVpZ2h0OiAxMDAlO1xyXG4gICAgZmxvYXQ6IGxlZnQ7XHJcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjZmZmZmZmO1xyXG59XHJcblxyXG4jc2ltdWxhdG9yU2VjdGlvbiB7XHJcbiAgICB3aWR0aDogMzAlO1x0XHJcbiAgICBmbG9hdDogcmlnaHQ7XHJcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjZmZmZmZmO1xyXG59XHJcblxyXG4jc2ltdWxhdG9yIHtcclxuICAgIGhlaWdodDogMzAwcHg7XHJcbiAgICBsaW5lLWhlaWdodDogMzAwcHg7XHJcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiByZ2IoMTY4LCAxNjgsIDE2OCk7XHJcbiAgICBjb2xvcjogcmdiKDI1NSwgMjU1LCAyNTUpO1xyXG59XHJcblxyXG4jYmVsb3dTaW11bGF0b3Ige1xyXG5cdGJhY2tncm91bmQtY29sb3I6ICNmZmZmZmY7XHJcbn1cclxuXHJcbiNyb2JvdENvbm5lY3Rpb24ge1xyXG4gICAgaGVpZ2h0OiAxMDBweDtcclxuICAgIHBhZGRpbmctdG9wOjUwcHg7XHJcbn1cclxuXHJcbiNzaW11bGF0b3JDb250cm9scyB7XHJcbiAgICBoZWlnaHQ6IDEwMHB4O1xyXG59XHJcblxyXG5AbWVkaWEgb25seSBzY3JlZW4gYW5kIChtYXgtd2lkdGg6ODAwcHgpIHtcclxuXHQjc2ltdWxhdG9yU2VjdGlvbiwgI21haW5TZWN0aW9uQ29udGFpbmVyLCAjYmxvY2tseSB7XHJcblx0XHR3aWR0aDogMTAwJTtcclxuXHRcdGRpc3BsYXk6IGJsb2NrO1xyXG5cdH1cclxufSJdfQ== */"
 
 /***/ }),
 
@@ -452,7 +451,7 @@ module.exports = "#container {\r\n    width: 90%;\r\n    margin: 0px auto;\r\n}\
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<app-banner></app-banner>\r\n<div id=\"container\">\r\n    <div class=\"clear\"></div>\r\n    <div id=\"mainSectionContainer\">\r\n      <div id=\"blockly\">\r\n        <app-blockly-editor></app-blockly-editor>\r\n      </div>\r\n      <div id=\"simulatorSection\">\r\n        <div id=\"simulator\">\r\n          <app-simulator></app-simulator>\r\n        </div>\r\n        <div id=\"robotConnection\">\r\n          <app-robot-connection></app-robot-connection>\r\n        </div>\r\n        <div id=\"simulatorControls\">\r\n          <app-start-control></app-start-control>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n  <router-outlet></router-outlet>\r\n"
+module.exports = "<app-banner></app-banner>\r\n<div id=\"container\">\r\n    <div class=\"clear\"></div>\r\n    <div id=\"mainSectionContainer\">\r\n      <div id=\"blockly\">\r\n        <app-blockly-editor></app-blockly-editor>\r\n      </div>\r\n      <div id=\"simulatorSection\">\r\n        <div id=\"simulator\">\r\n          <app-simulator></app-simulator>\r\n        </div>\r\n        <div id=\"belowSimulator\">\r\n        \t<div id=\"robotConnection\">\r\n          \t\t<app-robot-connection></app-robot-connection>\r\n        \t</div>\r\n        \t<div id=\"simulatorControls\">\r\n          \t\t<app-start-control></app-start-control>\r\n        \t</div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n  <router-outlet></router-outlet>"
 
 /***/ }),
 
@@ -1910,7 +1909,7 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_2__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Pulled_KLAW\KLAW-Web\frontend\src\main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! C:\klaw\frontend\src\main.ts */"./src/main.ts");
 
 
 /***/ })
