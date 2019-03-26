@@ -1491,6 +1491,7 @@ var SimulatorComponent = /** @class */ (function () {
     };
     SimulatorComponent.prototype.moveArmFunction = function (posX, posY, isElbowUp) {
         if (isElbowUp === void 0) { isElbowUp = true; }
+        console.log('moving in posX:', posX);
         var calculatedAngles = this.convertLinearToDegrees(posX, posY);
         var lowerArmAngle = calculatedAngles[0];
         var upperArmAngle = calculatedAngles[1];
@@ -1636,6 +1637,7 @@ var SimulatorComponent = /** @class */ (function () {
             if (animMethod[0] == 'moveArm') {
                 if (prevMethod != null && prevMethod == 'moveArm') {
                     this.resetModel();
+                    prevMethod = '';
                 }
                 // this.moveArmFunction(startMoveArm[1], startMoveArm[2], startMoveArm[3]);
                 this.moveArmFunction(animMethod[1], animMethod[2], animMethod[3]);

@@ -214,6 +214,8 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
     }
 
   moveArmFunction(posX, posY, isElbowUp = true) {
+    console.log('moving in posX:', posX);
+
     const calculatedAngles = this.convertLinearToDegrees(posX, posY);
     let lowerArmAngle = calculatedAngles[0];
     let upperArmAngle = calculatedAngles[1];
@@ -386,6 +388,7 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
       if (animMethod[0] == 'moveArm') {
         if (prevMethod != null && prevMethod == 'moveArm') {
           this.resetModel();
+          prevMethod = '';
         }
         // this.moveArmFunction(startMoveArm[1], startMoveArm[2], startMoveArm[3]);
         this.moveArmFunction(animMethod[1], animMethod[2], animMethod[3]);
