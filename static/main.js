@@ -982,7 +982,7 @@ var RobotConnectionService = /** @class */ (function () {
         this.isConnected = true;
     };
     RobotConnectionService.prototype.disconnect = function () {
-        this.robotName = null;
+        this.updateRobotName("");
         this.isConnected = false;
     };
     RobotConnectionService.prototype.updateRobotName = function (robotName) {
