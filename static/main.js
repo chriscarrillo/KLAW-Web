@@ -1498,8 +1498,8 @@ var SimulatorComponent = /** @class */ (function () {
         // degreeElbow: 150 == 2.61799 == PI/12 (positive)
         // degreeBase: -12.622221338044753 == -0.22029932126 == -0.07012345187*PI
         // approx PI/ 15
-        // console.log('goal low arm angle:', lowerArmAngle);
-        // console.log('goal upper arm angle:', upperArmAngle);
+        console.log('goal low arm angle:', lowerArmAngle);
+        console.log('goal upper arm angle:', upperArmAngle);
         /**problem:
          * the rotation angles of the lower and upper arm do change
          * but for the upper arm rotation, it goes way off model...
@@ -1581,7 +1581,6 @@ var SimulatorComponent = /** @class */ (function () {
             // this.upperArm.parent.worldToLocal(this.upperArm.position);
         }
         else {
-            // startMoveArm[0] = false;
             animationOrder.shift();
         }
         // -1.7016960206944711
@@ -1594,13 +1593,16 @@ var SimulatorComponent = /** @class */ (function () {
         /**works**/
         var currentDistApart = this.leftClaw.position.z - this.rightClaw.position.z;
         console.log('currDist:', currentDistApart);
-        if (!this.test) {
-            return;
-        }
+        // if (!this.test) {
+        //   return;
+        // }
         if ((this.leftClaw.position.z > 18) && (this.rightClaw.position.z < 9)
             && (currentDistApart >= distanceApart)) {
             this.leftClaw.position.z -= Math.PI / 60;
             this.rightClaw.position.z += Math.PI / 60;
+        }
+        else {
+            animationOrder.shift();
         }
         // else {
         //   // reset animation test
@@ -1644,6 +1646,7 @@ var SimulatorComponent = /** @class */ (function () {
         this.renderer.render(this.scene, this.camera);
     };
     SimulatorComponent.prototype.ngAfterViewInit = function () {
+        var _this = this;
         this.createScene();
         this.createLights();
         this.createPlatform();
@@ -1665,6 +1668,10 @@ var SimulatorComponent = /** @class */ (function () {
             startMoveArm[2] = y;
             startMoveArm[3] = isElbowUp;
             animationOrder.push(startMoveArm);
+            if (animationOrder.length == 1) {
+                _this.sumOfLowArmRotation = 0;
+                _this.resetModel();
+            }
         });
         this.eventsService.on('moveClaw', function (distanceApart) {
             console.log('moveClawFunction called via event');
@@ -1673,6 +1680,10 @@ var SimulatorComponent = /** @class */ (function () {
             startMoveClaw[0] = 'moveClaw';
             startMoveClaw[1] = distanceApart;
             animationOrder.push(startMoveClaw);
+            if (animationOrder.length == 1) {
+                _this.sumOfLowArmRotation = 0;
+                _this.resetModel();
+            }
         });
         this.eventsService.on('wait', function (waitTime) {
             console.log('waitFunction called via event');
@@ -1681,6 +1692,10 @@ var SimulatorComponent = /** @class */ (function () {
             startWait[0] = 'wait';
             startWait[1] = waitTime;
             animationOrder.push(startWait);
+            if (animationOrder.length == 1) {
+                _this.sumOfLowArmRotation = 0;
+                _this.resetModel();
+            }
         });
         this.addControls();
     };
