@@ -30,7 +30,7 @@ webpackEmptyAsyncContext.id = "./src/$$_lazy_route_resource lazy recursive";
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "/*testing css of simulation*/\nheader {\n  background: #a44fb522;\n}\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYXBwLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUEsNkJBQTZCO0FBQzdCO0VBQ0Usc0JBQXNCO0NBQ3ZCIiwiZmlsZSI6InNyYy9hcHAvYXBwLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIvKnRlc3RpbmcgY3NzIG9mIHNpbXVsYXRpb24qL1xuaGVhZGVyIHtcbiAgYmFja2dyb3VuZDogI2E0NGZiNTIyO1xufVxuIl19 */"
+module.exports = "/*testing css of simulation*/\r\nheader {\r\n  background: #a44fb522;\r\n}\r\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYXBwLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUEsNkJBQTZCO0FBQzdCO0VBQ0Usc0JBQXNCO0NBQ3ZCIiwiZmlsZSI6InNyYy9hcHAvYXBwLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIvKnRlc3RpbmcgY3NzIG9mIHNpbXVsYXRpb24qL1xyXG5oZWFkZXIge1xyXG4gIGJhY2tncm91bmQ6ICNhNDRmYjUyMjtcclxufVxyXG4iXX0= */"
 
 /***/ }),
 
@@ -41,7 +41,7 @@ module.exports = "/*testing css of simulation*/\nheader {\n  background: #a44fb5
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"banner\">\n    <div id=\"title\"><h1>{{title}}</h1></div>\n</div>\n<div class=\"clear\"></div>\n<router-outlet></router-outlet>"
+module.exports = "<div id=\"banner\">\r\n    <div id=\"title\"><h1>{{title}}</h1></div>\r\n</div>\r\n<div class=\"clear\"></div>\r\n<router-outlet></router-outlet>"
 
 /***/ }),
 
@@ -206,70 +206,69 @@ var AppModule = /** @class */ (function () {
 /***/ (function(module, exports) {
 
 Blockly.Blocks['move_arm'] = {
-    init: function() {
-      this.appendDummyInput()
-          .appendField("Move robot arm to (")
-          .appendField(new Blockly.FieldNumber(0), "armX")
-          .appendField(",")
-          .appendField(new Blockly.FieldNumber(0), "armY")
-          .appendField(").");
-      this.appendDummyInput()
-          .appendField("Is robot elbow up?")
-          .appendField(new Blockly.FieldCheckbox("TRUE"), "isElbowUp");
-      this.setPreviousStatement(true, null);
-      this.setNextStatement(true, null);
-      this.setColour(130);
-    }
-  };
-  
-  Blockly.JavaScript['move_arm'] = function(block) {
-    var numberArmX = block.getFieldValue('armX');
-    var numberArmY = block.getFieldValue('armY');
-    var checkboxIsElbowUp = block.getFieldValue('isElbowUp') == 'TRUE';
-    // TODO: Assemble JavaScript into code variable.
-    var code = 'moveArm(' + numberArmX + ',' + numberArmY + ',' + checkboxIsElbowUp + ');';
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Move robot arm to (")
+        .appendField(new Blockly.FieldNumber(0), "armX")
+        .appendField(",")
+        .appendField(new Blockly.FieldNumber(0), "armY")
+        .appendField(").");
+    this.appendDummyInput()
+        .appendField("Is robot elbow up?")
+        .appendField(new Blockly.FieldCheckbox("TRUE"), "isElbowUp");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(240);
+  }
+};
 
-    return code;
-  };
-  
-  Blockly.Blocks['move_claw'] = {
-    init: function() {
-      this.appendDummyInput()
-          .appendField("Move claw")
-          .appendField(new Blockly.FieldTextInput("0"), "distanceBetweenFingersInCentimeters")
-          .appendField("centimeters apart");
-      this.setPreviousStatement(true, null);
-      this.setNextStatement(true, null);
-      this.setColour(240);
-    }
-  };
-  
-  Blockly.JavaScript['move_claw'] = function(block) {
-    var distanceBetweenFingersInCentimeters = block.getFieldValue('distanceBetweenFingersInCentimeters');
-    // TODO: Assemble JavaScript into code variable.
-    var code = 'moveClaw(' + distanceBetweenFingersInCentimeters + ');';
-    return code;
-  };
-  
-  Blockly.Blocks['wait'] = {
-    init: function() {
-      this.appendDummyInput("wait")
-          .appendField("Wait for")
-          .appendField(new Blockly.FieldNumber(0), "waitInMilliseconds")
-          .appendField("milliseconds");
-      this.setPreviousStatement(true, null);
-      this.setNextStatement(true, null);
-      this.setColour(345);
-    }
-  };
-  
-  Blockly.JavaScript['wait'] = function(block) {
-    var numberWaitInMilliseconds = block.getFieldValue('waitInMilliseconds');
-    // TODO: Assemble JavaScript into code variable.
-    var code = 'wait(' + numberWaitInMilliseconds + ');';
-    return code;
-  };
+Blockly.JavaScript['move_arm'] = function(block) {
+  var numberArmX = block.getFieldValue('armX');
+  var numberArmY = block.getFieldValue('armY');
+  var checkboxIsElbowUp = block.getFieldValue('isElbowUp') == 'TRUE';
+  // TODO: Assemble JavaScript into code variable.
+  var code = 'moveArm(' + numberArmX + ',' + numberArmY + ',' + checkboxIsElbowUp + ');';
 
+  return code;
+};
+
+Blockly.Blocks['move_claw'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Move claw")
+        .appendField(new Blockly.FieldTextInput("0"), "distanceBetweenFingersInCentimeters")
+        .appendField("centimeters apart");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(290);
+  }
+};
+
+Blockly.JavaScript['move_claw'] = function(block) {
+  var distanceBetweenFingersInCentimeters = block.getFieldValue('distanceBetweenFingersInCentimeters');
+  // TODO: Assemble JavaScript into code variable.
+  var code = 'moveClaw(' + distanceBetweenFingersInCentimeters + ');';
+  return code;
+};
+
+Blockly.Blocks['wait'] = {
+  init: function() {
+    this.appendDummyInput("wait")
+        .appendField("Wait for")
+        .appendField(new Blockly.FieldNumber(0), "waitInMilliseconds")
+        .appendField("milliseconds");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(100);
+  }
+};
+
+Blockly.JavaScript['wait'] = function(block) {
+  var numberWaitInMilliseconds = block.getFieldValue('waitInMilliseconds');
+  // TODO: Assemble JavaScript into code variable.
+  var code = 'wait(' + numberWaitInMilliseconds + ');';
+  return code;
+};
 
 /***/ }),
 
@@ -280,7 +279,7 @@ Blockly.Blocks['move_arm'] = {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"pc-tab\">\n<input checked=\"checked\" id=\"tab1\" type=\"radio\" name=\"pct\" />\n<input id=\"tab2\" type=\"radio\" name=\"pct\" />\n  <nav>\n    <ul>\n      <li class=\"tab1\">\n        <label for=\"tab1\" #blockCode>Block Code</label>\n      </li>\n      <li class=\"tab2\">\n        <label for=\"tab2\">XML</label>\n      </li>\n    </ul>\n  </nav>\n  <section>\n    <div class=\"tab1\">\n      <h2>Block Code</h2>\n      <div id=\"blocklyDiv\"></div>\n        <xml id=\"toolbox\" #toolbox style=\"display: none\">\n                <category name=\"Robot\">\n                        <block type=\"move_arm\"></block>\n                        <block type=\"move_claw\"></block>\n                        <block type=\"wait\"></block>\n                </category>\n        </xml>\n\n    </div>\n    <div class=\"tab2\">\n      <h2>XML</h2>\n      <textarea id=\"xmlText\"></textarea>\n      <button mat-stroked-button (click)='blockCode.click(); xmlUpdate();'> \n        <mat-icon>code</mat-icon>\n        Update Code Blocks\n      </button>\n    </div>\n  </section>\n</div>\n"
+module.exports = "<div class=\"pc-tab\">\r\n<input checked=\"checked\" id=\"tab1\" type=\"radio\" name=\"pct\" />\r\n<input id=\"tab2\" type=\"radio\" name=\"pct\" />\r\n  <nav>\r\n    <ul>\r\n      <li class=\"tab1\">\r\n        <label for=\"tab1\" #blockCode>Block Code</label>\r\n      </li>\r\n      <li class=\"tab2\">\r\n        <label for=\"tab2\">XML</label>\r\n      </li>\r\n    </ul>\r\n  </nav>\r\n  <section>\r\n    <div class=\"tab1\">\r\n      <h2>Block Code</h2>\r\n      <div id=\"blocklyDiv\"></div>\r\n        <xml id=\"toolbox\" #toolbox style=\"display: none\">\r\n                <category name=\"Robot\">\r\n                        <block type=\"move_arm\"></block>\r\n                        <block type=\"move_claw\"></block>\r\n                        <block type=\"wait\"></block>\r\n                </category>\r\n        </xml>\r\n\r\n    </div>\r\n    <div class=\"tab2\">\r\n      <h2>XML</h2>\r\n      <textarea id=\"xmlText\"></textarea>\r\n      <button mat-stroked-button (click)='blockCode.click(); xmlUpdate();'> \r\n        <mat-icon>code</mat-icon>\r\n        Update Code Blocks\r\n      </button>\r\n    </div>\r\n  </section>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -291,7 +290,7 @@ module.exports = "<div class=\"pc-tab\">\n<input checked=\"checked\" id=\"tab1\"
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".pc-tab > input,\n.pc-tab section > div {\n  display: none; }\n\n#tab1:checked ~ section .tab1,\n#tab2:checked ~ section .tab2,\n#tab3:checked ~ section .tab3 {\n  display: block; }\n\n#tab1:checked ~ nav .tab1,\n#tab2:checked ~ nav .tab2,\n#tab3:checked ~ nav .tab3 {\n  color: red; }\n\n*, *:after, *:before {\n  box-sizing: border-box; }\n\nbody {\n  -webkit-font-smoothing: antialiased;\n  background: #ecf0f1; }\n\n.pc-tab {\n  width: 100%;\n  max-width: 750px;\n  margin: 0 auto; }\n\n.pc-tab ul {\n    list-style: none;\n    margin: 0;\n    padding: 0; }\n\n.pc-tab ul li label {\n      float: left;\n      padding: 15px 25px;\n      border: 1px solid #ddd;\n      border-bottom: 0;\n      background: #eeeeee;\n      color: #444; }\n\n.pc-tab ul li label:hover {\n        background: #dddddd; }\n\n.pc-tab ul li label:active {\n        background: #ffffff; }\n\n.pc-tab ul li:not(:last-child) label {\n      border-right-width: 0; }\n\n.pc-tab section {\n    clear: both; }\n\n.pc-tab section div {\n      padding: 20px;\n      width: 100%;\n      border: 1px solid #ddd;\n      background: #fff;\n      line-height: 1.5em;\n      letter-spacing: 0.3px;\n      color: #444; }\n\n.pc-tab section div h2 {\n        margin: 0;\n        letter-spacing: 1px;\n        color: #34495e; }\n\n#tab1:checked ~ nav .tab1 label,\n#tab2:checked ~ nav .tab2 label,\n#tab3:checked ~ nav .tab3 label {\n  background: white;\n  color: #111;\n  position: relative; }\n\n#tab1:checked ~ nav .tab1 label:after,\n  #tab2:checked ~ nav .tab2 label:after,\n  #tab3:checked ~ nav .tab3 label:after {\n    content: '';\n    display: block;\n    position: absolute;\n    height: 2px;\n    width: 100%;\n    background: #ffffff;\n    left: 0;\n    bottom: -1px; }\n\n#blocklyDiv {\n  line-height: 500px;\n  height: 480px;\n  width: 700px; }\n\n#xmlText {\n  height: 437px;\n  width: 700px; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9DaHJpcy9LTEFXLVdlYi9mcm9udGVuZC9zcmMvYXBwL2NvbXBvbmVudHMvYmxvY2tseS1lZGl0b3IvYmxvY2tseS1lZGl0b3IuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7O0VBRUUsY0FBYSxFQUNkOztBQUVEOzs7RUFHRSxlQUFjLEVBQ2Y7O0FBRUQ7OztFQUdFLFdBQVUsRUFDWDs7QUFNRDtFQUdFLHVCQUFzQixFQUN2Qjs7QUFFRDtFQUNFLG9DQUFtQztFQUNuQyxvQkFBbUIsRUFDcEI7O0FBRUQ7RUFDRSxZQUFXO0VBQ1gsaUJBQWdCO0VBQ2hCLGVBQWMsRUEwQ2Y7O0FBN0NEO0lBS0ksaUJBQWdCO0lBQ2hCLFVBQVM7SUFDVCxXQUFVLEVBb0JYOztBQTNCSDtNQVVRLFlBQVc7TUFDWCxtQkFBa0I7TUFDbEIsdUJBQXNCO01BQ3RCLGlCQUFnQjtNQUNoQixvQkE1QmU7TUE2QmYsWUFBVyxFQU9aOztBQXRCUDtRQWlCVSxvQkE5QmtCLEVBK0JuQjs7QUFsQlQ7UUFvQlUsb0JBbkNXLEVBb0NaOztBQXJCVDtNQXdCUyxzQkFBcUIsRUFDdkI7O0FBekJQO0lBNkJJLFlBQVcsRUFlWjs7QUE1Q0g7TUErQk0sY0FBYTtNQUNiLFlBQVc7TUFDWCx1QkFBc0I7TUFDdEIsaUJBQWdCO01BQ2hCLG1CQUFrQjtNQUNsQixzQkFBcUI7TUFDckIsWUFBVyxFQU1aOztBQTNDTDtRQXVDUSxVQUFTO1FBQ1Qsb0JBQW1CO1FBQ25CLGVBQWMsRUFDZjs7QUFLUDs7O0VBSUksa0JBQWlCO0VBQ2pCLFlBQVc7RUFDWCxtQkFBa0IsRUFXbkI7O0FBakJIOzs7SUFRTSxZQUFXO0lBQ1gsZUFBYztJQUNkLG1CQUFrQjtJQUNsQixZQUFXO0lBQ1gsWUFBVztJQUNYLG9CQTNFZTtJQTRFZixRQUFPO0lBQ1AsYUFBWSxFQUNiOztBQUlMO0VBQ0UsbUJBQWtCO0VBQ2xCLGNBQWE7RUFDYixhQUFZLEVBQ2I7O0FBRUQ7RUFDRSxjQUFhO0VBQ2IsYUFBWSxFQUNiIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9ibG9ja2x5LWVkaXRvci9ibG9ja2x5LWVkaXRvci5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5wYy10YWIgPiBpbnB1dCxcbi5wYy10YWIgc2VjdGlvbiA+IGRpdiB7XG4gIGRpc3BsYXk6IG5vbmU7XG59XG5cbiN0YWIxOmNoZWNrZWQgfiBzZWN0aW9uIC50YWIxLFxuI3RhYjI6Y2hlY2tlZCB+IHNlY3Rpb24gLnRhYjIsXG4jdGFiMzpjaGVja2VkIH4gc2VjdGlvbiAudGFiMyB7XG4gIGRpc3BsYXk6IGJsb2NrO1xufVxuXG4jdGFiMTpjaGVja2VkIH4gbmF2IC50YWIxLFxuI3RhYjI6Y2hlY2tlZCB+IG5hdiAudGFiMixcbiN0YWIzOmNoZWNrZWQgfiBuYXYgLnRhYjMge1xuICBjb2xvcjogcmVkO1xufVxuXG4kYWN0aXZlQ29sb3I6ICNmZmZmZmY7XG4kdW5hY3RpdmVDb2xvcjogI2VlZWVlZTtcbiR1bmFjdGl2ZUhvdmVyQ29sb3I6ICNkZGRkZGQ7XG5cbiosICo6YWZ0ZXIsICo6YmVmb3JlIHtcbiAgLXdlYmtpdC1ib3gtc2l6aW5nOiBib3JkZXItYm94O1xuICAtbW96LWJveC1zaXppbmc6IGJvcmRlci1ib3g7XG4gIGJveC1zaXppbmc6IGJvcmRlci1ib3g7XG59XG5cbmJvZHkge1xuICAtd2Via2l0LWZvbnQtc21vb3RoaW5nOiBhbnRpYWxpYXNlZDtcbiAgYmFja2dyb3VuZDogI2VjZjBmMTtcbn1cblxuLnBjLXRhYiB7IFxuICB3aWR0aDogMTAwJTtcbiAgbWF4LXdpZHRoOiA3NTBweDtcbiAgbWFyZ2luOiAwIGF1dG87XG4gIHVsIHtcbiAgICBsaXN0LXN0eWxlOiBub25lO1xuICAgIG1hcmdpbjogMDtcbiAgICBwYWRkaW5nOiAwO1xuICAgIGxpIHtcbiAgICAgIGxhYmVsIHtcbiAgICAgICAgZmxvYXQ6IGxlZnQ7XG4gICAgICAgIHBhZGRpbmc6IDE1cHggMjVweDtcbiAgICAgICAgYm9yZGVyOiAxcHggc29saWQgI2RkZDtcbiAgICAgICAgYm9yZGVyLWJvdHRvbTogMDtcbiAgICAgICAgYmFja2dyb3VuZDogJHVuYWN0aXZlQ29sb3I7XG4gICAgICAgIGNvbG9yOiAjNDQ0O1xuICAgICAgICAmOmhvdmVyIHtcbiAgICAgICAgICBiYWNrZ3JvdW5kOiAkdW5hY3RpdmVIb3ZlckNvbG9yO1xuICAgICAgICB9XG4gICAgICAgICY6YWN0aXZlIHtcbiAgICAgICAgICBiYWNrZ3JvdW5kOiAkYWN0aXZlQ29sb3I7XG4gICAgICAgIH1cbiAgICAgIH1cbiAgICAgICY6bm90KDpsYXN0LWNoaWxkKSBsYWJlbCB7XG4gICAgICAgICBib3JkZXItcmlnaHQtd2lkdGg6IDA7IFxuICAgICAgfVxuICAgIH1cbiAgfVxuICBzZWN0aW9uIHtcbiAgICBjbGVhcjogYm90aDtcbiAgICBkaXYge1xuICAgICAgcGFkZGluZzogMjBweDsgXG4gICAgICB3aWR0aDogMTAwJTtcbiAgICAgIGJvcmRlcjogMXB4IHNvbGlkICNkZGQ7XG4gICAgICBiYWNrZ3JvdW5kOiAjZmZmO1xuICAgICAgbGluZS1oZWlnaHQ6IDEuNWVtO1xuICAgICAgbGV0dGVyLXNwYWNpbmc6IDAuM3B4O1xuICAgICAgY29sb3I6ICM0NDQ7XG4gICAgICBoMiB7XG4gICAgICAgIG1hcmdpbjogMDtcbiAgICAgICAgbGV0dGVyLXNwYWNpbmc6IDFweDtcbiAgICAgICAgY29sb3I6ICMzNDQ5NWU7XG4gICAgICB9XG4gICAgfVxuICB9XG59XG5cbiN0YWIxOmNoZWNrZWQgfiBuYXYgLnRhYjEsXG4jdGFiMjpjaGVja2VkIH4gbmF2IC50YWIyLFxuI3RhYjM6Y2hlY2tlZCB+IG5hdiAudGFiMyB7XG4gIGxhYmVsIHtcbiAgICBiYWNrZ3JvdW5kOiB3aGl0ZTtcbiAgICBjb2xvcjogIzExMTtcbiAgICBwb3NpdGlvbjogcmVsYXRpdmU7XG4gICAgJjphZnRlciB7XG4gICAgICBjb250ZW50OiAnJztcbiAgICAgIGRpc3BsYXk6IGJsb2NrO1xuICAgICAgcG9zaXRpb246IGFic29sdXRlO1xuICAgICAgaGVpZ2h0OiAycHg7XG4gICAgICB3aWR0aDogMTAwJTtcbiAgICAgIGJhY2tncm91bmQ6ICRhY3RpdmVDb2xvcjtcbiAgICAgIGxlZnQ6IDA7XG4gICAgICBib3R0b206IC0xcHg7XG4gICAgfVxuICB9XG59XG5cbiNibG9ja2x5RGl2IHtcbiAgbGluZS1oZWlnaHQ6IDUwMHB4O1xuICBoZWlnaHQ6IDQ4MHB4OyBcbiAgd2lkdGg6IDcwMHB4O1xufVxuXG4jeG1sVGV4dCB7XG4gIGhlaWdodDogNDM3cHg7XG4gIHdpZHRoOiA3MDBweDtcbn0iXX0= */"
+module.exports = ".pc-tab > input,\n.pc-tab section > div {\n  display: none; }\n\n#tab1:checked ~ section .tab1,\n#tab2:checked ~ section .tab2,\n#tab3:checked ~ section .tab3 {\n  display: block; }\n\n#tab1:checked ~ nav .tab1,\n#tab2:checked ~ nav .tab2,\n#tab3:checked ~ nav .tab3 {\n  color: red; }\n\n*, *:after, *:before {\n  box-sizing: border-box; }\n\nbody {\n  -webkit-font-smoothing: antialiased;\n  background: #ecf0f1; }\n\n.pc-tab {\n  width: 100%;\n  max-width: 750px;\n  margin: 0 auto; }\n\n.pc-tab ul {\n    list-style: none;\n    margin: 0;\n    padding: 0; }\n\n.pc-tab ul li label {\n      float: left;\n      padding: 15px 25px;\n      border: 1px solid #ddd;\n      border-bottom: 0;\n      background: #ffffff;\n      color: #1B404F; }\n\n.pc-tab ul li label:hover {\n        background: #137A86; }\n\n.pc-tab ul li label:active {\n        background: #031A23;\n        color: #ffffff; }\n\n.pc-tab ul li:not(:last-child) label {\n      border-right-width: 0; }\n\n.pc-tab section {\n    clear: both; }\n\n.pc-tab section div {\n      padding: 20px;\n      width: 100%;\n      background: #fff;\n      line-height: 1.5em;\n      letter-spacing: 0.3px;\n      border-top: 1px solid #34495e;\n      color: #1B404F; }\n\n.pc-tab section div h2 {\n        margin: 0;\n        letter-spacing: 1px;\n        color: #34495e; }\n\n#tab1:checked ~ nav .tab1 label,\n#tab2:checked ~ nav .tab2 label,\n#tab3:checked ~ nav .tab3 label {\n  background: white;\n  color: #111;\n  position: relative; }\n\n#tab1:checked ~ nav .tab1 label:after,\n  #tab2:checked ~ nav .tab2 label:after,\n  #tab3:checked ~ nav .tab3 label:after {\n    content: '';\n    display: block;\n    position: absolute;\n    height: 2px;\n    width: 100%;\n    background: #031A23;\n    left: 0;\n    bottom: -1px; }\n\n#blocklyDiv {\n  line-height: 500px;\n  height: 480px;\n  width: 100%;\n  border-top: 1px solid #ffffff; }\n\n#xmlText {\n  height: 437px;\n  width: 100%; }\n\n.tab2 h2 {\n  padding-bottom: 20px; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9ibG9ja2x5LWVkaXRvci9DOlxca2xhd1xcZnJvbnRlbmQvc3JjXFxhcHBcXGNvbXBvbmVudHNcXGJsb2NrbHktZWRpdG9yXFxibG9ja2x5LWVkaXRvci5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTs7RUFFRSxjQUFhLEVBQ2Q7O0FBRUQ7OztFQUdFLGVBQWMsRUFDZjs7QUFFRDs7O0VBR0UsV0FBVSxFQUNYOztBQVFEO0VBR0UsdUJBQXNCLEVBQ3ZCOztBQUVEO0VBQ0Usb0NBQW1DO0VBQ25DLG9CQUFtQixFQUNwQjs7QUFFRDtFQUNFLFlBQVc7RUFDWCxpQkFBZ0I7RUFDaEIsZUFBYyxFQTJDZjs7QUE5Q0Q7SUFLSSxpQkFBZ0I7SUFDaEIsVUFBUztJQUNULFdBQVUsRUFxQlg7O0FBNUJIO01BVVEsWUFBVztNQUNYLG1CQUFrQjtNQUNsQix1QkFBc0I7TUFDdEIsaUJBQWdCO01BQ2hCLG9CQTlCZTtNQStCZixlQTVCbUIsRUFvQ3BCOztBQXZCUDtRQWlCVSxvQkFoQ2tCLEVBaUNuQjs7QUFsQlQ7UUFvQlUsb0JBckNXO1FBc0NYLGVBbkNlLEVBb0NoQjs7QUF0QlQ7TUF5QlMsc0JBQXFCLEVBQ3ZCOztBQTFCUDtJQThCSSxZQUFXLEVBZVo7O0FBN0NIO01BZ0NNLGNBQWE7TUFDYixZQUFXO01BQ1gsaUJBQWdCO01BQ2hCLG1CQUFrQjtNQUNsQixzQkFBcUI7TUFDckIsOEJBQTZCO01BQzdCLGVBQWMsRUFNZjs7QUE1Q0w7UUF3Q1EsVUFBUztRQUNULG9CQUFtQjtRQUNuQixlQUFjLEVBQ2Y7O0FBS1A7OztFQUlJLGtCQUFpQjtFQUNqQixZQUFXO0VBQ1gsbUJBQWtCLEVBV25COztBQWpCSDs7O0lBUU0sWUFBVztJQUNYLGVBQWM7SUFDZCxtQkFBa0I7SUFDbEIsWUFBVztJQUNYLFlBQVc7SUFDWCxvQkE5RWU7SUErRWYsUUFBTztJQUNQLGFBQVksRUFDYjs7QUFJTDtFQUNFLG1CQUFrQjtFQUNsQixjQUFhO0VBQ2IsWUFBVztFQUNYLDhCQUE2QixFQUM5Qjs7QUFFRDtFQUNFLGNBQWE7RUFDYixZQUFXLEVBQ1o7O0FBRUQ7RUFDQyxxQkFBb0IsRUFDcEIiLCJmaWxlIjoic3JjL2FwcC9jb21wb25lbnRzL2Jsb2NrbHktZWRpdG9yL2Jsb2NrbHktZWRpdG9yLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnBjLXRhYiA+IGlucHV0LFxyXG4ucGMtdGFiIHNlY3Rpb24gPiBkaXYge1xyXG4gIGRpc3BsYXk6IG5vbmU7XHJcbn1cclxuXHJcbiN0YWIxOmNoZWNrZWQgfiBzZWN0aW9uIC50YWIxLFxyXG4jdGFiMjpjaGVja2VkIH4gc2VjdGlvbiAudGFiMixcclxuI3RhYjM6Y2hlY2tlZCB+IHNlY3Rpb24gLnRhYjMge1xyXG4gIGRpc3BsYXk6IGJsb2NrO1xyXG59XHJcblxyXG4jdGFiMTpjaGVja2VkIH4gbmF2IC50YWIxLFxyXG4jdGFiMjpjaGVja2VkIH4gbmF2IC50YWIyLFxyXG4jdGFiMzpjaGVja2VkIH4gbmF2IC50YWIzIHtcclxuICBjb2xvcjogcmVkO1xyXG59XHJcblxyXG4kYWN0aXZlQ29sb3I6ICMwMzFBMjM7XHJcbiR1bmFjdGl2ZUNvbG9yOiAjZmZmZmZmO1xyXG4kdW5hY3RpdmVIb3ZlckNvbG9yOiAjMTM3QTg2O1xyXG4kYWN0aXZlVGV4dENvbG9yOiAjZmZmZmZmO1xyXG4kdW5hY3RpdmVUZXh0Q29sb3I6ICMxQjQwNEY7XHJcblxyXG4qLCAqOmFmdGVyLCAqOmJlZm9yZSB7XHJcbiAgLXdlYmtpdC1ib3gtc2l6aW5nOiBib3JkZXItYm94O1xyXG4gIC1tb3otYm94LXNpemluZzogYm9yZGVyLWJveDtcclxuICBib3gtc2l6aW5nOiBib3JkZXItYm94O1xyXG59XHJcblxyXG5ib2R5IHtcclxuICAtd2Via2l0LWZvbnQtc21vb3RoaW5nOiBhbnRpYWxpYXNlZDtcclxuICBiYWNrZ3JvdW5kOiAjZWNmMGYxO1xyXG59XHJcblxyXG4ucGMtdGFiIHsgXHJcbiAgd2lkdGg6IDEwMCU7XHJcbiAgbWF4LXdpZHRoOiA3NTBweDtcclxuICBtYXJnaW46IDAgYXV0bztcclxuICB1bCB7XHJcbiAgICBsaXN0LXN0eWxlOiBub25lO1xyXG4gICAgbWFyZ2luOiAwO1xyXG4gICAgcGFkZGluZzogMDtcclxuICAgIGxpIHtcclxuICAgICAgbGFiZWwge1xyXG4gICAgICAgIGZsb2F0OiBsZWZ0O1xyXG4gICAgICAgIHBhZGRpbmc6IDE1cHggMjVweDtcclxuICAgICAgICBib3JkZXI6IDFweCBzb2xpZCAjZGRkO1xyXG4gICAgICAgIGJvcmRlci1ib3R0b206IDA7XHJcbiAgICAgICAgYmFja2dyb3VuZDogJHVuYWN0aXZlQ29sb3I7XHJcbiAgICAgICAgY29sb3I6ICR1bmFjdGl2ZVRleHRDb2xvcjtcclxuICAgICAgICAmOmhvdmVyIHtcclxuICAgICAgICAgIGJhY2tncm91bmQ6ICR1bmFjdGl2ZUhvdmVyQ29sb3I7XHJcbiAgICAgICAgfVxyXG4gICAgICAgICY6YWN0aXZlIHtcclxuICAgICAgICAgIGJhY2tncm91bmQ6ICRhY3RpdmVDb2xvcjtcclxuICAgICAgICAgIGNvbG9yOiAkYWN0aXZlVGV4dENvbG9yO1xyXG4gICAgICAgIH1cclxuICAgICAgfVxyXG4gICAgICAmOm5vdCg6bGFzdC1jaGlsZCkgbGFiZWwge1xyXG4gICAgICAgICBib3JkZXItcmlnaHQtd2lkdGg6IDA7IFxyXG4gICAgICB9XHJcbiAgICB9XHJcbiAgfVxyXG4gIHNlY3Rpb24ge1xyXG4gICAgY2xlYXI6IGJvdGg7XHJcbiAgICBkaXYge1xyXG4gICAgICBwYWRkaW5nOiAyMHB4OyBcclxuICAgICAgd2lkdGg6IDEwMCU7XHJcbiAgICAgIGJhY2tncm91bmQ6ICNmZmY7XHJcbiAgICAgIGxpbmUtaGVpZ2h0OiAxLjVlbTtcclxuICAgICAgbGV0dGVyLXNwYWNpbmc6IDAuM3B4O1xyXG4gICAgICBib3JkZXItdG9wOiAxcHggc29saWQgIzM0NDk1ZTtcclxuICAgICAgY29sb3I6ICMxQjQwNEY7XHJcbiAgICAgIGgyIHtcclxuICAgICAgICBtYXJnaW46IDA7XHJcbiAgICAgICAgbGV0dGVyLXNwYWNpbmc6IDFweDtcclxuICAgICAgICBjb2xvcjogIzM0NDk1ZTtcclxuICAgICAgfVxyXG4gICAgfVxyXG4gIH1cclxufVxyXG5cclxuI3RhYjE6Y2hlY2tlZCB+IG5hdiAudGFiMSxcclxuI3RhYjI6Y2hlY2tlZCB+IG5hdiAudGFiMixcclxuI3RhYjM6Y2hlY2tlZCB+IG5hdiAudGFiMyB7XHJcbiAgbGFiZWwge1xyXG4gICAgYmFja2dyb3VuZDogd2hpdGU7XHJcbiAgICBjb2xvcjogIzExMTtcclxuICAgIHBvc2l0aW9uOiByZWxhdGl2ZTtcclxuICAgICY6YWZ0ZXIge1xyXG4gICAgICBjb250ZW50OiAnJztcclxuICAgICAgZGlzcGxheTogYmxvY2s7XHJcbiAgICAgIHBvc2l0aW9uOiBhYnNvbHV0ZTtcclxuICAgICAgaGVpZ2h0OiAycHg7XHJcbiAgICAgIHdpZHRoOiAxMDAlO1xyXG4gICAgICBiYWNrZ3JvdW5kOiAkYWN0aXZlQ29sb3I7XHJcbiAgICAgIGxlZnQ6IDA7XHJcbiAgICAgIGJvdHRvbTogLTFweDtcclxuICAgIH1cclxuICB9XHJcbn1cclxuXHJcbiNibG9ja2x5RGl2IHtcclxuICBsaW5lLWhlaWdodDogNTAwcHg7XHJcbiAgaGVpZ2h0OiA0ODBweDsgXHJcbiAgd2lkdGg6IDEwMCU7XHJcbiAgYm9yZGVyLXRvcDogMXB4IHNvbGlkICNmZmZmZmY7XHJcbn1cclxuXHJcbiN4bWxUZXh0IHtcclxuICBoZWlnaHQ6IDQzN3B4O1xyXG4gIHdpZHRoOiAxMDAlO1xyXG59XHJcblxyXG4udGFiMiBoMiB7XHJcblx0cGFkZGluZy1ib3R0b206IDIwcHg7XHJcbn0iXX0= */"
 
 /***/ }),
 
@@ -441,7 +440,7 @@ var BlocklyEditorComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "#container {\n    width: 90%;\n    margin: 0px auto;\n}\n\n#mainSectionContainer {\n    height: 500px;\n}\n\n#blockly {\n    width: 65%;\n    height: 130%;\n    float: left;\n    text-align: center;\n    background-color: rgb(207, 207, 207);\n}\n\n#simulatorSection {\n    width: 35%;\n    float: left;\n}\n\n#simulator {\n    height: 300px;\n    line-height: 300px;\n    text-align: center;\n    background-color: rgb(168, 168, 168);\n    color: rgb(255, 255, 255);\n}\n\n#robotConnection {\n    height: 100px;\n}\n\n#simulatorControls {\n    height: 100px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9tYWluL21haW4uY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLFdBQVc7SUFDWCxpQkFBaUI7Q0FDcEI7O0FBRUQ7SUFDSSxjQUFjO0NBQ2pCOztBQUVEO0lBQ0ksV0FBVztJQUNYLGFBQWE7SUFDYixZQUFZO0lBQ1osbUJBQW1CO0lBQ25CLHFDQUFxQztDQUN4Qzs7QUFFRDtJQUNJLFdBQVc7SUFDWCxZQUFZO0NBQ2Y7O0FBRUQ7SUFDSSxjQUFjO0lBQ2QsbUJBQW1CO0lBQ25CLG1CQUFtQjtJQUNuQixxQ0FBcUM7SUFDckMsMEJBQTBCO0NBQzdCOztBQUVEO0lBQ0ksY0FBYztDQUNqQjs7QUFFRDtJQUNJLGNBQWM7Q0FDakIiLCJmaWxlIjoic3JjL2FwcC9jb21wb25lbnRzL21haW4vbWFpbi5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiI2NvbnRhaW5lciB7XG4gICAgd2lkdGg6IDkwJTtcbiAgICBtYXJnaW46IDBweCBhdXRvO1xufVxuXG4jbWFpblNlY3Rpb25Db250YWluZXIge1xuICAgIGhlaWdodDogNTAwcHg7XG59XG5cbiNibG9ja2x5IHtcbiAgICB3aWR0aDogNjUlO1xuICAgIGhlaWdodDogMTMwJTtcbiAgICBmbG9hdDogbGVmdDtcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gICAgYmFja2dyb3VuZC1jb2xvcjogcmdiKDIwNywgMjA3LCAyMDcpO1xufVxuXG4jc2ltdWxhdG9yU2VjdGlvbiB7XG4gICAgd2lkdGg6IDM1JTtcbiAgICBmbG9hdDogbGVmdDtcbn1cblxuI3NpbXVsYXRvciB7XG4gICAgaGVpZ2h0OiAzMDBweDtcbiAgICBsaW5lLWhlaWdodDogMzAwcHg7XG4gICAgdGV4dC1hbGlnbjogY2VudGVyO1xuICAgIGJhY2tncm91bmQtY29sb3I6IHJnYigxNjgsIDE2OCwgMTY4KTtcbiAgICBjb2xvcjogcmdiKDI1NSwgMjU1LCAyNTUpO1xufVxuXG4jcm9ib3RDb25uZWN0aW9uIHtcbiAgICBoZWlnaHQ6IDEwMHB4O1xufVxuXG4jc2ltdWxhdG9yQ29udHJvbHMge1xuICAgIGhlaWdodDogMTAwcHg7XG59Il19 */"
+module.exports = "#container {\r\n    width: 100%;\r\n    margin: 0px auto;\r\n}\r\n\r\n#mainSectionContainer {\r\n    height: 100%;\r\n}\r\n\r\n#blockly {\r\n    width: 65%;\r\n    height: 100%;\r\n    float: left;\r\n    text-align: center;\r\n    background-color: #ffffff;\r\n}\r\n\r\n#simulatorSection {\r\n    width: 30%;\t\r\n    float: right;\r\n    background-color: #ffffff;\r\n}\r\n\r\n#simulator {\r\n    height: 300px;\r\n    line-height: 300px;\r\n    text-align: center;\r\n    background-color: rgb(168, 168, 168);\r\n    color: rgb(255, 255, 255);\r\n}\r\n\r\n#belowSimulator {\r\n\tbackground-color: #ffffff;\r\n}\r\n\r\n#robotConnection {\r\n    height: 100px;\r\n    padding-top:50px;\r\n}\r\n\r\n#simulatorControls {\r\n    height: 100px;\r\n}\r\n\r\n@media only screen and (max-width:800px) {\r\n\t#simulatorSection, #mainSectionContainer, #blockly {\r\n\t\twidth: 100%;\r\n\t\tdisplay: block;\r\n\t}\r\n}\r\n\r\n#container {\r\n    width: 100%;\r\n    margin: 0px auto;\r\n}\r\n\r\n#mainSectionContainer {\r\n    height: 100%;\r\n}\r\n\r\n#blockly {\r\n    width: 65%;\r\n    height: 100%;\r\n    float: left;\r\n    text-align: center;\r\n    background-color: #ffffff;\r\n}\r\n\r\n#simulatorSection {\r\n    width: 30%;\t\r\n    float: right;\r\n    background-color: #ffffff;\r\n}\r\n\r\n#simulator {\r\n    height: 300px;\r\n    line-height: 300px;\r\n    text-align: center;\r\n    background-color: rgb(168, 168, 168);\r\n    color: rgb(255, 255, 255);\r\n}\r\n\r\n#belowSimulator {\r\n\tbackground-color: #ffffff;\r\n}\r\n\r\n#robotConnection {\r\n    height: 100px;\r\n    padding-top:50px;\r\n}\r\n\r\n#simulatorControls {\r\n    height: 100px;\r\n}\r\n\r\n@media only screen and (max-width:800px) {\r\n\t#simulatorSection, #mainSectionContainer, #blockly {\r\n\t\twidth: 100%;\r\n\t\tdisplay: block;\r\n\t}\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9tYWluL21haW4uY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLFlBQVk7SUFDWixpQkFBaUI7Q0FDcEI7O0FBRUQ7SUFDSSxhQUFhO0NBQ2hCOztBQUVEO0lBQ0ksV0FBVztJQUNYLGFBQWE7SUFDYixZQUFZO0lBQ1osbUJBQW1CO0lBQ25CLDBCQUEwQjtDQUM3Qjs7QUFFRDtJQUNJLFdBQVc7SUFDWCxhQUFhO0lBQ2IsMEJBQTBCO0NBQzdCOztBQUVEO0lBQ0ksY0FBYztJQUNkLG1CQUFtQjtJQUNuQixtQkFBbUI7SUFDbkIscUNBQXFDO0lBQ3JDLDBCQUEwQjtDQUM3Qjs7QUFFRDtDQUNDLDBCQUEwQjtDQUMxQjs7QUFFRDtJQUNJLGNBQWM7SUFDZCxpQkFBaUI7Q0FDcEI7O0FBRUQ7SUFDSSxjQUFjO0NBQ2pCOztBQUVEO0NBQ0M7RUFDQyxZQUFZO0VBQ1osZUFBZTtFQUNmO0NBQ0Q7O0FBQUE7SUFDRyxZQUFZO0lBQ1osaUJBQWlCO0NBQ3BCOztBQUVEO0lBQ0ksYUFBYTtDQUNoQjs7QUFFRDtJQUNJLFdBQVc7SUFDWCxhQUFhO0lBQ2IsWUFBWTtJQUNaLG1CQUFtQjtJQUNuQiwwQkFBMEI7Q0FDN0I7O0FBRUQ7SUFDSSxXQUFXO0lBQ1gsYUFBYTtJQUNiLDBCQUEwQjtDQUM3Qjs7QUFFRDtJQUNJLGNBQWM7SUFDZCxtQkFBbUI7SUFDbkIsbUJBQW1CO0lBQ25CLHFDQUFxQztJQUNyQywwQkFBMEI7Q0FDN0I7O0FBRUQ7Q0FDQywwQkFBMEI7Q0FDMUI7O0FBRUQ7SUFDSSxjQUFjO0lBQ2QsaUJBQWlCO0NBQ3BCOztBQUVEO0lBQ0ksY0FBYztDQUNqQjs7QUFFRDtDQUNDO0VBQ0MsWUFBWTtFQUNaLGVBQWU7RUFDZjtDQUNEIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9tYWluL21haW4uY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIiNjb250YWluZXIge1xyXG4gICAgd2lkdGg6IDEwMCU7XHJcbiAgICBtYXJnaW46IDBweCBhdXRvO1xyXG59XHJcblxyXG4jbWFpblNlY3Rpb25Db250YWluZXIge1xyXG4gICAgaGVpZ2h0OiAxMDAlO1xyXG59XHJcblxyXG4jYmxvY2tseSB7XHJcbiAgICB3aWR0aDogNjUlO1xyXG4gICAgaGVpZ2h0OiAxMDAlO1xyXG4gICAgZmxvYXQ6IGxlZnQ7XHJcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjZmZmZmZmO1xyXG59XHJcblxyXG4jc2ltdWxhdG9yU2VjdGlvbiB7XHJcbiAgICB3aWR0aDogMzAlO1x0XHJcbiAgICBmbG9hdDogcmlnaHQ7XHJcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjZmZmZmZmO1xyXG59XHJcblxyXG4jc2ltdWxhdG9yIHtcclxuICAgIGhlaWdodDogMzAwcHg7XHJcbiAgICBsaW5lLWhlaWdodDogMzAwcHg7XHJcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiByZ2IoMTY4LCAxNjgsIDE2OCk7XHJcbiAgICBjb2xvcjogcmdiKDI1NSwgMjU1LCAyNTUpO1xyXG59XHJcblxyXG4jYmVsb3dTaW11bGF0b3Ige1xyXG5cdGJhY2tncm91bmQtY29sb3I6ICNmZmZmZmY7XHJcbn1cclxuXHJcbiNyb2JvdENvbm5lY3Rpb24ge1xyXG4gICAgaGVpZ2h0OiAxMDBweDtcclxuICAgIHBhZGRpbmctdG9wOjUwcHg7XHJcbn1cclxuXHJcbiNzaW11bGF0b3JDb250cm9scyB7XHJcbiAgICBoZWlnaHQ6IDEwMHB4O1xyXG59XHJcblxyXG5AbWVkaWEgb25seSBzY3JlZW4gYW5kIChtYXgtd2lkdGg6ODAwcHgpIHtcclxuXHQjc2ltdWxhdG9yU2VjdGlvbiwgI21haW5TZWN0aW9uQ29udGFpbmVyLCAjYmxvY2tseSB7XHJcblx0XHR3aWR0aDogMTAwJTtcclxuXHRcdGRpc3BsYXk6IGJsb2NrO1xyXG5cdH1cclxufSNjb250YWluZXIge1xyXG4gICAgd2lkdGg6IDEwMCU7XHJcbiAgICBtYXJnaW46IDBweCBhdXRvO1xyXG59XHJcblxyXG4jbWFpblNlY3Rpb25Db250YWluZXIge1xyXG4gICAgaGVpZ2h0OiAxMDAlO1xyXG59XHJcblxyXG4jYmxvY2tseSB7XHJcbiAgICB3aWR0aDogNjUlO1xyXG4gICAgaGVpZ2h0OiAxMDAlO1xyXG4gICAgZmxvYXQ6IGxlZnQ7XHJcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjZmZmZmZmO1xyXG59XHJcblxyXG4jc2ltdWxhdG9yU2VjdGlvbiB7XHJcbiAgICB3aWR0aDogMzAlO1x0XHJcbiAgICBmbG9hdDogcmlnaHQ7XHJcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjZmZmZmZmO1xyXG59XHJcblxyXG4jc2ltdWxhdG9yIHtcclxuICAgIGhlaWdodDogMzAwcHg7XHJcbiAgICBsaW5lLWhlaWdodDogMzAwcHg7XHJcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiByZ2IoMTY4LCAxNjgsIDE2OCk7XHJcbiAgICBjb2xvcjogcmdiKDI1NSwgMjU1LCAyNTUpO1xyXG59XHJcblxyXG4jYmVsb3dTaW11bGF0b3Ige1xyXG5cdGJhY2tncm91bmQtY29sb3I6ICNmZmZmZmY7XHJcbn1cclxuXHJcbiNyb2JvdENvbm5lY3Rpb24ge1xyXG4gICAgaGVpZ2h0OiAxMDBweDtcclxuICAgIHBhZGRpbmctdG9wOjUwcHg7XHJcbn1cclxuXHJcbiNzaW11bGF0b3JDb250cm9scyB7XHJcbiAgICBoZWlnaHQ6IDEwMHB4O1xyXG59XHJcblxyXG5AbWVkaWEgb25seSBzY3JlZW4gYW5kIChtYXgtd2lkdGg6ODAwcHgpIHtcclxuXHQjc2ltdWxhdG9yU2VjdGlvbiwgI21haW5TZWN0aW9uQ29udGFpbmVyLCAjYmxvY2tseSB7XHJcblx0XHR3aWR0aDogMTAwJTtcclxuXHRcdGRpc3BsYXk6IGJsb2NrO1xyXG5cdH1cclxufSJdfQ== */"
 
 /***/ }),
 
@@ -452,7 +451,7 @@ module.exports = "#container {\n    width: 90%;\n    margin: 0px auto;\n}\n\n#ma
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<app-banner></app-banner>\n<div id=\"container\">\n    <div class=\"clear\"></div>\n    <div id=\"mainSectionContainer\">\n      <div id=\"blockly\">\n        <app-blockly-editor></app-blockly-editor>\n      </div>\n      <div id=\"simulatorSection\">\n        <div id=\"simulator\">\n          <app-simulator></app-simulator>\n        </div>\n        <div id=\"robotConnection\">\n          <app-robot-connection></app-robot-connection>\n        </div>\n        <div id=\"simulatorControls\">\n          <app-start-control></app-start-control>\n        </div>\n      </div>\n    </div>\n  </div>\n  <router-outlet></router-outlet>\n"
+module.exports = "<app-banner></app-banner>\r\n<div id=\"container\">\r\n    <div class=\"clear\"></div>\r\n    <div id=\"mainSectionContainer\">\r\n      <div id=\"blockly\">\r\n        <app-blockly-editor></app-blockly-editor>\r\n      </div>\r\n      <div id=\"simulatorSection\">\r\n        <div id=\"simulator\">\r\n          <app-simulator></app-simulator>\r\n        </div>\r\n        <div id=\"belowSimulator\">\r\n        \t<div id=\"robotConnection\">\r\n          \t\t<app-robot-connection></app-robot-connection>\r\n        \t</div>\r\n        \t<div id=\"simulatorControls\">\r\n          \t\t<app-start-control></app-start-control>\r\n        \t</div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n  <router-outlet></router-outlet>"
 
 /***/ }),
 
@@ -507,7 +506,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"pageNotFound\">\n  <span>The requested page was not found</span>\n  <p>\n    Redirecting you...\n  </p>\n</div>"
+module.exports = "<div id=\"pageNotFound\">\r\n  <span>The requested page was not found</span>\r\n  <p>\r\n    Redirecting you...\r\n  </p>\r\n</div>"
 
 /***/ }),
 
@@ -570,7 +569,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<p>\n  profile-settings works!\n</p>\n"
+module.exports = "<p>\r\n  profile-settings works!\r\n</p>\r\n"
 
 /***/ }),
 
@@ -615,7 +614,7 @@ var ProfileSettingsComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".robot-radio-group {\n    display: flex;\n    flex-direction: column;\n    margin: 15px 0px;\n}\n\n.robot span {\n    margin: 0% 0% 0% 5%;\n    font-size: 110%;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9yb2JvdC1jb25uZWN0aW9uLWRpYWxvZy9yb2JvdC1jb25uZWN0aW9uLWRpYWxvZy5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0ksY0FBYztJQUNkLHVCQUF1QjtJQUN2QixpQkFBaUI7Q0FDcEI7O0FBRUQ7SUFDSSxvQkFBb0I7SUFDcEIsZ0JBQWdCO0NBQ25CIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9yb2JvdC1jb25uZWN0aW9uLWRpYWxvZy9yb2JvdC1jb25uZWN0aW9uLWRpYWxvZy5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnJvYm90LXJhZGlvLWdyb3VwIHtcbiAgICBkaXNwbGF5OiBmbGV4O1xuICAgIGZsZXgtZGlyZWN0aW9uOiBjb2x1bW47XG4gICAgbWFyZ2luOiAxNXB4IDBweDtcbn1cblxuLnJvYm90IHNwYW4ge1xuICAgIG1hcmdpbjogMCUgMCUgMCUgNSU7XG4gICAgZm9udC1zaXplOiAxMTAlO1xufSJdfQ== */"
+module.exports = ".robot-radio-group {\r\n    display: flex;\r\n    flex-direction: column;\r\n    margin: 15px 0px;\r\n}\r\n\r\n.robot span {\r\n    margin: 0% 0% 0% 5%;\r\n    font-size: 110%;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9yb2JvdC1jb25uZWN0aW9uLWRpYWxvZy9yb2JvdC1jb25uZWN0aW9uLWRpYWxvZy5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0ksY0FBYztJQUNkLHVCQUF1QjtJQUN2QixpQkFBaUI7Q0FDcEI7O0FBRUQ7SUFDSSxvQkFBb0I7SUFDcEIsZ0JBQWdCO0NBQ25CIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9yb2JvdC1jb25uZWN0aW9uLWRpYWxvZy9yb2JvdC1jb25uZWN0aW9uLWRpYWxvZy5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnJvYm90LXJhZGlvLWdyb3VwIHtcclxuICAgIGRpc3BsYXk6IGZsZXg7XHJcbiAgICBmbGV4LWRpcmVjdGlvbjogY29sdW1uO1xyXG4gICAgbWFyZ2luOiAxNXB4IDBweDtcclxufVxyXG5cclxuLnJvYm90IHNwYW4ge1xyXG4gICAgbWFyZ2luOiAwJSAwJSAwJSA1JTtcclxuICAgIGZvbnQtc2l6ZTogMTEwJTtcclxufSJdfQ== */"
 
 /***/ }),
 
@@ -626,7 +625,7 @@ module.exports = ".robot-radio-group {\n    display: flex;\n    flex-direction: 
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<h1>Select a Robot</h1>\n<span *ngIf=\"robotList?.length == 0\">There are no robots available</span>\n<mat-radio-group *ngIf=\"robotList?.length > 0\" class=\"robot-radio-group\" aria-label=\"Select a robot\">\n    <mat-radio-button *ngFor=\"let robot of robotList\" [value]=\"robot.name\" (change)=\"selectRobot($event)\" name=\"robotName\" ngDefaultControl>\n        <div class=\"robot\">\n            <img src=\"{{ robot.profile.image_original }}\" alt=\"avatar\" width=\"50px\" />\n            <span>{{ robot.name }}</span>\n        </div>\n    </mat-radio-button>\n</mat-radio-group>"
+module.exports = "<h1>Select a Robot</h1>\r\n<span *ngIf=\"robotList?.length == 0\">There are no robots available</span>\r\n<mat-radio-group *ngIf=\"robotList?.length > 0\" class=\"robot-radio-group\" aria-label=\"Select a robot\">\r\n    <mat-radio-button *ngFor=\"let robot of robotList\" [value]=\"robot.name\" (change)=\"selectRobot($event)\" name=\"robotName\" ngDefaultControl>\r\n        <div class=\"robot\">\r\n            <img src=\"{{ robot.profile.image_original }}\" alt=\"avatar\" width=\"50px\" />\r\n            <span>{{ robot.name }}</span>\r\n        </div>\r\n    </mat-radio-button>\r\n</mat-radio-group>"
 
 /***/ }),
 
@@ -687,7 +686,7 @@ var RobotConnectionDialogComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "#connectionStatus {\n    text-align: center;\n}\n\n#connectionStatus > mat-icon {\n    display: inline-flex;\n    vertical-align: middle;\n}\n\nbutton {\n    display: block;\n    margin: 2% auto;\n}\n\n.green {\n    color: green;\n}\n\n.red {\n    color: red;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9yb2JvdC1jb25uZWN0aW9uL3JvYm90LWNvbm5lY3Rpb24uY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLG1CQUFtQjtDQUN0Qjs7QUFFRDtJQUNJLHFCQUFxQjtJQUNyQix1QkFBdUI7Q0FDMUI7O0FBRUQ7SUFDSSxlQUFlO0lBQ2YsZ0JBQWdCO0NBQ25COztBQUVEO0lBQ0ksYUFBYTtDQUNoQjs7QUFFRDtJQUNJLFdBQVc7Q0FDZCIsImZpbGUiOiJzcmMvYXBwL2NvbXBvbmVudHMvcm9ib3QtY29ubmVjdGlvbi9yb2JvdC1jb25uZWN0aW9uLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIjY29ubmVjdGlvblN0YXR1cyB7XG4gICAgdGV4dC1hbGlnbjogY2VudGVyO1xufVxuXG4jY29ubmVjdGlvblN0YXR1cyA+IG1hdC1pY29uIHtcbiAgICBkaXNwbGF5OiBpbmxpbmUtZmxleDtcbiAgICB2ZXJ0aWNhbC1hbGlnbjogbWlkZGxlO1xufVxuXG5idXR0b24ge1xuICAgIGRpc3BsYXk6IGJsb2NrO1xuICAgIG1hcmdpbjogMiUgYXV0bztcbn1cblxuLmdyZWVuIHtcbiAgICBjb2xvcjogZ3JlZW47XG59XG5cbi5yZWQge1xuICAgIGNvbG9yOiByZWQ7XG59Il19 */"
+module.exports = "#connectionStatus {\r\n    text-align: center;\r\n}\r\n\r\n#connectionStatus > mat-icon {\r\n    display: inline-flex;\r\n    vertical-align: middle;\r\n}\r\n\r\nbutton {\r\n    display: block;\r\n    margin: 2% auto;\r\n}\r\n\r\n.green {\r\n    color: green;\r\n}\r\n\r\n.red {\r\n    color: red;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9yb2JvdC1jb25uZWN0aW9uL3JvYm90LWNvbm5lY3Rpb24uY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLG1CQUFtQjtDQUN0Qjs7QUFFRDtJQUNJLHFCQUFxQjtJQUNyQix1QkFBdUI7Q0FDMUI7O0FBRUQ7SUFDSSxlQUFlO0lBQ2YsZ0JBQWdCO0NBQ25COztBQUVEO0lBQ0ksYUFBYTtDQUNoQjs7QUFFRDtJQUNJLFdBQVc7Q0FDZCIsImZpbGUiOiJzcmMvYXBwL2NvbXBvbmVudHMvcm9ib3QtY29ubmVjdGlvbi9yb2JvdC1jb25uZWN0aW9uLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIjY29ubmVjdGlvblN0YXR1cyB7XHJcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbn1cclxuXHJcbiNjb25uZWN0aW9uU3RhdHVzID4gbWF0LWljb24ge1xyXG4gICAgZGlzcGxheTogaW5saW5lLWZsZXg7XHJcbiAgICB2ZXJ0aWNhbC1hbGlnbjogbWlkZGxlO1xyXG59XHJcblxyXG5idXR0b24ge1xyXG4gICAgZGlzcGxheTogYmxvY2s7XHJcbiAgICBtYXJnaW46IDIlIGF1dG87XHJcbn1cclxuXHJcbi5ncmVlbiB7XHJcbiAgICBjb2xvcjogZ3JlZW47XHJcbn1cclxuXHJcbi5yZWQge1xyXG4gICAgY29sb3I6IHJlZDtcclxufSJdfQ== */"
 
 /***/ }),
 
@@ -698,7 +697,7 @@ module.exports = "#connectionStatus {\n    text-align: center;\n}\n\n#connection
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"connectionStatus\">\n  <mat-icon class=\"green\" *ngIf=\"connectionService.IsConnected\">check_circle</mat-icon>\n  <mat-icon class=\"red\" *ngIf=\"!connectionService.IsConnected\">cancel</mat-icon>\n  <span>{{ connectionService.getConnectionString() }}</span>\n</div>\n<button mat-stroked-button (click)=\"openConnectDialog()\" *ngIf=\"!connectionService.IsConnected\">Connect</button>\n<button mat-stroked-button (click)=\"connectionService.disconnect()\" *ngIf=\"connectionService.IsConnected\">Disconnect</button>"
+module.exports = "<div id=\"connectionStatus\">\r\n  <mat-icon class=\"green\" *ngIf=\"connectionService.IsConnected\">check_circle</mat-icon>\r\n  <mat-icon class=\"red\" *ngIf=\"!connectionService.IsConnected\">cancel</mat-icon>\r\n  <span>{{ connectionService.getConnectionString() }}</span>\r\n</div>\r\n<button mat-stroked-button (click)=\"openConnectDialog()\" *ngIf=\"!connectionService.IsConnected\">Connect</button>\r\n<button mat-stroked-button (click)=\"connectionService.disconnect()\" *ngIf=\"connectionService.IsConnected\">Disconnect</button>"
 
 /***/ }),
 
@@ -767,7 +766,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<p>\n  save-procedure works!\n</p>\n"
+module.exports = "<p>\r\n  save-procedure works!\r\n</p>\r\n"
 
 /***/ }),
 
@@ -812,7 +811,7 @@ var SaveProcedureComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "#container {\n    position: relative;\n}\n\nbutton {\n    display: block;\n    margin: 2% auto;\n}\n\n.greenIcon {\n    color: green;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9zdGFydC1jb250cm9sL3N0YXJ0LWNvbnRyb2wuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLG1CQUFtQjtDQUN0Qjs7QUFFRDtJQUNJLGVBQWU7SUFDZixnQkFBZ0I7Q0FDbkI7O0FBRUQ7SUFDSSxhQUFhO0NBQ2hCIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9zdGFydC1jb250cm9sL3N0YXJ0LWNvbnRyb2wuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIiNjb250YWluZXIge1xuICAgIHBvc2l0aW9uOiByZWxhdGl2ZTtcbn1cblxuYnV0dG9uIHtcbiAgICBkaXNwbGF5OiBibG9jaztcbiAgICBtYXJnaW46IDIlIGF1dG87XG59XG5cbi5ncmVlbkljb24ge1xuICAgIGNvbG9yOiBncmVlbjtcbn0iXX0= */"
+module.exports = "#container {\r\n    position: relative;\r\n}\r\n\r\nbutton {\r\n    display: block;\r\n    margin: 2% auto;\r\n}\r\n\r\n.greenIcon {\r\n    color: green;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9zdGFydC1jb250cm9sL3N0YXJ0LWNvbnRyb2wuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLG1CQUFtQjtDQUN0Qjs7QUFFRDtJQUNJLGVBQWU7SUFDZixnQkFBZ0I7Q0FDbkI7O0FBRUQ7SUFDSSxhQUFhO0NBQ2hCIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9zdGFydC1jb250cm9sL3N0YXJ0LWNvbnRyb2wuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIiNjb250YWluZXIge1xyXG4gICAgcG9zaXRpb246IHJlbGF0aXZlO1xyXG59XHJcblxyXG5idXR0b24ge1xyXG4gICAgZGlzcGxheTogYmxvY2s7XHJcbiAgICBtYXJnaW46IDIlIGF1dG87XHJcbn1cclxuXHJcbi5ncmVlbkljb24ge1xyXG4gICAgY29sb3I6IGdyZWVuO1xyXG59Il19 */"
 
 /***/ }),
 
@@ -823,7 +822,7 @@ module.exports = "#container {\n    position: relative;\n}\n\nbutton {\n    disp
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"container\">\n  <button mat-stroked-button (click)=\"start()\">\n    <mat-icon class=\"greenIcon\">play_arrow</mat-icon>\n    Start\n  </button>\n</div>"
+module.exports = "<div id=\"container\">\r\n  <button mat-stroked-button (click)=\"start()\">\r\n    <mat-icon class=\"greenIcon\">play_arrow</mat-icon>\r\n    Start\r\n  </button>\r\n</div>"
 
 /***/ }),
 
@@ -1270,7 +1269,7 @@ var ModelService = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = " /*body{*/\n   /*height: 500px;*/\n   /*line-height: 300px;*/\n   /*text-align: center;*/\n   /*background-color: rgb(168, 168, 168);*/\n   /*color: rgb(255, 255, 255);*/\n   /*}*/\n   /*body{*/\n   /*overflow: scroll;*/\n   /*}*/\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvc2ltdWxhdG9yL3NpbXVsYXRvci5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJDQUFDLFNBQVM7R0FDUCxrQkFBa0I7R0FDbEIsdUJBQXVCO0dBQ3ZCLHVCQUF1QjtHQUN2Qix5Q0FBeUM7R0FDekMsOEJBQThCO0dBQ2hDLEtBQUs7R0FDTixTQUFTO0dBQ1AscUJBQXFCO0dBQ3ZCLEtBQUsiLCJmaWxlIjoic3JjL2FwcC9zaW11bGF0b3Ivc2ltdWxhdG9yLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIgLypib2R5eyovXG4gICAvKmhlaWdodDogNTAwcHg7Ki9cbiAgIC8qbGluZS1oZWlnaHQ6IDMwMHB4OyovXG4gICAvKnRleHQtYWxpZ246IGNlbnRlcjsqL1xuICAgLypiYWNrZ3JvdW5kLWNvbG9yOiByZ2IoMTY4LCAxNjgsIDE2OCk7Ki9cbiAgIC8qY29sb3I6IHJnYigyNTUsIDI1NSwgMjU1KTsqL1xuIC8qfSovXG4vKmJvZHl7Ki9cbiAgLypvdmVyZmxvdzogc2Nyb2xsOyovXG4vKn0qL1xuIl19 */"
+module.exports = " /*body{*/\r\n   /*height: 500px;*/\r\n   /*line-height: 300px;*/\r\n   /*text-align: center;*/\r\n   /*background-color: rgb(168, 168, 168);*/\r\n   /*color: rgb(255, 255, 255);*/\r\n   /*}*/\r\n   /*body{*/\r\n   /*overflow: scroll;*/\r\n   /*}*/\r\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvc2ltdWxhdG9yL3NpbXVsYXRvci5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJDQUFDLFNBQVM7R0FDUCxrQkFBa0I7R0FDbEIsdUJBQXVCO0dBQ3ZCLHVCQUF1QjtHQUN2Qix5Q0FBeUM7R0FDekMsOEJBQThCO0dBQ2hDLEtBQUs7R0FDTixTQUFTO0dBQ1AscUJBQXFCO0dBQ3ZCLEtBQUsiLCJmaWxlIjoic3JjL2FwcC9zaW11bGF0b3Ivc2ltdWxhdG9yLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIgLypib2R5eyovXHJcbiAgIC8qaGVpZ2h0OiA1MDBweDsqL1xyXG4gICAvKmxpbmUtaGVpZ2h0OiAzMDBweDsqL1xyXG4gICAvKnRleHQtYWxpZ246IGNlbnRlcjsqL1xyXG4gICAvKmJhY2tncm91bmQtY29sb3I6IHJnYigxNjgsIDE2OCwgMTY4KTsqL1xyXG4gICAvKmNvbG9yOiByZ2IoMjU1LCAyNTUsIDI1NSk7Ki9cclxuIC8qfSovXHJcbi8qYm9keXsqL1xyXG4gIC8qb3ZlcmZsb3c6IHNjcm9sbDsqL1xyXG4vKn0qL1xyXG4iXX0= */"
 
 /***/ }),
 
@@ -1281,7 +1280,7 @@ module.exports = " /*body{*/\n   /*height: 500px;*/\n   /*line-height: 300px;*/\
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!--&lt;!&ndash;in this file you will add {{}} which is define in component.ts&ndash;&gt;-->\n<!--<script src=\"./js/three.min.js\"></script>-->\n\n<script src=\"three/examples/js/controls/OrbitControls\"></script>\n\n<!--<script src=\"./js/simulatorModel.js\"></script>-->\n\n\n<!--<body>-->\n<!--</body>-->\n<!--<p>-->\n  <!--simulator works!-->\n<!--</p>-->\n\n<!--<p>{{moveClaw(10)}}</p>-->\n<!--<p>{{moveArm(3, 4, true)}}</p>-->\n<!--<p>{{returnToHome()}}</p>-->\n<!--<p>{{wait(1000)}}</p>-->\n<!--<p>{{start()}}</p>-->\n<!--<p>{{stop()}}</p>-->\n<!--<p>{{connectToRobot(1)}}</p>-->\n<!--<p>{{disconnectFromRobot()}}</p>-->\n"
+module.exports = "<!--&lt;!&ndash;in this file you will add {{}} which is define in component.ts&ndash;&gt;-->\r\n<!--<script src=\"./js/three.min.js\"></script>-->\r\n\r\n<script src=\"three/examples/js/controls/OrbitControls\"></script>\r\n\r\n<!--<script src=\"./js/simulatorModel.js\"></script>-->\r\n\r\n\r\n<!--<body>-->\r\n<!--</body>-->\r\n<!--<p>-->\r\n  <!--simulator works!-->\r\n<!--</p>-->\r\n\r\n<!--<p>{{moveClaw(10)}}</p>-->\r\n<!--<p>{{moveArm(3, 4, true)}}</p>-->\r\n<!--<p>{{returnToHome()}}</p>-->\r\n<!--<p>{{wait(1000)}}</p>-->\r\n<!--<p>{{start()}}</p>-->\r\n<!--<p>{{stop()}}</p>-->\r\n<!--<p>{{connectToRobot(1)}}</p>-->\r\n<!--<p>{{disconnectFromRobot()}}</p>-->\r\n"
 
 /***/ }),
 
@@ -1750,7 +1749,7 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_2__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/Chris/KLAW-Web/frontend/src/main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! C:\klaw\frontend\src\main.ts */"./src/main.ts");
 
 
 /***/ })
