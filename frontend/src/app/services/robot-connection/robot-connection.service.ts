@@ -34,7 +34,7 @@ export class RobotConnectionService {
   }
 
   disconnect() {
-    this.robotName = null;
+    this.updateRobotName("");
     this.isConnected = false;
   }
 
