@@ -10,12 +10,19 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 })
 export class DataService {
 
-  private ROOT_URL = new BehaviorSubject<string>("http://127.0.0.1:5000/api"); //listening to API here
-  currentRootUrl = this.ROOT_URL.asObservable();
+  private API_URL: string = "https://klaw-web.herokuapp.com"; // listening to API here
+
+  private commandStringSource = new BehaviorSubject<string>("");
+  commandString = this.commandStringSource.asObservable();
 
   constructor() { }
-  updateRootUrl(newRootUrl: string) {
-    this.ROOT_URL.next(newRootUrl);
+
+  get APIUrl() {
+    return this.API_URL;
+  }
+
+  updateCommandString(commandString: string) {
+    this.commandStringSource.next(commandString);
   }
 
 }

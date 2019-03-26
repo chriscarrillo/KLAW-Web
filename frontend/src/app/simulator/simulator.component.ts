@@ -1,4 +1,5 @@
 import {Component, ElementRef, HostListener, OnInit, ViewChild, AfterViewInit} from '@angular/core';
+import {Inject, Injectable} from '@angular/core';
 import * as THREE from 'three';
 import * as TWEEN from 'tween';
 // import * as THREE from 'three/build/three.min.js';
@@ -7,6 +8,12 @@ import './js/EnableTween';
 
 import 'three/examples/js/controls/OrbitControls';
 import {ModelService} from './model.service';
+import {EventsService} from './events.service';
+
+let startMoveArm: any[];
+let startMoveClaw: any[];
+let startWait: any[];
+let animationOrder: any[];
 
 @Component({
   selector: 'app-simulator',
@@ -33,7 +40,7 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
   // tests the reset animation
   test = true;
 
-  constructor(private modelService: ModelService) {
+  constructor(private modelService: ModelService, private eventsService: EventsService) {
     this.render = this.render.bind(this);
   }
 
@@ -57,25 +64,25 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
 
       // // Append to the document
       // document.getElementById('simulator').appendChild(this.renderer.domElement);
-    }
+  }
 
-    @HostListener('window:resize', ['$event'])
-    resizeWindow(event: Event) {
+  @HostListener('window:resize', ['$event'])
+  resizeWindow(event: Event) {
         const WIDTH = this.container.clientWidth,
           HEIGHT = this.container.clientHeight;
         this.renderer.setSize(WIDTH, HEIGHT);
         this.camera.aspect = WIDTH / HEIGHT;
         this.camera.updateProjectionMatrix();
-    }
+  }
 
     // adds Orbit Controls to scene
-    addControls() {
-      this.controls = new THREE.OrbitControls(this.camera, this.renderer.domElement);
-      this.controls.addEventListener('change', this.render);
-    }
+  addControls() {
+    this.controls = new THREE.OrbitControls(this.camera, this.renderer.domElement);
+    this.controls.addEventListener('change', this.render);
+  }
 
-    // inits renderer and maintains timing on animation
-    private startRendering() {
+  // inits renderer and maintains timing on animation
+  private startRendering() {
       try {
         this.renderer = new THREE.WebGLRenderer({
           antialias: true
@@ -96,28 +103,13 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
       (function render() {
         setTimeout(function() {
           requestAnimationFrame(render);
-          /**adding or testing**/
-          // const testCodeStr = 'moveArm(10,10,true)/moveClaw{10)';
-          // const commands = testCodeStr.split('/');
-          const functionArray = [];
-          // functionArray.push(component.moveArmFunction(10, 10, true));
-          // commands.forEach(function(command) {
-          //   if (command.startsWith('moveArm')) {
-          //     /**can't add function in here since it doesn't recognize `this`?**/
-          //     need to also parse for the argument values
-              // functionArray.push(component.moveArmFunction(10, 10, true));
-            // }
-            // else if (command.startsWith('moveClaw')) {
-            //   functionArray.push(component.moveClawFunction(10));
-            // }
-          // });
+
         }, 1000 / 20);
         component.render();
       }());
-    }
+  }
 
-
-    createLights() {
+  createLights() {
       // adds hemisphere light
       const hemisphereLight = new THREE.HemisphereLight( 0xffeeee, 0x111122, 1 );
 
@@ -134,9 +126,9 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
       this.scene.add(hemisphereLight);
       this.scene.add(ambientLight);
       this.scene.add(pointLight);
-    }
+  }
 
-    createPlatform() {
+  createPlatform() {
       // platform for model
       const grid = new THREE.Mesh(
         new THREE.PlaneGeometry(80, 80, 70, 70),
@@ -147,7 +139,7 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
       this.scene.add(grid);
 
       // var grid = new THREE.GridHelper( 80, 70, 0x393839, 0x393839 );
-    }
+  }
 
     createModel() {
       this.modelService.SimModel.prototype = Object.create(THREE.Mesh.prototype);
@@ -167,7 +159,7 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
       /**added**/
     }
 
-    private convertLinearToDegrees(posX, posY) {
+  private convertLinearToDegrees(posX, posY) {
       /**Courtesy of Kris Hopper**/
       /**updated code**/
       // A
@@ -302,7 +294,6 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
         // const testArmPivot = new THREE.Vector3((new THREE.Box3().setFromObject(this.lowerArm)).getSize().x,
         //   (new THREE.Box3().setFromObject(this.lowerArm)).getSize().y, 0);
 
-
         /** x direction needs to be lessened**/
         console.log('testArmPivot', this.testPivot);
 
@@ -334,12 +325,17 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
 
 
       }
+      else {
+        // startMoveArm[0] = false;
+        animationOrder.shift();
+      }
       // -1.7016960206944711
       console.log('current upper arm rotation', this.upperArm.rotation.z);
     }
 
     // default is 27 centimeters apart
     moveClawFunction(distanceApart) {
+      animationOrder.shift();
       /**default linear claw movement**/
       /**works**/
       const currentDistApart = this.leftClaw.position.z - this.rightClaw.position.z;
@@ -361,10 +357,13 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
 
     wait(timeToWait) {
       // add timer here
+      console.log('in wait function');
       setTimeout(function () {
+        console.log('Waited ' + timeToWait + ' milliseconds!');
         // alert('Waited ' + timeToWait + ' milliseconds!');
         return;
       }, timeToWait);
+      animationOrder.shift();
     }
 
     resetModel() {
@@ -372,22 +371,72 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
         this.createModel();
     }
 
-    render() {
-      this.moveArmFunction(10,10, true);
-      // this.moveClawFunction(0);
+  render() {
+    // looks at the animation order and calls each animation method accordingly
+    if (animationOrder != null && animationOrder.length !== 0) {
+      // get first method called
+      const animMethod = animationOrder[0];
 
-      this.renderer.render(this.scene, this.camera);
+      // checks to see which animation method is being called
+      if (animMethod[0] == 'moveArm') {
+        this.moveArmFunction(startMoveArm[1], startMoveArm[2], startMoveArm[3]);
+        this.renderer.render(this.scene, this.camera);
+      }
+      else if (animMethod[0] == 'moveClaw') {
+        this.moveClawFunction((startMoveClaw[1]));
+        this.renderer.render(this.scene, this.camera);
+      }
+      else if (animMethod[0] == 'wait') {
+        this.wait(startWait[1]);
+        this.renderer.render(this.scene, this.camera);
+      }
     }
-
-    ngAfterViewInit(): void {
-        this.createScene();
-        this.createLights();
-        this.createPlatform();
-        this.createModel();
-        this.startRendering();
-
-        // this.moveArmFunction(10, 10, true);
-
-        this.addControls();
-    }
+    this.renderer.render(this.scene, this.camera);
   }
+  
+  ngAfterViewInit(): void {
+    this.createScene();
+    this.createLights();
+    this.createPlatform();
+    this.createModel();
+    this.startRendering();
+
+    // initializes the animation order
+    animationOrder = [];
+
+    // event listeners that listen to any passed data from Blockly component
+    this.eventsService.on('moveArmTest', (testParams) => {
+      console.log('moveArm called via event');
+      console.log('testParams: ' + testParams);
+    });
+
+    this.eventsService.on('moveArm', (x, y, isElbowUp) => {
+      console.log('moveArmFunction called via event');
+      console.log('Received arguments: ' + x + ', ' + y + ', ' + isElbowUp);
+      startMoveArm = [];
+      startMoveArm[0] = 'moveArm';
+      startMoveArm[1] = x;
+      startMoveArm[2] = y;
+      startMoveArm[3] = isElbowUp;
+      animationOrder.push(startMoveArm);
+    });
+    this.eventsService.on('moveClaw', (distanceApart) => {
+      console.log('moveClawFunction called via event');
+      console.log('Received arguments: ' + distanceApart);
+      startMoveClaw = [];
+      startMoveClaw[0] = 'moveClaw';
+      startMoveClaw[1] = distanceApart;
+      animationOrder.push(startMoveClaw);
+    });
+    this.eventsService.on('wait', (waitTime) => {
+      console.log('waitFunction called via event');
+      console.log('Received arguments: ' + waitTime);
+      startWait = [];
+      startWait[0] = 'wait';
+      startWait[1] = waitTime;
+      animationOrder.push(startWait);
+    });
+
+    this.addControls();
+  }
+}
