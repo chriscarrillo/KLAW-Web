@@ -26,7 +26,7 @@ export class StartControlComponent implements OnInit {
   }
 
   sendDataToRobot() {
-    if (this.blocklyComponent.CommandString != null) {
+    if (this.blocklyComponent.CommandString != null && this.robotName) {
       var slackJSON = 'payload={"text": "<@' + this.robotName + '> ' + this.blocklyComponent.CommandString + '"}';
 
       var xmlHttp = new XMLHttpRequest(),
