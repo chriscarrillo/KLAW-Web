@@ -1355,8 +1355,6 @@ var SimulatorComponent = /** @class */ (function () {
         this.modelService = modelService;
         this.eventsService = eventsService;
         this.sumOfLowArmRotation = 0;
-        // tests the reset animation
-        this.test = true;
         this.render = this.render.bind(this);
     }
     SimulatorComponent.prototype.createScene = function () {
@@ -1446,6 +1444,7 @@ var SimulatorComponent = /** @class */ (function () {
         this.lowerArmLength = (new three__WEBPACK_IMPORTED_MODULE_2__["Box3"]().setFromObject(this.lowerArm)).getSize().y;
         this.upperArmLength = (new three__WEBPACK_IMPORTED_MODULE_2__["Box3"]().setFromObject(this.upperArm)).getSize().x;
         /**added**/
+        this.origDist = this.leftClaw.position.z - this.rightClaw.position.z - 4;
     };
     SimulatorComponent.prototype.convertLinearToDegrees = function (posX, posY) {
         /**Courtesy of Kris Hopper**/
@@ -1690,27 +1689,44 @@ var SimulatorComponent = /** @class */ (function () {
     };
     // default is 27 centimeters apart
     SimulatorComponent.prototype.moveClawFunction = function (distanceApart) {
-        /**default linear claw movement**/
-        /**works**/
-        var currentDistApart = this.leftClaw.position.z - this.rightClaw.position.z;
+        console.log('Given Distance:', distanceApart);
+        // width of claw is 4
+        var currentDistApart = this.leftClaw.position.z - this.rightClaw.position.z - 4;
         console.log('currDist:', currentDistApart);
-        // if (!this.test) {
-        //   return;
-        // }
-        if ((this.leftClaw.position.z > 18) && (this.rightClaw.position.z < 9)
-            && (currentDistApart >= distanceApart)) {
-            this.leftClaw.position.z -= Math.PI / 60;
-            this.rightClaw.position.z += Math.PI / 60;
+        // default: currentDistApart = 24
+        // max: currentDistApart = 24
+        // min: currentDistApart = 0 (approx)
+        // if given is above max, only reach til max
+        if (distanceApart > 24) {
+            distanceApart = 24;
+        }
+        // if given is below min, only reach til min
+        else if (distanceApart < 0) {
+            distanceApart = 0;
+        }
+        if ((this.origDist > distanceApart ? currentDistApart > distanceApart : currentDistApart < distanceApart)) {
+            console.log('in for loop');
+            if (currentDistApart > distanceApart) {
+                // closes
+                // this.leftClaw.position.z -= Math.PI / 60;
+                // this.rightClaw.position.z += Math.PI / 60;
+                this.leftClaw.position.z -= .05;
+                this.rightClaw.position.z += .05;
+            }
+            else {
+                // opens
+                // this.leftClaw.position.z += Math.PI / 60;
+                // this.rightClaw.position.z -= Math.PI / 60;
+                this.leftClaw.position.z += .05;
+                this.rightClaw.position.z -= .05;
+            }
         }
         else {
             prevMethod = animationOrder[0][0];
             animationOrder.shift();
         }
-        // else {
-        //   // reset animation test
-        //   this.resetModel();
-        //   this.test = false;
-        // }
+        console.log('leftClaw position:', this.leftClaw.position.z);
+        console.log('rightClaw position:', this.rightClaw.position.z);
     };
     SimulatorComponent.prototype.wait = function (timeToWait) {
         // add timer here

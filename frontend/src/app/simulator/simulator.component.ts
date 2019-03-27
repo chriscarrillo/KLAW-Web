@@ -38,8 +38,7 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
   lowerArmLength;
   upperArmLength;
   testPivot;
-  // tests the reset animation
-  test = true;
+  origDist;
 
   constructor(private modelService: ModelService, private eventsService: EventsService) {
     this.render = this.render.bind(this);
@@ -158,6 +157,7 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
       this.upperArmLength = (new THREE.Box3().setFromObject(this.upperArm)).getSize().x;
 
       /**added**/
+      this.origDist = this.leftClaw.position.z - this.rightClaw.position.z - 4;
     }
 
   private convertLinearToDegrees(posX, posY) {
@@ -435,27 +435,49 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
 
     // default is 27 centimeters apart
     moveClawFunction(distanceApart) {
-      /**default linear claw movement**/
-      /**works**/
-      const currentDistApart = this.leftClaw.position.z - this.rightClaw.position.z;
+      console.log('Given Distance:', distanceApart);
+      // width of claw is 4
+      const currentDistApart = this.leftClaw.position.z - this.rightClaw.position.z - 4;
+
       console.log('currDist:', currentDistApart);
-      // if (!this.test) {
-      //   return;
-      // }
-      if ((this.leftClaw.position.z > 18) && (this.rightClaw.position.z < 9)
-          && (currentDistApart >= distanceApart)) {
-        this.leftClaw.position.z -= Math.PI / 60;
-        this.rightClaw.position.z += Math.PI / 60;
+
+      // default: currentDistApart = 24
+      // max: currentDistApart = 24
+      // min: currentDistApart = 0 (approx)
+
+      // if given is above max, only reach til max
+      if (distanceApart > 24) {
+        distanceApart = 24;
+      }
+      // if given is below min, only reach til min
+      else if (distanceApart < 0) {
+        distanceApart = 0;
+      }
+
+      if ((this.origDist > distanceApart ? currentDistApart > distanceApart : currentDistApart < distanceApart)) {
+        console.log('in for loop');
+        if (currentDistApart > distanceApart) {
+          // closes
+          // this.leftClaw.position.z -= Math.PI / 60;
+          // this.rightClaw.position.z += Math.PI / 60;
+          this.leftClaw.position.z -= .05;
+          this.rightClaw.position.z += .05;
+        }
+        else {
+          // opens
+          // this.leftClaw.position.z += Math.PI / 60;
+          // this.rightClaw.position.z -= Math.PI / 60;
+          this.leftClaw.position.z += .05;
+          this.rightClaw.position.z -= .05;
+        }
       }
       else {
         prevMethod = animationOrder[0][0];
         animationOrder.shift();
+
       }
-      // else {
-      //   // reset animation test
-      //   this.resetModel();
-      //   this.test = false;
-      // }
+      console.log('leftClaw position:', this.leftClaw.position.z);
+      console.log('rightClaw position:', this.rightClaw.position.z);
     }
 
     wait(timeToWait) {
@@ -481,7 +503,6 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
     if (animationOrder != null && animationOrder.length !== 0) {
       // get first method called
       const animMethod = animationOrder[0];
-
       // checks to see which animation method is being called
       if (animMethod[0] == 'moveArm') {
         if (prevMethod != null && prevMethod == 'moveArm') {
