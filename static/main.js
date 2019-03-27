@@ -30,7 +30,7 @@ webpackEmptyAsyncContext.id = "./src/$$_lazy_route_resource lazy recursive";
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "/*testing css of simulation*/\r\nheader {\r\n  background: #a44fb522;\r\n}\r\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYXBwLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUEsNkJBQTZCO0FBQzdCO0VBQ0Usc0JBQXNCO0NBQ3ZCIiwiZmlsZSI6InNyYy9hcHAvYXBwLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIvKnRlc3RpbmcgY3NzIG9mIHNpbXVsYXRpb24qL1xyXG5oZWFkZXIge1xyXG4gIGJhY2tncm91bmQ6ICNhNDRmYjUyMjtcclxufVxyXG4iXX0= */"
+module.exports = "/*testing css of simulation*/\r\nheader {\r\n  background: #a44fb522;\r\n}\r\n#logo{\r\n  width: 170px;\r\n  padding-left: 10px;\r\n  padding-top: 8px;\r\n}\r\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYXBwLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUEsNkJBQTZCO0FBQzdCO0VBQ0Usc0JBQXNCO0NBQ3ZCO0FBRUQ7RUFDRSxhQUFhO0VBQ2IsbUJBQW1CO0VBQ25CLGlCQUFpQjtDQUNsQiIsImZpbGUiOiJzcmMvYXBwL2FwcC5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLyp0ZXN0aW5nIGNzcyBvZiBzaW11bGF0aW9uKi9cclxuaGVhZGVyIHtcclxuICBiYWNrZ3JvdW5kOiAjYTQ0ZmI1MjI7XHJcbn1cclxuXHJcbiNsb2dve1xyXG4gIHdpZHRoOiAxNzBweDtcclxuICBwYWRkaW5nLWxlZnQ6IDEwcHg7XHJcbiAgcGFkZGluZy10b3A6IDhweDtcclxufVxyXG4iXX0= */"
 
 /***/ }),
 
@@ -41,7 +41,7 @@ module.exports = "/*testing css of simulation*/\r\nheader {\r\n  background: #a4
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"banner\">\r\n    <div id=\"title\"><h1>{{title}}</h1></div>\r\n</div>\r\n<div class=\"clear\"></div>\r\n<router-outlet></router-outlet>"
+module.exports = "<div id=\"banner\">\r\n    <img id=\"logo\" src=\"KLAW_Header.png\" alt=\"KLAW\">\r\n</div>\r\n<div class=\"clear\"></div>\r\n<router-outlet></router-outlet>"
 
 /***/ }),
 
