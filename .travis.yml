@@ -5,7 +5,7 @@ python:
 
 # install dependencies
 install: 
-  -pip install -r requirements/dev.txt
+  - pip install -r requirements/dev.txt
 
 script:
   - python build-dev-unix.py

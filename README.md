@@ -75,5 +75,5 @@ The front-end interface was built using Google's Angular:
 
 Block programming was implemented with Google's Blockly library: [Blockly](https://github.com/google/blockly)
 
-The back end server was implemented with Flask:
+The back-end server was implemented with Flask:
 [Flask](http://flask.pocoo.org/)
