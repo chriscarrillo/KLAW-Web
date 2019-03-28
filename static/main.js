@@ -1722,6 +1722,7 @@ var SimulatorComponent = /** @class */ (function () {
             }
         }
         else {
+            this.origDist = this.leftClaw.position.z - this.rightClaw.position.z - 4;
             prevMethod = animationOrder[0][0];
             animationOrder.shift();
         }
