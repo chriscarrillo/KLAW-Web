@@ -39,6 +39,8 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
   upperArmLength;
   testPivot;
   origDist;
+  origLowerArmAngle;
+  origUpperArmAngle;
 
   constructor(private modelService: ModelService, private eventsService: EventsService) {
     this.render = this.render.bind(this);
@@ -152,12 +154,13 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
       this.leftClaw = this.upperArm.children[2];
       this.rightClaw = this.upperArm.children[3];
 
-      /**added**/
       this.lowerArmLength = (new THREE.Box3().setFromObject(this.lowerArm)).getSize().y;
       this.upperArmLength = (new THREE.Box3().setFromObject(this.upperArm)).getSize().x;
 
-      /**added**/
       this.origDist = this.leftClaw.position.z - this.rightClaw.position.z - 4;
+
+      /**added**/
+      this.origLowerArmAngle = this.lowerArm.rotation.z;
     }
 
   private convertLinearToDegrees(posX, posY) {
@@ -167,9 +170,6 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
       // const lowerArmLength = (new THREE.Box3().setFromObject(this.lowerArm)).getSize().y;
       // B
       // const upperArmLength = (new THREE.Box3().setFromObject(this.upperArm)).getSize().x;
-
-      // console.log('lowerArmLength:', this.lowerArmLength);
-      // console.log('upperArmLength:', this.upperArmLength);
 
       let stepBase = 0;
       let stepElbow = 0;
@@ -214,6 +214,7 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
     }
 
 
+
   /**Comment this method for now, still testing it with the linear to degrees:**/
   // moveArmFunction(posX, posY, isElbowUp = true) {
   //   console.log('moving in posX:', posX);
@@ -228,7 +229,7 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
   //   // approx PI/ 15
   //
   //   console.log('goal low arm angle:', lowerArmAngle);
-  //   console.log('goal upper arm angle:', upperArmAngle);
+  //   // console.log('goal upper arm angle:', upperArmAngle);
   //
   //   /**problem:
   //    * the rotation angles of the lower and upper arm do change
@@ -241,7 +242,11 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
   //   // 0, 0, 0
   //   console.log('lowerArmAngle:', this.lowerArm.rotation.z);
   //   // 0, 0, -1.5707963267948966
-  //   console.log('upperArmAngle:', this.upperArm.rotation.z);
+  //   // console.log('upperArmAngle:', this.upperArm.rotation.z);
+  //
+  //   // -0.6544984694978736
+  //   console.log('lowerArm lower boundary:', -2.5 * Math.PI / 12);
+  //   console.log('lowerArm upper boundary:', 2.5 * Math.PI / 12);
   //
   //   const LboundingBox = new THREE.Box3().setFromObject(this.lowerArm);
   //   const UboundingBox = new THREE.Box3().setFromObject(this.upperArm);
@@ -251,24 +256,43 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
   //
   //   /***uncomment later***/
   //   // apply degreeBase
-  //   if ((this.lowerArm.rotation.z > -2.5 * Math.PI / 12 && this.lowerArm.rotation.z < 2.5 * Math.PI / 12)
-  //         && (lowerArmAngle >= 0 ? this.lowerArm.rotation.z < lowerArmAngle : this.lowerArm.rotation.z > lowerArmAngle)) {
+  //
+  //   // if ((this.origDist > distanceApart ? currentDistApart > distanceApart : currentDistApart < distanceApart)) {
+  //
+  //   /**test**/
+  //   if (lowerArmAngle < -2.5 * Math.PI / 12) {
+  //     lowerArmAngle = -2.5 * Math.PI / 12;
+  //   }
+  //   else if (lowerArmAngle > 2.5 * Math.PI / 12) {
+  //     lowerArmAngle = 2.5 * Math.PI / 12;
+  //   }
+  //
+  //   // if ((this.lowerArm.rotation.z > -2.5 * Math.PI / 12 && this.lowerArm.rotation.z < 2.5 * Math.PI / 12)
+  //   //       && (lowerArmAngle >= 0 ? this.lowerArm.rotation.z < lowerArmAngle : this.lowerArm.rotation.z > lowerArmAngle)) {
+  //   if ((this.lowerArm.rotation.z > lowerArmAngle ? this.lowerArm.rotation.z > lowerArmAngle : this.lowerArm.rotation.z < lowerArmAngle)) {
+  //
   //     this.lowerArm.parent.localToWorld(this.lowerArm.position);
   //     this.lowerArm.position.sub(lowerArmPivot);
-  //     if (lowerArmAngle < 0) {
+  //     // if (lowerArmAngle < 0) {
+  //     if (this.lowerArm.rotation.z > lowerArmAngle) {
+  //       // angle down
   //       this.lowerArm.position.applyAxisAngle(axis, -Math.PI / 144);
   //     }
   //     else {
+  //       // angle up
   //       this.lowerArm.position.applyAxisAngle(axis, Math.PI / 144);
   //     }
   //     this.lowerArm.position.add(lowerArmPivot);
   //     this.lowerArm.parent.worldToLocal(this.lowerArm.position);
   //
-  //     if (lowerArmAngle < 0) {
+  //     // if (lowerArmAngle < 0) {
+  //     if (this.lowerArm.rotation.z > lowerArmAngle) {
+  //       // angle down
   //       this.lowerArm.rotation.z += -Math.PI / 144;
   //       this.sumOfLowArmRotation += -Math.PI / 144;
   //     }
   //     else {
+  //       // angle up
   //       this.lowerArm.rotation.z += Math.PI / 144;
   //       this.sumOfLowArmRotation += Math.PI / 144;
   //     }
@@ -289,62 +313,62 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
   //   // console.log('upperArm lower boundaries:', -9 * Math.PI / 12 - this.sumOfLowArmRotation);
   //   // console.log('upperArm upper boundaries:', -2 * Math.PI / 12 + this.sumOfLowArmRotation);
   //   /**uncomment later**/
-  //   else if ((this.upperArm.rotation.z > -9 * Math.PI / 12 - this.sumOfLowArmRotation && this.upperArm.rotation.z < -2 * Math.PI / 12 + this.sumOfLowArmRotation)
-  //       && (upperArmAngle >= 0 ? this.upperArm.rotation.z < upperArmAngle : this.upperArm.rotation.z > upperArmAngle)) {
-  //
-  //     const upperArmPivot = UboundingBox.getCenter();
-  //     upperArmPivot.x -= (UboundingBox.getSize().x / 2) - 2;
-  //     upperArmPivot.y -= (UboundingBox.getSize().y / 2) - 18;
-  //
-  //     console.log('testArmPivot', this.testPivot);
-  //
-  //     console.log('old pos:', this.upperArm.position);
-  //
-  //     /**comment for now
-  //     this.upperArm.parent.localToWorld(this.upperArm.position);
-  //     this.upperArm.position.sub(this.testPivot);
-  //     // if (upperArmAngle < 0) {
-  //       this.upperArm.position.applyAxisAngle(axis, -Math.PI / 144);
-  //     // }
-  //     // else {
-  //     //   this.upperArm.position.applyAxisAngle(axis, Math.PI / 144);
-  //     // }
-  //     this.upperArm.position.add(this.testPivot);
-  //     this.upperArm.parent.worldToLocal(this.upperArm.position);
-  //     // if (upperArmAngle < 0) {
-  //       this.upperArm.rotation.z += -Math.PI / 144;
-  //     // }
-  //     // else {
-  //     //    this.upperArm.rotation.z += Math.PI / 144;
-  //     // }
-  //      **/
-  //
-  //       this.upperArm.position.sub(this.testPivot);
-  //       console.log('new pos:', this.upperArm.position);
-  //       if (upperArmAngle < this.upperArm.rotation.z) {
-  //         this.upperArm.position.applyAxisAngle(axis, -Math.PI / 144);
-  //       }
-  //       else {
-  //         this.upperArm.position.applyAxisAngle(axis, Math.PI / 144);
-  //       }
-  //       this.upperArm.position.add(this.testPivot);
-  //       if (upperArmAngle < this.upperArm.rotation.z) {
-  //         this.upperArm.rotation.z += -Math.PI / 144;
-  //       }
-  //       else {
-  //         this.upperArm.rotation.z += Math.PI / 144;
-  //       }
-  //
-  //
-  //     /**test**/
-  //     // this.upperArm.parent.localToWorld(this.upperArm.position);
-  //     // this.upperArm.position.sub(this.testPivot)
-  //     // this.upperArm.rotation.z += -Math.PI / 144;
-  //     // this.upperArm.position.add(this.testPivot);
-  //     // this.upperArm.parent.worldToLocal(this.upperArm.position);
-  //
-  //
-  //   }
+  //   // else if ((this.upperArm.rotation.z > -9 * Math.PI / 12 - this.sumOfLowArmRotation && this.upperArm.rotation.z < -2 * Math.PI / 12 + this.sumOfLowArmRotation)
+  //   //     && (upperArmAngle >= 0 ? this.upperArm.rotation.z < upperArmAngle : this.upperArm.rotation.z > upperArmAngle)) {
+  //   //
+  //   //   const upperArmPivot = UboundingBox.getCenter();
+  //   //   upperArmPivot.x -= (UboundingBox.getSize().x / 2) - 2;
+  //   //   upperArmPivot.y -= (UboundingBox.getSize().y / 2) - 18;
+  //   //
+  //   //   console.log('testArmPivot', this.testPivot);
+  //   //
+  //   //   console.log('old pos:', this.upperArm.position);
+  //   //
+  //   //   /**comment for now
+  //   //   this.upperArm.parent.localToWorld(this.upperArm.position);
+  //   //   this.upperArm.position.sub(this.testPivot);
+  //   //   // if (upperArmAngle < 0) {
+  //   //     this.upperArm.position.applyAxisAngle(axis, -Math.PI / 144);
+  //   //   // }
+  //   //   // else {
+  //   //   //   this.upperArm.position.applyAxisAngle(axis, Math.PI / 144);
+  //   //   // }
+  //   //   this.upperArm.position.add(this.testPivot);
+  //   //   this.upperArm.parent.worldToLocal(this.upperArm.position);
+  //   //   // if (upperArmAngle < 0) {
+  //   //     this.upperArm.rotation.z += -Math.PI / 144;
+  //   //   // }
+  //   //   // else {
+  //   //   //    this.upperArm.rotation.z += Math.PI / 144;
+  //   //   // }
+  //   //    **/
+  //   //
+  //   //     this.upperArm.position.sub(this.testPivot);
+  //   //     console.log('new pos:', this.upperArm.position);
+  //   //     if (upperArmAngle < this.upperArm.rotation.z) {
+  //   //       this.upperArm.position.applyAxisAngle(axis, -Math.PI / 144);
+  //   //     }
+  //   //     else {
+  //   //       this.upperArm.position.applyAxisAngle(axis, Math.PI / 144);
+  //   //     }
+  //   //     this.upperArm.position.add(this.testPivot);
+  //   //     if (upperArmAngle < this.upperArm.rotation.z) {
+  //   //       this.upperArm.rotation.z += -Math.PI / 144;
+  //   //     }
+  //   //     else {
+  //   //       this.upperArm.rotation.z += Math.PI / 144;
+  //   //     }
+  //   //
+  //   //
+  //   //   /**test**/
+  //   //   // this.upperArm.parent.localToWorld(this.upperArm.position);
+  //   //   // this.upperArm.position.sub(this.testPivot)
+  //   //   // this.upperArm.rotation.z += -Math.PI / 144;
+  //   //   // this.upperArm.position.add(this.testPivot);
+  //   //   // this.upperArm.parent.worldToLocal(this.upperArm.position);
+  //   //
+  //   //
+  //   // }
   //   /**comment for now
   //   else {
   //     prevMethod = animationOrder[0][0];
@@ -440,6 +464,7 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
       const currentDistApart = this.leftClaw.position.z - this.rightClaw.position.z - 4;
 
       console.log('currDist:', currentDistApart);
+      console.log('orig Dis:', this.origDist);
 
       // default: currentDistApart = 24
       // max: currentDistApart = 24
@@ -472,6 +497,8 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
         }
       }
       else {
+        // update origDist
+        this.origDist = this.leftClaw.position.z - this.rightClaw.position.z - 4;
         prevMethod = animationOrder[0][0];
         animationOrder.shift();
 
@@ -534,8 +561,7 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
     }
 
     // /**test**/
-    // this.moveArmFunction(10, 10);
-    // this.moveClawFunction(15);
+    // this.moveArmFunction(50, 10);
 
     this.renderer.render(this.scene, this.camera);
   }
