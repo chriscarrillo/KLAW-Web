@@ -48,8 +48,8 @@ Blockly.Blocks['wait'] = {
   init: function() {
     this.appendDummyInput("wait")
         .appendField("Wait for")
-        .appendField(new Blockly.FieldNumber(0), "waitInMilliseconds")
-        .appendField("milliseconds");
+        .appendField(new Blockly.FieldNumber(0), "waitInSeconds")
+        .appendField("seconds");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(100);
@@ -57,8 +57,8 @@ Blockly.Blocks['wait'] = {
 };
 
 Blockly.JavaScript['wait'] = function(block) {
-  var numberWaitInMilliseconds = block.getFieldValue('waitInMilliseconds');
+  var numberWaitInSeconds = block.getFieldValue('waitInSeconds');
   // TODO: Assemble JavaScript into code variable.
-  var code = 'wait(' + numberWaitInMilliseconds + ');';
+  var code = 'wait(' + numberWaitInSeconds + ');';
   return code;
 };

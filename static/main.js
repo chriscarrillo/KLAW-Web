@@ -255,8 +255,8 @@ Blockly.Blocks['wait'] = {
   init: function() {
     this.appendDummyInput("wait")
         .appendField("Wait for")
-        .appendField(new Blockly.FieldNumber(0), "waitInMilliseconds")
-        .appendField("milliseconds");
+        .appendField(new Blockly.FieldNumber(0), "waitInSeconds")
+        .appendField("seconds");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(100);
@@ -264,11 +264,12 @@ Blockly.Blocks['wait'] = {
 };
 
 Blockly.JavaScript['wait'] = function(block) {
-  var numberWaitInMilliseconds = block.getFieldValue('waitInMilliseconds');
+  var numberWaitInSeconds = block.getFieldValue('waitInSeconds');
   // TODO: Assemble JavaScript into code variable.
-  var code = 'wait(' + numberWaitInMilliseconds + ');';
+  var code = 'wait(' + numberWaitInSeconds + ');';
   return code;
 };
+
 
 /***/ }),
 
@@ -1730,13 +1731,15 @@ var SimulatorComponent = /** @class */ (function () {
         console.log('rightClaw position:', this.rightClaw.position.z);
     };
     SimulatorComponent.prototype.wait = function (timeToWait) {
+        // convert seconds to milliseconds
+        var milliSecondWait = timeToWait * 1000;
         // add timer here
         console.log('in wait function');
         setTimeout(function () {
-            console.log('Waited ' + timeToWait + ' milliseconds!');
+            console.log('Waited ' + timeToWait + ' seconds!');
             // alert('Waited ' + timeToWait + ' milliseconds!');
             return;
-        }, timeToWait);
+        }, milliSecondWait);
         prevMethod = animationOrder[0][0];
         animationOrder.shift();
     };

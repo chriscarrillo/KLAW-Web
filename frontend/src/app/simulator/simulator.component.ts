@@ -482,13 +482,15 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
     }
 
     wait(timeToWait) {
+      // convert seconds to milliseconds
+      const milliSecondWait = timeToWait * 1000;
       // add timer here
       console.log('in wait function');
       setTimeout(function () {
-        console.log('Waited ' + timeToWait + ' milliseconds!');
+        console.log('Waited ' + timeToWait + ' seconds!');
         // alert('Waited ' + timeToWait + ' milliseconds!');
         return;
-      }, timeToWait);
+      }, milliSecondWait);
       prevMethod = animationOrder[0][0];
       animationOrder.shift();
     }
