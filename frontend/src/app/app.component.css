@@ -2,3 +2,9 @@
 header {
   background: #a44fb522;
 }
+
+#logo{
+  width: 170px;
+  padding-left: 10px;
+  padding-top: 8px;
+}
