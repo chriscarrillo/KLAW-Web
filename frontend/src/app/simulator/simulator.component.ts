@@ -250,7 +250,7 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
 
       this.lowerArm.parent.localToWorld(this.lowerArm.position);
       this.lowerArm.position.sub(lowerArmPivot);
-      // if (lowerArmAngle < 0) {
+
       if (this.lowerArm.rotation.z > lowerArmAngle) {
         // angle down
         this.lowerArm.position.applyAxisAngle(axis, -Math.PI / 144);
@@ -261,7 +261,6 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
       this.lowerArm.position.add(lowerArmPivot);
       this.lowerArm.parent.worldToLocal(this.lowerArm.position);
 
-      // if (lowerArmAngle < 0) {
       if (this.lowerArm.rotation.z > lowerArmAngle) {
         // angle down
         this.lowerArm.rotation.z += -Math.PI / 144;
