@@ -451,7 +451,7 @@ module.exports = "#container {\r\n    width: 100%;\r\n    margin: 0px auto;\r\n}
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<app-banner></app-banner>\r\n<div id=\"container\">\r\n    <div class=\"clear\"></div>\r\n    <div id=\"mainSectionContainer\">\r\n      <div id=\"blockly\">\r\n        <app-blockly-editor></app-blockly-editor>\r\n      </div>\r\n      <div id=\"simulatorSection\">\r\n        <div id=\"simulator\">\r\n          <app-simulator></app-simulator>\r\n        </div>\r\n        <div id=\"belowSimulator\">\r\n        \t<div id=\"robotConnection\">\r\n          \t\t<app-robot-connection></app-robot-connection>\r\n        \t</div>\r\n        \t<div id=\"simulatorControls\">\r\n          \t\t<app-start-control></app-start-control>\r\n        \t</div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n  <router-outlet></router-outlet>"
+module.exports = "<app-banner></app-banner>\r\n<div id=\"container\">\r\n    <div class=\"clear\"></div>\r\n    <div id=\"mainSectionContainer\">\r\n      <div id=\"blockly\">\r\n        <app-blockly-editor></app-blockly-editor>\r\n      </div>\r\n      <div id=\"simulatorSection\">\r\n        <div id=\"simulator\">\r\n          <app-simulator></app-simulator>\r\n        </div>\r\n        <div id=\"belowSimulator\">\r\n        \t<div id=\"robotConnection\">\r\n          \t\t<app-robot-connection></app-robot-connection>\r\n        \t</div>\r\n        \t<div id=\"simulatorControls\">\r\n          \t\t<app-start-control></app-start-control>\r\n        \t</div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n  <router-outlet></router-outlet>\r\n"
 
 /***/ }),
 
@@ -1408,16 +1408,12 @@ var SimulatorComponent = /** @class */ (function () {
         this.leftClaw = this.upperArm.children[2];
         this.rightClaw = this.upperArm.children[3];
         this.lowerArmLength = (new three__WEBPACK_IMPORTED_MODULE_2__["Box3"]().setFromObject(this.lowerArm)).getSize().y;
-        // this.lowerArmLength = 28;
         this.upperArmLength = (new three__WEBPACK_IMPORTED_MODULE_2__["Box3"]().setFromObject(this.upperArm)).getSize().x;
-        // this.upperArmLength = 28;
         this.origDist = this.leftClaw.position.z - this.rightClaw.position.z - 4;
-        /**added**/
         this.origLowerArmAngle = this.lowerArm.rotation.z;
-        /**added**/
         this.pivot = new three__WEBPACK_IMPORTED_MODULE_2__["Group"]();
-        this.origUpperArmAngle = this.upperArm.rotation.z;
-        this.currUpperAngle = this.upperArm.rotation.z;
+        this.origUpperArmAngle = (this.upperArm.rotation.z);
+        this.currUpperAngle = (this.upperArm.rotation.z);
     };
     SimulatorComponent.prototype.convertLinearToDegrees = function (posX, posY) {
         /**Courtesy of Kris Hopper**/
@@ -1508,17 +1504,9 @@ var SimulatorComponent = /** @class */ (function () {
         }
         else if ((this.origUpperArmAngle > upperArmAngle ? this.currUpperAngle > upperArmAngle : this.currUpperAngle < upperArmAngle)) {
             this.testPivot = new three__WEBPACK_IMPORTED_MODULE_2__["Vector3"](this.lowerArm.position.x + 10, this.lowerArm.position.y + 30, 2);
-            // const sphereGeo = new THREE.SphereGeometry(1, 1, 50);
-            // const sphereMat = new THREE.MeshBasicMaterial({color: 0xffff00});
-            // const sphere = new THREE.Mesh(sphereGeo, sphereMat);
-            // const test = new THREE.Mesh(sphereGeo, sphereMat);
-            // this.scene.add(sphere);
             // need to move pivot back to world origin (in this case, where we want the pivot pt to be)
             this.pivot.position.set(50, 160, 2.5);
             this.lowerArm.add(this.pivot);
-            // test.position.set(50, 160, 2.5);
-            // test.scale.set(2, 2, 2);
-            // this.lowerArm.add(test);
             this.pivot.add(this.upperArm);
             // alter upper arm position:
             this.upperArm.position.x = -40;
@@ -1539,7 +1527,6 @@ var SimulatorComponent = /** @class */ (function () {
             animationOrder.shift();
         }
     };
-    // default is 27 centimeters apart
     SimulatorComponent.prototype.moveClawFunction = function (distanceApart) {
         var currentDistApart = this.leftClaw.position.z - this.rightClaw.position.z - 4;
         // default: currentDistApart = 24

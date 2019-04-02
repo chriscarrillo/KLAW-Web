@@ -158,19 +158,15 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
 
 
       this.lowerArmLength = (new THREE.Box3().setFromObject(this.lowerArm)).getSize().y;
-      // this.lowerArmLength = 28;
       this.upperArmLength = (new THREE.Box3().setFromObject(this.upperArm)).getSize().x;
-      // this.upperArmLength = 28;
       this.origDist = this.leftClaw.position.z - this.rightClaw.position.z - 4;
 
-      /**added**/
       this.origLowerArmAngle = this.lowerArm.rotation.z;
 
-      /**added**/
       this.pivot = new THREE.Group();
 
-      this.origUpperArmAngle = this.upperArm.rotation.z;
-      this.currUpperAngle = this.upperArm.rotation.z;
+      this.origUpperArmAngle = (this.upperArm.rotation.z);
+      this.currUpperAngle = (this.upperArm.rotation.z);
     }
 
   private convertLinearToDegrees(posX, posY) {
@@ -283,19 +279,9 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
     this.testPivot = new THREE.Vector3(this.lowerArm.position.x + 10,
       this.lowerArm.position.y + 30, 2);
 
-    // const sphereGeo = new THREE.SphereGeometry(1, 1, 50);
-    // const sphereMat = new THREE.MeshBasicMaterial({color: 0xffff00});
-    // const sphere = new THREE.Mesh(sphereGeo, sphereMat);
-    // const test = new THREE.Mesh(sphereGeo, sphereMat);
-    // this.scene.add(sphere);
-
-
     // need to move pivot back to world origin (in this case, where we want the pivot pt to be)
     this.pivot.position.set(50, 160, 2.5);
     this.lowerArm.add(this.pivot);
-    // test.position.set(50, 160, 2.5);
-    // test.scale.set(2, 2, 2);
-    // this.lowerArm.add(test);
     this.pivot.add(this.upperArm);
 
     // alter upper arm position:
@@ -320,7 +306,6 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
     }
   }
 
-    // default is 27 centimeters apart
   moveClawFunction(distanceApart) {
       const currentDistApart = this.leftClaw.position.z - this.rightClaw.position.z - 4;
       // default: currentDistApart = 24
