@@ -1130,8 +1130,6 @@ var ModelService = /** @class */ (function () {
             // robot platform box
             var baseGeometry = new three__WEBPACK_IMPORTED_MODULE_2__["BoxGeometry"](19, 15, 12);
             var baseMaterial = new three__WEBPACK_IMPORTED_MODULE_2__["MeshBasicMaterial"]({ color: 0x90c91c });
-            // baseMaterial.transparent = true;
-            // baseMaterial.opacity = .1;
             var base = new three__WEBPACK_IMPORTED_MODULE_2__["Mesh"](baseGeometry, baseMaterial);
             base.position.y += 5;
             base.castShadow = true;
@@ -1460,7 +1458,7 @@ var SimulatorComponent = /** @class */ (function () {
         stepElbow = Math.round(stepElbow);
         console.log('Base', degreeBase);
         console.log('Elbow', degreeElbow);
-        return [/*-*/ degreeBase, degreeElbow];
+        return [degreeBase, degreeElbow];
     };
     /**Comment this method for now, still testing it with the linear to degrees:**/
     SimulatorComponent.prototype.moveArmFunction = function (posX, posY, isElbowUp) {
@@ -1469,24 +1467,14 @@ var SimulatorComponent = /** @class */ (function () {
         var calculatedAngles = this.convertLinearToDegrees(posX, posY);
         var lowerArmAngle = calculatedAngles[0];
         var upperArmAngle = calculatedAngles[1];
-        // let lowerArmAngle = 0;
-        // let upperArmAngle = 0; // should not move simulator
-        // test degrees:
-        // let lowerArmAngle = 180;
-        // let upperArmAngle = 10; // should move upper arm down 10 degrees
-        // == 10 degrees for base
-        // == 3.75 degrees for elbow
-        // so lower should go forward, and upper should go down??
+        // let lowerArmAngle = 90;
+        // let upperArmAngle = 90; // should not move simulator
         // if lower/uppperArmAngle < 0, then 90 - 60 = 30
         if (lowerArmAngle < 0) {
-            // lowerArmAngle = (90 - lowerArmAngle) + 90;
-            // lowerArmAngle = -(lowerArmAngle);
             lowerArmAngle += 360;
             console.log('Changed low angle to pos:', lowerArmAngle);
         }
         if (upperArmAngle < 0) {
-            // upperArmAngle = (90 - upperArmAngle) + 90;
-            // upperArmAngle = -(upperArmAngle);
             upperArmAngle += 360;
             console.log('Changed low angle to pos:', upperArmAngle);
         }
@@ -1495,22 +1483,20 @@ var SimulatorComponent = /** @class */ (function () {
         var axis = new three__WEBPACK_IMPORTED_MODULE_2__["Vector3"](0, 0, 1);
         var lowerArmPivot = new three__WEBPACK_IMPORTED_MODULE_2__["Vector3"](0, 0, 0);
         // assess given base and elbow angles to fit boundaries
-        // 22.5
-        if (lowerArmAngle < 55 * Math.PI / 180) { // was -2.5  1.5pi/12
+        if (lowerArmAngle < 35 * Math.PI / 180) { // was 55
             console.log('goal lowerAngle changed to lower bound');
-            lowerArmAngle = 55 * Math.PI / 180; //was -2.4  1.4pi/12
+            lowerArmAngle = 35 * Math.PI / 180;
         }
         // 15
-        else if (lowerArmAngle > 105 * Math.PI / 180) { // was 2.5 //was Pi/12
+        else if (lowerArmAngle > 135 * Math.PI / 180) { // was 105
             console.log('goal lowerAngle changed to upper bound');
-            lowerArmAngle = 105 * Math.PI / 180;
+            lowerArmAngle = 135 * Math.PI / 180;
         }
-        if (upperArmAngle < (40 * Math.PI / 180) /*- this.sumOfLowArmRotation*/) { //was 9PI/12
+        if (upperArmAngle < (40 * Math.PI / 180) /*- this.sumOfLowArmRotation*/) {
             console.log('goal upperAngle changed to lower bound');
             upperArmAngle = 40 * Math.PI / 180 /*- this.sumOfLowArmRotation*/;
         }
-        // 30
-        else if (upperArmAngle > (180 * Math.PI / 180) /*+ this.sumOfLowArmRotation*/) { //was -2PI/12
+        else if (upperArmAngle > (180 * Math.PI / 180) /*+ this.sumOfLowArmRotation*/) {
             console.log('goal upperAngle changed to upper bound');
             upperArmAngle = 180 * Math.PI / 180 /*+ this.sumOfLowArmRotation*/;
         }
@@ -1530,7 +1516,6 @@ var SimulatorComponent = /** @class */ (function () {
             // need to adjust lower arm
             this.lowerArm.position.x = -10;
             this.lowerArm.position.y = -8;
-            // this.lowerArm.position.z = -2;
             // want to rotate inwards
             if (this.currLowerAngle > lowerArmAngle) {
                 this.lowPivot.rotation.z += -Math.PI / 144;
@@ -1540,34 +1525,6 @@ var SimulatorComponent = /** @class */ (function () {
                 this.lowPivot.rotation.z += Math.PI / 144;
                 this.currLowerAngle += Math.PI / 144;
             }
-            // this.lowerArm.parent.localToWorld(this.lowerArm.position);
-            // this.lowerArm.position.sub(lowerArmPivot);
-            //
-            // // want to rotate inwards
-            // if (this.currLowerAngle > lowerArmAngle) {
-            // // if (this.currLowerAngle > lowerArmAngle) {
-            //   // angle down
-            //   this.lowerArm.position.applyAxisAngle(axis, -Math.PI / 144);
-            // } else {
-            //   // angle up
-            //   this.lowerArm.position.applyAxisAngle(axis, Math.PI / 144);
-            // }
-            // this.lowerArm.position.add(lowerArmPivot);
-            // this.lowerArm.parent.worldToLocal(this.lowerArm.position);
-            //
-            // if (this.currLowerAngle > lowerArmAngle) {
-            // /**change so that if lowerArmAngle > than this.currLowerAngle**/
-            // // if (this.currLowerAngle > lowerArmAngle) {
-            //   // angle down
-            //   this.lowerArm.rotation.z += -Math.PI / 144;
-            //   this.currLowerAngle += -Math.PI / 144;
-            //   this.sumOfLowArmRotation += -Math.PI / 144;
-            // } else {
-            //   // angle up
-            //   this.lowerArm.rotation.z += Math.PI / 144;
-            //   this.currLowerAngle += Math.PI / 144;
-            //   this.sumOfLowArmRotation += Math.PI / 144;
-            // }
         }
         else if ((this.origUpperArmAngle > upperArmAngle ? this.currUpperAngle > upperArmAngle : this.currUpperAngle < upperArmAngle)) {
             this.testPivot = new three__WEBPACK_IMPORTED_MODULE_2__["Vector3"](this.lowerArm.position.x + 10, this.lowerArm.position.y + 30, 2);
