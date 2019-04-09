@@ -42,6 +42,7 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
   origLowerArmAngle;
   origUpperArmAngle;
   pivot;
+  lowPivot;
   currUpperAngle;
   currLowerAngle;
 
@@ -176,6 +177,8 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
 
       this.pivot = new THREE.Group();
 
+      this.lowPivot = new THREE.Group();
+
       // this.origUpperArmAngle = (this.upperArm.rotation.z);
       // console.log('TEST:', this.origUpperArmAngle);
       // this.currUpperAngle = (this.upperArm.rotation.z);
@@ -300,34 +303,57 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
     if ((this.origLowerArmAngle > lowerArmAngle ? this.currLowerAngle > lowerArmAngle : this.currLowerAngle < lowerArmAngle)) {
       console.log('in low if statement');
 
-      this.lowerArm.parent.localToWorld(this.lowerArm.position);
-      this.lowerArm.position.sub(lowerArmPivot);
+      this.lowPivot.position.set(-3, 10, 0);
+      this.model.add(this.lowPivot);
+      this.lowPivot.add(this.lowerArm);
+
+      // need to adjust lower arm
+      this.lowerArm.position.x = -10;
+      this.lowerArm.position.y = -8;
+      // this.lowerArm.position.z = -2;
+
 
       // want to rotate inwards
       if (this.currLowerAngle > lowerArmAngle) {
-      // if (this.currLowerAngle > lowerArmAngle) {
-        // angle down
-        this.lowerArm.position.applyAxisAngle(axis, -Math.PI / 144);
-      } else {
-        // angle up
-        this.lowerArm.position.applyAxisAngle(axis, Math.PI / 144);
-      }
-      this.lowerArm.position.add(lowerArmPivot);
-      this.lowerArm.parent.worldToLocal(this.lowerArm.position);
-
-      if (this.currLowerAngle > lowerArmAngle) {
-      /**change so that if lowerArmAngle > than this.currLowerAngle**/
-      // if (this.currLowerAngle > lowerArmAngle) {
-        // angle down
-        this.lowerArm.rotation.z += -Math.PI / 144;
+        this.lowPivot.rotation.z += -Math.PI / 144;
         this.currLowerAngle += -Math.PI / 144;
-        this.sumOfLowArmRotation += -Math.PI / 144;
-      } else {
-        // angle up
-        this.lowerArm.rotation.z += Math.PI / 144;
-        this.currLowerAngle += Math.PI / 144;
-        this.sumOfLowArmRotation += Math.PI / 144;
       }
+      else {
+        this.lowPivot.rotation.z += Math.PI / 144;
+        this.currLowerAngle += Math.PI / 144;
+      }
+
+
+
+
+      // this.lowerArm.parent.localToWorld(this.lowerArm.position);
+      // this.lowerArm.position.sub(lowerArmPivot);
+      //
+      // // want to rotate inwards
+      // if (this.currLowerAngle > lowerArmAngle) {
+      // // if (this.currLowerAngle > lowerArmAngle) {
+      //   // angle down
+      //   this.lowerArm.position.applyAxisAngle(axis, -Math.PI / 144);
+      // } else {
+      //   // angle up
+      //   this.lowerArm.position.applyAxisAngle(axis, Math.PI / 144);
+      // }
+      // this.lowerArm.position.add(lowerArmPivot);
+      // this.lowerArm.parent.worldToLocal(this.lowerArm.position);
+      //
+      // if (this.currLowerAngle > lowerArmAngle) {
+      // /**change so that if lowerArmAngle > than this.currLowerAngle**/
+      // // if (this.currLowerAngle > lowerArmAngle) {
+      //   // angle down
+      //   this.lowerArm.rotation.z += -Math.PI / 144;
+      //   this.currLowerAngle += -Math.PI / 144;
+      //   this.sumOfLowArmRotation += -Math.PI / 144;
+      // } else {
+      //   // angle up
+      //   this.lowerArm.rotation.z += Math.PI / 144;
+      //   this.currLowerAngle += Math.PI / 144;
+      //   this.sumOfLowArmRotation += Math.PI / 144;
+      // }
 
     }
 

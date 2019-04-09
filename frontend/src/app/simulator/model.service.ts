@@ -18,6 +18,8 @@ export class ModelService {
       // robot platform box
       const baseGeometry = new THREE.BoxGeometry(19, 15, 12);
       const baseMaterial = new THREE.MeshBasicMaterial({color: 0x90c91c});
+      // baseMaterial.transparent = true;
+      // baseMaterial.opacity = .1;
       const base = new THREE.Mesh(baseGeometry, baseMaterial);
 
       base.position.y += 5;
