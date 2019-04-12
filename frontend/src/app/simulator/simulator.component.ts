@@ -187,47 +187,40 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
     }
 
   private convertLinearToDegrees(posX, posY) {
-      /**Courtesy of Kris Hopper**/
-      /**updated code**/
+      let startX = 0; //x part of origin point
+      let startY = 0; //y part of origin point
 
-      let stepBase = 0;
-      let stepElbow = 0;
+      let armLength = 28; //both arms are of length 28
 
-      const inputDist = Math.sqrt(Math.pow(posX, 2) + Math.pow(posY, 2));
-      const inputAngle = Math.acos((Math.pow(this.lowerArmLength, 2) + Math.pow(this.upperArmLength, 2) - Math.pow(inputDist, 2)) / (2 * this.lowerArmLength * this.upperArmLength) );
-      const lowerArmAngle = Math.acos((Math.pow(this.upperArmLength, 2) + Math.pow(inputDist, 2) - Math.pow(this.lowerArmLength, 2)) / (2 * this.upperArmLength * inputDist));
-      const angShift = Math.acos((Math.pow(posY, 2) - Math.pow(posX, 2) - Math.pow(inputDist, 2)) / (2 * posX * inputDist));
+      let xComponentOfTravel = posX - startX; 
+      let yComponentOfTravel = posY - startY;
 
-      // Kris converted radians to degree here
-      const inputDegree = (180 / Math.PI) * inputAngle;
-      const lowerArmDegree = (180 / Math.PI) * lowerArmAngle;
-      let degreeShift =  (180 / Math.PI) * angShift;
+      let distanceFromOriginToDesiredPoint = Math.sqrt(xComponentOfTravel*xComponentOfTravel + yComponentOfTravel*yComponentOfTravel); //the hypotenuse of our triangle
 
-      let degreeElbow = inputDegree + degreeShift;
-      let degreeBase = 90 - lowerArmDegree;
-      degreeShift = 180 - degreeShift;
+      let upperAngleRad = Math.acos(
+        ((Math.pow(armLength, 2)) + (Math.pow(armLength, 2)) - (Math.pow(distanceFromOriginToDesiredPoint, 2))) / 
+        (2 * armLength * armLength)
+      ); //angle for the upper arm to move, in Radians
+      
+      let upperPartOfLowerAngleRad = Math.atan2(posY, posX); //upper part of lower angle, in Radians
+      
+      let bottomPartOfLowerAngleRad = Math.acos(
+        ((Math.pow(armLength, 2)) + (Math.pow(distanceFromOriginToDesiredPoint, 2)) - (Math.pow(armLength, 2))) / 
+        (2 * armLength * distanceFromOriginToDesiredPoint)
+      ); //bottom part of the lower angle, in Radians
 
-      if (posY < 0) {
-        degreeBase = degreeBase + degreeShift;
-      }
-      else if (posY > 0) {
-        degreeBase = degreeBase - degreeShift;
-      }
+      let pi = Math.PI;
 
-      if (degreeElbow > 150) {
-        degreeElbow = 150;
-      }
+      let upperAngleDeg = upperAngleRad * (180 / pi); //upper angle in degrees
+      let upperPartOfLowerAngleDeg = upperPartOfLowerAngleRad * (180 / pi);
+      let bottomPartOfLowerAngleDeg = bottomPartOfLowerAngleRad * (180 / pi);
 
-      stepBase = degreeBase;
-      stepElbow = degreeElbow;
+      let lowerAngleDeg = upperPartOfLowerAngleDeg + bottomPartOfLowerAngleDeg; //total lower angle in degrees
 
-      stepBase = Math.round(stepBase);
-      stepElbow = Math.round(stepElbow);
+      console.log('Base', lowerAngleDeg);
+      console.log('Elbow', upperAngleDeg);
 
-      console.log('Base', degreeBase);
-      console.log('Elbow', degreeElbow);
-
-      return [degreeBase, degreeElbow];
+      return [lowerAngleDeg, upperAngleDeg];
     }
 
 
