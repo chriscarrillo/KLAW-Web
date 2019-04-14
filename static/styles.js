@@ -598,8 +598,8 @@ if(false) {}
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\klaw\frontend\node_modules\@angular\material\prebuilt-themes\indigo-pink.css */"./node_modules/@angular/material/prebuilt-themes/indigo-pink.css");
-module.exports = __webpack_require__(/*! C:\klaw\frontend\src\styles.css */"./src/styles.css");
+__webpack_require__(/*! c:\Pulled_KLAW\KLAW-Web\frontend\node_modules\@angular\material\prebuilt-themes\indigo-pink.css */"./node_modules/@angular/material/prebuilt-themes/indigo-pink.css");
+module.exports = __webpack_require__(/*! c:\Pulled_KLAW\KLAW-Web\frontend\src\styles.css */"./src/styles.css");
 
 
 /***/ })
