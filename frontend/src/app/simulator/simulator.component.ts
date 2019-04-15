@@ -47,6 +47,7 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
   currLowerAngle;
   timer;
   isTimerDone;
+  currWaitTime;
 
   constructor(private modelService: ModelService, private eventsService: EventsService) {
     this.render = this.render.bind(this);
@@ -377,32 +378,22 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
 
     }
 
-    //  wait(timeToWait) {
-    //   // add timer here
-    //   setTimeout(function () {
-    //     console.log('Waited ' + timeToWait + ' milliseconds!');
-    //     // alert('Waited ' + timeToWait + ' milliseconds!');
-    //     return;
-    //   }, timeToWait);
-    //   prevMethod = animationOrder[0][0];
-    //   animationOrder.shift();
-    // }
-
   wait(timeToWait) {
       // add timer here
     console.log('in WAIT func');
-    console.log('time:', timeToWait);
+    console.log('currWaitTime:', timeToWait);
+    this.currWaitTime = timeToWait;
     const component: SimulatorComponent = this;
-      this.timer = setTimeout(function () {
-        if (!component.isTimerDone) {
+    this.timer = setTimeout(function () {
+        if (!component.isTimerDone && timeToWait == component.currWaitTime) {
           component.isTimerDone = true;
           console.log('Waited ' + timeToWait + ' milliseconds!');
           prevMethod = animationOrder[0][0];
           animationOrder.shift();
-          // clearTimeout(component.timer);
+          clearTimeout(component.timer);
         }
 
-      }, timeToWait);
+    }, timeToWait);
   }
 
   resetModel() {
