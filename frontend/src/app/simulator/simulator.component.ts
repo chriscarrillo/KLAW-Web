@@ -45,6 +45,9 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
   lowPivot;
   currUpperAngle;
   currLowerAngle;
+  timer;
+  isTimerDone;
+  currWaitTime;
 
   constructor(private modelService: ModelService, private eventsService: EventsService) {
     this.render = this.render.bind(this);
@@ -366,23 +369,32 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
       }
       else {
         // update origDist
+        console.log('Moved claw ' + distanceApart + ' apart!');
         this.origDist = this.leftClaw.position.z - this.rightClaw.position.z - 4;
         prevMethod = animationOrder[0][0];
         animationOrder.shift();
 
       }
+
     }
 
   wait(timeToWait) {
       // add timer here
-      setTimeout(function () {
-        console.log('Waited ' + timeToWait + ' milliseconds!');
-        // alert('Waited ' + timeToWait + ' milliseconds!');
-        return;
-      }, timeToWait);
-      prevMethod = animationOrder[0][0];
-      animationOrder.shift();
-    }
+    console.log('in WAIT func');
+    console.log('currWaitTime:', timeToWait);
+    this.currWaitTime = timeToWait;
+    const component: SimulatorComponent = this;
+    this.timer = setTimeout(function () {
+        if (!component.isTimerDone && timeToWait == component.currWaitTime) {
+          component.isTimerDone = true;
+          console.log('Waited ' + timeToWait + ' milliseconds!');
+          prevMethod = animationOrder[0][0];
+          animationOrder.shift();
+          clearTimeout(component.timer);
+        }
+
+    }, timeToWait);
+  }
 
   resetModel() {
         this.scene.remove(this.model);
@@ -398,7 +410,6 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
       // checks to see which animation method is being called
       if (animMethod[0] == 'moveArm') {
         if (prevMethod != null && prevMethod == 'moveArm') {
-          console.log('MODEL TEST');
           // add wait to make transition less jerky
           // setTimeout(function () {
           //   component.resetModel();
@@ -413,11 +424,18 @@ export class SimulatorComponent implements /*OnInit*/ AfterViewInit {
         this.renderer.render(this.scene, this.camera);
       }
       else if (animMethod[0] == 'moveClaw') {
-        this.moveClawFunction((animMethod[1]));
+        this.moveClawFunction(animMethod[1]);
         this.renderer.render(this.scene, this.camera);
       }
       else if (animMethod[0] == 'wait') {
+        this.isTimerDone = false;
+        console.log('wait parameter:', animMethod[1]);
         this.wait(animMethod[1]);
+
+        if (this.isTimerDone) {
+          console.log('clearing timer');
+          clearTimeout(this.timer);
+        }
         this.renderer.render(this.scene, this.camera);
       }
     }
