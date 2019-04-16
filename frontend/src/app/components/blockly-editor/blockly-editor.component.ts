@@ -27,6 +27,7 @@ export class BlocklyEditorComponent implements OnInit {
   @ViewChild('toolbox') toolbox: ElementRef;
 
   ngAfterViewInit(): void {
+  
     workspace = Blockly.inject('blocklyDiv',
     { toolbox: this.toolbox.nativeElement });
 

@@ -13,18 +13,29 @@
   </nav>
   <section>
     <div class="tab1">
-      <h2>Block Code</h2>
+      <h2>	
+      	Block Code
+      </h2>
       <div id="blocklyDiv"></div>
+      	<div id="helptip">
+			<p>The "Block Code" section is used to drag and drop customizable code blocks that will determine 
+    		what the robot simulator does after the start button is pressed. Drag and drop a block to the trash 
+    		can to delete it from the workspace.</p>
+		</div>
         <xml id="toolbox" #toolbox style="display: none">
                 <category name="Robot" expanded="true">
                         <block type="move_arm"></block>
                         <block type="move_claw"></block>
                         <block type="wait"></block>
                 </category>
-        </xml>
-
+        </xml> 
     </div>
     <div class="tab2">
+    	<div id="helptip3">
+    		<p>The "XML" section displays the XML code that your current blocks produce. 
+    			To save your current block configuration, copy the XML and save it. 
+    			Paste or type XML code into this section and click "Update Code Blocks" to restore the blocks.</p>
+		</div> 
       <h2>XML</h2>
       <textarea id="xmlText"></textarea>
       <button mat-stroked-button (click)='blockCode.click(); xmlUpdate();'> 
@@ -33,4 +44,9 @@
       </button>
     </div>
   </section>
+</div>     	
+<div id="helptip2">
+    <p>Use the "Connect" button to connect the software to a physical robot. 
+    Use the "Start" button to run your current blocks on the robot simulator and/or a physical robot.
+    Click and drag the simulator to rotate the camera. Scroll to zoom the camera in/out.</p>
 </div>
