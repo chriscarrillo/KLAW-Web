@@ -1,3 +1,8 @@
+<div class="helptip" id="helptip">
+  <p>Use the "Connect" button to connect the software to a physical robot. 
+  Use the "Start" button to run your current blocks on the robot simulator and/or a physical robot.
+  Click and drag the simulator to rotate the camera. Scroll to zoom the camera in/out.</p>
+</div>
 <div id="connectionStatus">
   <mat-icon class="green" *ngIf="connectionService.IsConnected">check_circle</mat-icon>
   <mat-icon class="red" *ngIf="!connectionService.IsConnected">cancel</mat-icon>

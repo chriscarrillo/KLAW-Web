@@ -1,5 +1,15 @@
+#helptip {
+    float: right;
+    margin-right: 1.5em;
+}
+
+#helptip p {
+    left: -312px;
+}
+
 #connectionStatus {
     text-align: center;
+    clear: both;
 }
 
 #connectionStatus > mat-icon {
