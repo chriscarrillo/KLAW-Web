@@ -141,6 +141,7 @@ body {
     cursor: default;
     display: inline-block;
     vertical-align: middle;
+
 }
 
 #helptip:before{
@@ -164,13 +165,19 @@ body {
     background-color: #1E2021;
     padding: 20px;
     width: 300px;
-    position: absolute;
+    //position: absolute;
+    position: relative;
+    left: -274px;
+    z-index: 1;
+
     border-radius: 3px;
     box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
     right: -4px;
     color: #FFF;
     font-size: 13px;
     line-height: 1.4;
+
+
 }
 
 #helptip p:before{ /* The pointer of the tooltip */
@@ -291,6 +298,11 @@ body {
     padding: 20px;
     width: 300px;
     position: absolute;
+    //position: relative;
+    //left: -273px;
+    left: 50px;
+    z-index: 1;
+
     border-radius: 3px;
     box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
     right: -4px;
