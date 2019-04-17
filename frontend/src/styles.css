@@ -75,6 +75,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-
     border-radius: 50%;
     width: 24px;
     height: 24px;
+    line-height: 24px;
     font-size: 14px;
     cursor: default;
     display: inline-block;
@@ -103,10 +104,12 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-
     background-color: #1E2021;
     padding: 20px;
     width: 300px;
-    position: absolute;
+    position: relative;
     border-radius: 3px;
     box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+    left: -274px;
     right: -4px;
+    z-index: 999;
     color: #FFF;
     font-size: 13px;
     line-height: 1.4;
