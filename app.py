@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, request, render_template
 from slackclient import SlackClient
 import json
+import os
 
 # Create the Flask application
 app = Flask(__name__)
