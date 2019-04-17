@@ -1,12 +1,12 @@
 from flask import Flask, jsonify, request, render_template
 from slackclient import SlackClient
+from os import environ
 import json
-import os
 
 # Create the Flask application
 app = Flask(__name__)
 
-slack_token = os.environ['SLACK_TOKEN']
+slack_token = environ.get('SLACK_TOKEN')
 
 # Used to fetch the bots in the Slack workspace
 slack_client = SlackClient(slack_token)
