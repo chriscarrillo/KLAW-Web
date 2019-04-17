@@ -1,0 +1,10 @@
+<h1>Select a Robot</h1>
+<span *ngIf="robotList?.length == 0">There are no robots available</span>
+<mat-radio-group *ngIf="robotList?.length > 0" class="robot-radio-group" aria-label="Select a robot">
+    <mat-radio-button *ngFor="let robot of robotList" [value]="robot.name" (change)="selectRobot($event)" name="robotName" ngDefaultControl>
+        <div class="robot">
+            <img src="{{ robot.profile.image_original }}" alt="avatar" width="50px" />
+            <span>{{ robot.name }}</span>
+        </div>
+    </mat-radio-button>
+</mat-radio-group>

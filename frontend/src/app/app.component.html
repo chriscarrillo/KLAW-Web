@@ -1,9 +1,5 @@
-<!-- The login page will load if the user is not logged in-->
-<!-- The main page will load if the user is logged in-->
 <div id="banner">
-    <div id="title"><h1>{{title}}</h1></div>
-    <div id="logoutIcon" *ngIf="isLoggedIn"><mat-icon title="Logout" (click)="logout()">{{'power_settings_new'}}</mat-icon></div>
+    <img id="logo" src="KLAW_Header.png" alt="KLAW">
 </div>
 <div class="clear"></div>
-<app-login *ngIf="!isLoggedIn"></app-login>
-<app-main *ngIf="isLoggedIn"></app-main>
+<router-outlet></router-outlet>

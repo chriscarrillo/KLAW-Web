@@ -1,0 +1,58 @@
+#simulator {
+    height: 300px;
+    line-height: 300px;
+    text-align: center;
+    background-color: rgb(168, 168, 168);
+    color: rgb(255, 255, 255);
+}
+
+#container {
+    width: 100%;
+    margin: 0px auto;
+    position: relative;
+}
+
+#mainSectionContainer {
+    height: 100%;
+}
+
+#blockly {
+    width: 65%;
+    height: 100%;
+    float: left;
+    text-align: center;
+    background-color: #ffffff;
+    border-radius: 0px 12px 12px 0px;
+}
+
+#simulatorSection {
+    width: 30%;	
+    float: right;
+}
+
+#belowSimulator {
+    background-color: #ffffff;
+    border-radius: 0px 0px 0px 12px;
+}
+
+#robotConnection {
+    height: 100px;
+    padding-top:20px;
+}
+
+#simulatorControls {
+    height: 100px;
+}
+
+@media only screen and (max-width:800px) {
+    #blockly, #simulatorSection, #simulator, #belowSimulator{
+        border-radius: 0px 0px 0px 0px;
+    }
+}
+
+@media only screen and (max-width:800px) {
+	#simulatorSection, #mainSectionContainer, #blockly {
+		width: 100%;
+		display: block;
+	}
+}

@@ -1,10 +1,49 @@
-<div id="blocklyDiv" style="height: 480px; width: 600px;"></div>
-    <xml id="toolbox" #toolbox style="display: none">
-            <block type="controls_if"></block>
-            <block type="logic_compare"></block>
-            <block type="controls_repeat_ext"></block>
-            <block type="math_number"></block>
-            <block type="math_arithmetic"></block>
-            <block type="text"></block>
-            <block type="text_print"></block>
-    </xml>
+<div class="pc-tab">
+<input checked="checked" id="tab1" type="radio" name="pct" />
+<input id="tab2" type="radio" name="pct" />
+  <nav>
+    <ul>
+      <li class="tab1">
+        <label for="tab1" #blockCode>Block Code</label>
+      </li>
+      <li class="tab2">
+        <label for="tab2">XML</label>
+      </li>
+    </ul>
+  </nav>
+  <section>
+    <div class="tab1">
+      <h2>	
+        Block Code
+        <div class="helptip" style="padding: 0px">
+          <p>The "Block Code" section is used to drag and drop customizable code blocks that will determine 
+            what the robot simulator does after the start button is pressed. Drag and drop a block to the trash 
+            can to delete it from the workspace.</p>
+		    </div>
+      </h2>
+      <div id="blocklyDiv"></div>
+        <xml id="toolbox" #toolbox style="display: none">
+                <category name="Robot" expanded="true">
+                        <block type="move_arm"></block>
+                        <block type="move_claw"></block>
+                        <block type="wait"></block>
+                </category>
+        </xml> 
+    </div>
+    <div class="tab2">
+      <h2>
+        XML
+        <div class="helptip" style="padding: 0px">
+            <p>The "XML" section displays the XML code that your current blocks produce. 
+              To save your current block configuration, copy the XML and save it. 
+              Paste or type XML code into this section and click "Update Code Blocks" to restore the blocks.</p>
+        </div> 
+      </h2>
+      <textarea id="xmlText"></textarea>
+      <button mat-stroked-button (click)='blockCode.click(); xmlUpdate();'> 
+        <mat-icon>code</mat-icon>
+        Update Code Blocks
+      </button>
+    </div>
+  </section>
+</div>

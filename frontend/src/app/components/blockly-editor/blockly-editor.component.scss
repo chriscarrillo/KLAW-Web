@@ -1,0 +1,120 @@
+.pc-tab > input,
+.pc-tab section > div {
+  display: none;
+}
+
+#tab1:checked ~ section .tab1,
+#tab2:checked ~ section .tab2,
+#tab3:checked ~ section .tab3 {
+  display: block;
+}
+
+#tab1:checked ~ nav .tab1,
+#tab2:checked ~ nav .tab2,
+#tab3:checked ~ nav .tab3 {
+  color: red;
+}
+
+$activeColor: #031A23;
+$unactiveColor: #ffffff;
+$unactiveHoverColor: #137A86;
+$activeTextColor: #ffffff;
+$unactiveTextColor: #1B404F;
+
+*, *:after, *:before {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  background: #ecf0f1;
+}
+
+.pc-tab { 
+  width: 100%;
+  max-width: 750px;
+  margin: 0 auto;
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    li {
+
+      label {
+        float: left;
+        padding: 15px 25px;
+        border: 1px solid #ddd;
+        border-bottom: 0;
+        cursor: pointer;	
+        background: $unactiveColor;
+        color: $unactiveTextColor;
+        &:hover {
+          background: $unactiveHoverColor;
+        }
+        &:active {
+          background: $activeColor;
+          color: $activeTextColor;
+        }
+      }
+      &:not(:last-child) label {
+         border-right-width: 0; 
+      }
+    }
+  }
+  section {
+    clear: both;
+    div {
+      padding: 20px;
+      letter-spacing: 0.3px;
+      border-top: 1px solid #34495e;
+      color: #1B404F;
+      h2 {
+        margin: 0;
+        letter-spacing: 1px;
+        color: black;
+      }
+    }
+  }
+}
+
+#tab1:checked ~ nav .tab1,
+#tab2:checked ~ nav .tab2,
+#tab3:checked ~ nav .tab3 {
+  label {
+    background: white;
+    color: #111;
+    position: relative;
+    &:after {
+      content: '';
+      display: block;
+      position: absolute;
+      height: 2px;
+      width: 100%;
+      background: $activeColor;
+      left: 0;
+      bottom: -1px;
+    }
+  }
+}
+
+#blocklyDiv {
+  line-height: 500px;
+  height: 480px; 
+  width: 100%;
+  border-top: 1px solid #ffffff;
+}
+
+#xmlText {
+  height: 417.5px;
+  width: 100%;
+}
+
+.tab2 h2 {
+	padding-bottom: 20px;
+}
+
+#category {
+	cursor: pointer;
+}

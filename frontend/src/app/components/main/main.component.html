@@ -1,0 +1,23 @@
+<app-banner></app-banner>
+<div id="container">
+    <div class="clear"></div>
+    <div id="mainSectionContainer">
+      <div id="blockly">
+        <app-blockly-editor></app-blockly-editor>
+      </div>
+      <div id="simulatorSection">
+        <div id="simulator">
+          <app-simulator></app-simulator>
+        </div>
+        <div id="belowSimulator">        	
+        	<div id="robotConnection">
+          		<app-robot-connection></app-robot-connection>
+        	</div>
+        	<div id="simulatorControls">
+          		<app-start-control></app-start-control>
+        	</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <router-outlet></router-outlet>

@@ -43,3 +43,9 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+backend/__pycache__/__init__.cpython-37.pyc
+backend/__pycache__/main.cpython-37.pyc
+backend/entities/__pycache__/__init__.cpython-37.pyc
+backend/entities/__pycache__/database.cpython-37.pyc
+backend/entities/__pycache__/procedure.cpython-37.pyc
+backend/entities/__pycache__/user.cpython-37.pyc
