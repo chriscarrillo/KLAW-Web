@@ -1,18 +1,14 @@
 from flask import Flask, jsonify, request, render_template
 from slackclient import SlackClient
-# from boto.s3.connection import S3Connection
 import json
 
 # Create the Flask application
 app = Flask(__name__)
 
-# Boto connection
-# connection = S3Connection(os.environ['S3_KEY'], os.environ['S3_SECRET'])
-
-slack_token = ''
+slack_token = os.environ['SLACK_TOKEN']
 
 # Used to fetch the bots in the Slack workspace
-slack_client = SlackClient("xoxb-570510160706-571581066423-IIS1Ze08CDCgdV1mEf8gS4GI")
+slack_client = SlackClient(slack_token)
 
 @app.route('/')
 def hello_world():
