@@ -1,12 +1,15 @@
 from flask import Flask, jsonify, request, render_template
 from slackclient import SlackClient
+import os
 import json
 
 # Create the Flask application
 app = Flask(__name__)
 
+slack_token = os.environ['SLACK_TOKEN']
+
 # Used to fetch the bots in the Slack workspace
-slack_client = SlackClient("xoxb-570510160706-571581066423-8HOBHXEPfDrlgHAigV3A6MzJ")
+slack_client = SlackClient(slack_token)
 
 @app.route('/')
 def hello_world():
