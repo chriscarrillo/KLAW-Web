@@ -1,5 +1,5 @@
 # KLAW Web
-[![Build Status](https://travis-ci.org/chriscarrillo/KLAW-Web.png)](https://travis-ci.org/chriscarrillo/KLAW-Web)
+[![Build Status](https://travis-ci.org/chriscarrillo/KLAW-Web.svg?branch=develop)](https://travis-ci.org/chriscarrillo/KLAW-Web)
 
 Built with ❤ by [Curtis Hohl](https://github.com/RubiconIII), [Hannah Bernal](https://github.com/hannahbernal02), [Chris Carrillo](https://github.com/chriscarrillo), and [Taylor Moe](https://github.com/tmoe2).
 
